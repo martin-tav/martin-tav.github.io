@@ -1,0 +1,41 @@
+
+<script>   
+    $(function(){
+      $("#table_start_ups_countries_in_row").load("tables/table_countries_in_ROW.html"); 
+        
+      
+    });
+    </script> 
+
+<h1>1.Introduction</h1>
+<!--        <h2>1.1 Section 1. Methods and sources</h2>
+        <p>Crunchbase – coverage and representativeness.  It would be good to compare our data with the data on “new enterprise creations” in dot.stat at the aggregate level (country-year), just to show that we are not far off. Tell me if you have trouble finding under “Entreprise Statistics”. </p>
+<p>[MT : corroborate data with OECD]</p>
+
+<p>And then we should introduce the tagging system and the treatment of the data (e.g. de novo vs de alio), as well as nowcasting methods (at aggregate level). 
+[MT : give the table “mapping category file” with 700 industry names + with 4 tags : Energy, Digital, Green + 3 binary variables]</p>
+
+<p>For identification we take all start-ups with the relevant tag (not just first tag) in their list.  We use the country disaggregation BCIIMS (Brazil, China, India, Indonesia, Mexico, South Africa), Europe, US, ROW.  Extract separately for DE, FR, UK, IT, US, CA, JP, IN, ID, CN, BR for later use.</p>
+<p>2 charts :
+- 1.3.1  Region : BCIIMS, Europe, US, ROW -> 4 regions
+- 1.3.2 Country level  : DE, FR, UK, IT, US, CA, JP, IN, ID, CN, BR -> 11 countries + ROW
+[MT : can’t rely on the primary sector]
+</p>-->
+
+
+<h2>Section 2. Energy start-ups</h2>
+        <div id = 'country'>
+            <div id='region'>
+                <h3>Countries breakdown for ROW for cumulative start-ups over 2016-2020</h3>
+                <iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups/rowold/charts/highcharts_Energy Start-ups in countries in ROW.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+                <iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups/rowold/charts/highcharts_Start-ups in countries in ROW.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+                <div id='table_start_ups_countries_in_row'></div>
+            </div>
+
+            
+        </div>
+        <hr><hr>
+        <div id = 'category'>
+          <!--<h2>Sectorial breakdown</h2>
+          <iframe width="100%" height="500" src="http://vopi.iea.org/dds/crunchbase/highcharts_start-ups_number_per_primary_sector_parent.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>-->
+        </div>

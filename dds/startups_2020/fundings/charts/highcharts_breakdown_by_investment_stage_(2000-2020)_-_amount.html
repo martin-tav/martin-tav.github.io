@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Breakdown by investment stage (2000-2020) - Amount"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Fundings in USD"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [[2000, 8271297600.0], [2001, 4573643489.0], [2002, 13084724178.0], [2003, 2037939384.0], [2004, 4228467138.0], [2005, 5357060817.0], [2006, 14931741226.0], [2007, 24116490947.0], [2008, 18421807087.0], [2009, 25694289892.0], [2010, 33049648931.0], [2011, 24574493659.0], [2012, 38702135078.0], [2013, 66482987337.0], [2014, 149131441102.0], [2015, 78400232361.0], [2016, 145574411211.0], [2017, 245261493956.0], [2018, 385626997400.0], [2019, 322817650905.0], [2020, 331222067918.0], [2021, NaN]], "type": "column", "marker": {"enabled": false}, "name": "Bridge stage"}, {"data": [[2000, NaN], [2001, NaN], [2002, NaN], [2003, NaN], [2004, 0.0], [2005, NaN], [2006, 0.0], [2007, 0.0], [2008, 42618019.0], [2009, 4815858.0], [2010, 10739005.0], [2011, 20606677.0], [2012, 86461954.0], [2013, 145156098.0], [2014, 458362640.0], [2015, 687853517.0], [2016, 593324154.0], [2017, 637518222.0], [2018, 599646642.0], [2019, 653909973.0], [2020, 536691296.0], [2021, NaN]], "type": "column", "marker": {"enabled": false}, "name": "Crowdfunding"}, {"data": [[2000, 22640731603.0], [2001, 12271401011.0], [2002, 7114184765.0], [2003, 6670169960.0], [2004, 9219975280.0], [2005, 10963406217.0], [2006, 13391998172.0], [2007, 19437443142.0], [2008, 17981299999.0], [2009, 10937051219.0], [2010, 15961337353.0], [2011, 20091847809.0], [2012, 19328645658.0], [2013, 27159608696.0], [2014, 43031567383.0], [2015, 67423479291.0], [2016, 76352118372.0], [2017, 86744386691.0], [2018, 120820213562.0], [2019, 104017807158.0], [2020, 86072148448.0], [2021, 50000.0]], "type": "column", "marker": {"enabled": false}, "name": "Early stage"}, {"data": [[2000, 34938014816.0], [2001, 13856177526.0], [2002, 9864093527.0], [2003, 10048613814.0], [2004, 11432562439.0], [2005, 13130861173.0], [2006, 16483331025.0], [2007, 22146429828.0], [2008, 22624338820.0], [2009, 22438016923.0], [2010, 28592888497.0], [2011, 38134088607.0], [2012, 32702123070.0], [2013, 37688362225.0], [2014, 69664458019.0], [2015, 90544690716.0], [2016, 86432307126.0], [2017, 129422459701.0], [2018, 182284673221.0], [2019, 150524764457.0], [2020, 157492382838.0], [2021, NaN]], "type": "column", "marker": {"enabled": false}, "name": "Expansion stage"}, {"data": [[2000, 243970000.0], [2001, 1025786149.0], [2002, 203623297.0], [2003, 7130000.0], [2004, 46611701.0], [2005, 25382574.0], [2006, 120769855.0], [2007, 1449256628.0], [2008, 294382267.0], [2009, 422617817.0], [2010, 1600388034.0], [2011, 1566239544.0], [2012, 800054819.0], [2013, 2964306232.0], [2014, 3874371972.0], [2015, 6457629107.0], [2016, 16947070753.0], [2017, 10311777388.0], [2018, 21200292964.0], [2019, 32543305003.0], [2020, 14373930152.0], [2021, NaN]], "type": "column", "marker": {"enabled": false}, "name": "Unknown"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container"}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Start-ups number per primary sector parent"}, "tooltip": {}, "xAxis": {"categories": ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]}, "yAxis": {"allowDecimals": false, "min": 0, "title": {"text": "Start-ups number per primary sector parent"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["2010", 21446], ["2011", 22406], ["2012", 25659], ["2013", 26339], ["2014", 27891], ["2015", 28162], ["2016", 23293], ["2017", 21508], ["2018", 16608], ["2019", 9590], ["2020", 2734]], "type": "column", "marker": {"enabled": false}, "name": "Other"}, {"data": [["2010", 248], ["2011", 284], ["2012", 336], ["2013", 380], ["2014", 516], ["2015", 548], ["2016", 606], ["2017", 573], ["2018", 487], ["2019", 251], ["2020", 83]], "type": "column", "marker": {"enabled": false}, "name": "Agriculture and Farming"}, {"data": [["2010", 190], ["2011", 231], ["2012", 226], ["2013", 269], ["2014", 280], ["2015", 310], ["2016", 303], ["2017", 279], ["2018", 226], ["2019", 111], ["2020", 27]], "type": "column", "marker": {"enabled": false}, "name": "Transportation"}, {"data": [["2010", 1343], ["2011", 1413], ["2012", 1560], ["2013", 1787], ["2014", 1889], ["2015", 2136], ["2016", 1710], ["2017", 1526], ["2018", 1252], ["2019", 713], ["2020", 242]], "type": "column", "marker": {"enabled": false}, "name": "Health"}, {"data": [["2010", 454], ["2011", 551], ["2012", 660], ["2013", 746], ["2014", 841], ["2015", 925], ["2016", 769], ["2017", 666], ["2018", 480], ["2019", 283], ["2020", 79]], "type": "column", "marker": {"enabled": false}, "name": "Food and Beverage"}, {"data": [["2010", 1140], ["2011", 1267], ["2012", 1612], ["2013", 1660], ["2014", 1625], ["2015", 1621], ["2016", 1338], ["2017", 1235], ["2018", 979], ["2019", 515], ["2020", 218]], "type": "column", "marker": {"enabled": false}, "name": "Education"}, {"data": [["2010", 33], ["2011", 34], ["2012", 33], ["2013", 38], ["2014", 28], ["2015", 34], ["2016", 20], ["2017", 31], ["2018", 24], ["2019", 17], ["2020", 6]], "type": "column", "marker": {"enabled": false}, "name": "Sustainability"}, {"data": [["2010", 7471], ["2011", 8366], ["2012", 9761], ["2013", 10369], ["2014", 11777], ["2015", 12206], ["2016", 11170], ["2017", 10404], ["2018", 8137], ["2019", 4621], ["2020", 1606]], "type": "column", "marker": {"enabled": false}, "name": "Digital"}, {"data": [["2010", 817], ["2011", 752], ["2012", 769], ["2013", 719], ["2014", 724], ["2015", 667], ["2016", 583], ["2017", 514], ["2018", 360], ["2019", 221], ["2020", 57]], "type": "column", "marker": {"enabled": false}, "name": "Energy"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

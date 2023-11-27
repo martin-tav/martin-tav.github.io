@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container"}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {}, "series": {}, "subtitle": {}, "title": {"text": "Clean Energy Penetration in Energy for Early Stage Fundings in USD "}, "tooltip": {}, "xAxis": {"categories": ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]}, "yAxis": {"allowDecimals": false, "min": 0, "title": {"text": "Fundings"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [15047664251.0, 19237940952.0, 18464155086.0, 26066009406.0, 40702860267.0, 62197171686.0, 72611768274.0, 78693579562.0, 105590418573.0, 100526583173.0, 82507708604.0], "type": "line", "marker": {"enabled": false}, "name": "early"}, {"data": [79157167277.0, 84128800271.0, 91545856192.0, 134340439596.0, 265866411391.0, 242981113464.0, 325268920329.0, 471988148362.0, 708869603120.0, 609030324855.0, 587879734790.0], "type": "line", "marker": {"enabled": false}, "name": "all"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "1A Start ups nowcast per year lag"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Number of Start ups"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [[2000, 766], [2001, 795], [2002, 787], [2003, 804], [2004, 901], [2005, 1003], [2006, 1105], [2007, 1318], [2008, 1367], [2009, 1536], [2010, 1525], [2011, 1343], [2012, 1476], [2013, 1488], [2014, 1594], [2015, 1579], [2016, 1404], [2017, 1306], [2018, 1026], [2019, 756], [2020, 366], [2021, 115]], "type": "area", "marker": {"enabled": false}, "name": "total_raw"}, {"data": [[2000, 0.0], [2001, 0.0], [2002, 0.0], [2003, 0.0], [2004, 0.0], [2005, 0.0], [2006, 0.0], [2007, 0.0], [2008, 0.0], [2009, 0.0], [2010, 0.0], [2011, 0.0], [2012, 0.0], [2013, 0.0], [2014, 0.0], [2015, 0.0], [2016, 0.0], [2017, 0.0], [2018, 0.0], [2019, 0.0], [2020, 204.7274759129759], [2021, 134.85347005772005]], "type": "area", "marker": {"enabled": false}, "name": "Y+1"}, {"data": [[2000, 0.0], [2001, 0.0], [2002, 0.0], [2003, 0.0], [2004, 0.0], [2005, 0.0], [2006, 0.0], [2007, 0.0], [2008, 0.0], [2009, 0.0], [2010, 0.0], [2011, 0.0], [2012, 0.0], [2013, 0.0], [2014, 0.0], [2015, 0.0], [2016, 0.0], [2017, 0.0], [2018, 0.0], [2019, 235.77842603230104], [2020, 178.51064224664225], [2021, 140.70749603174602]], "type": "area", "marker": {"enabled": false}, "name": "Y+2"}, {"data": [[2000, 0.0], [2001, 0.0], [2002, 0.0], [2003, 0.0], [2004, 0.0], [2005, 0.0], [2006, 0.0], [2007, 0.0], [2008, 0.0], [2009, 0.0], [2010, 0.0], [2011, 0.0], [2012, 0.0], [2013, 0.0], [2014, 0.0], [2015, 0.0], [2016, 0.0], [2017, 0.0], [2018, 303.6256085581085], [2019, 267.46944130869133], [2020, 196.63812208624708], [2021, 138.30452641802643]], "type": "area", "marker": {"enabled": false}, "name": "Y+3"}, {"data": [[2000, 0.0], [2001, 0.0], [2002, 0.0], [2003, 0.0], [2004, 0.0], [2005, 0.0], [2006, 0.0], [2007, 0.0], [2008, 0.0], [2009, 0.0], [2010, 0.0], [2011, 0.0], [2012, 0.0], [2013, 0.0], [2014, 0.0], [2015, 0.0], [2016, 0.0], [2017, 196.23225878288375], [2018, 257.7559269480519], [2019, 253.26068978243975], [2020, 169.9284390886891], [2021, 124.69635714285714]], "type": "area", "marker": {"enabled": false}, "name": "Y+4"}, {"data": [[2000, 0.0], [2001, 0.0], [2002, 0.0], [2003, 0.0], [2004, 0.0], [2005, 0.0], [2006, 0.0], [2007, 0.0], [2008, 0.0], [2009, 0.0], [2010, 0.0], [2011, 0.0], [2012, 0.0], [2013, 0.0], [2014, 0.0], [2015, 0.0], [2016, 206.38093346930847], [2017, 119.33307196969696], [2018, 314.8293372460872], [2019, 266.924702006327], [2020, 184.0743782190032], [2021, 121.223579004329]], "type": "area", "marker": {"enabled": false}, "name": "Y+5"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>
