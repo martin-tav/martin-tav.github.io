@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Keyword List with CSV Upload</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .row {
+            margin-top: 20px;
+        }
+        .col-item {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .keyword-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .keyword-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            width: calc(33% - 20px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            position: relative;
+        }
+        .weight-info {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #6c757d;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+        .keyword-line {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        .phonetic {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .context-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .context-info ol {
+            margin-left: 20px;
+        }
+        .context-info .keyword {
+            font-weight: bold;
+            color: red;
+        }
+        .french-translation {
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 0.875rem;
+        }
+        .highlighted {
+            font-weight: bold;
+            color: red;
+        }
+        .translation {
+            font-style: italic;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+        @media (max-width: 768px) {
+            .keyword-box {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 576px) {
+            .keyword-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Random Keyword List with CSV Upload</h1>
+        <input type="file" id="csvFileInput" class="form-control-file mt-3" />
+        <button id="generateButton" class="btn btn-primary mt-3">Generate Random Keywords</button>
+        <div id="keywordContainer" class="keyword-container mt-3">
+            <!-- Random keywords will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        function highlightKeyword(text, keyword) {
+            const regex = new RegExp(`(${keyword})`, 'gi'); // Case-insensitive regex
+            return text.replace(regex, '<span class="highlighted">$1</span>');
+        }
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const fileInput = document.getElementById('csvFileInput');
+            if (!fileInput.files.length) {
+                alert('Please upload a CSV file first.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                const lines = fileContent.split('\n').filter(line => line.trim());
+                const data = lines.map(line => {
+                    const parts = line.split(',').map(part => part.trim());
+                    return {
+                        keyword: parts[0] || 'No keyword available',
+                        context1: parts[1] || 'No context available',
+                        context2: parts[2] || 'No context available',
+                        weight: parts[3] || 'No weight available',
+                        phonetic: parts[4] || 'No phonetic available',
+                        context1_translation: parts[5] || 'No translation available',
+                        context2_translation: parts[6] || 'No translation available',
+                        keyword_translation: parts[7] || 'No keyword translation available'
+                    };
+                });
+
+                // Shuffle the array and pick the first 3 unique keywords
+                const shuffled = data.sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, 3);
+
+                const uniqueKeywords = new Set();
+                const filteredData = selected.filter(item => {
+                    if (uniqueKeywords.has(item.keyword)) {
+                        return false;
+                    }
+                    uniqueKeywords.add(item.keyword);
+                    return true;
+                });
+
+                const keywordContainer = document.getElementById('keywordContainer');
+                keywordContainer.innerHTML = '';
+                filteredData.forEach(item => {
+                    const keywordBox = document.createElement('div');
+                    keywordBox.classList.add('keyword-box');
+                    keywordBox.innerHTML = `
+                        <div class="weight-info">${item.weight}</div>
+                        <div class="keyword-line">${item.keyword}</div>
+                        <div class="phonetic">/${item.phonetic}/</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>${highlightKeyword(item.context1, item.keyword)}</li>
+                                <div class="translation"><i>${highlightKeyword(item.context1_translation, item.keyword)}</i></div>
+                                <li>${highlightKeyword(item.context2, item.keyword)}</li>
+                                <div class="translation"><i>${highlightKeyword(item.context2_translation, item.keyword)}</i></div>
+                            </ol>
+                        </div>
+                        <div class="translation">
+                            <i><strong>${item.keyword_translation}</strong></i>
+                        </div>
+                    `;
+                    keywordContainer.appendChild(keywordBox);
+                });
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
