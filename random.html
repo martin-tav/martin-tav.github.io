@@ -144,7 +144,7 @@
 
                 // Shuffle the array and pick the first 3 unique keywords
                 const shuffled = data.sort(() => 0.5 - Math.random());
-                const selected = shuffled.slice(0, 3);
+                const selected = shuffled.slice(0, 20);
 
                 const uniqueKeywords = new Set();
                 const filteredData = selected.filter(item => {
