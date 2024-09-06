@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Keyword List with CSV Upload</title>
+    <title>Keywords</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -12,6 +12,14 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+
+        ol{
+            padding-inline-start: 10px;
+        }
+
+        .translation{
+            display: none;
         }
         .container {
             flex: 1;
@@ -37,7 +45,7 @@
             border-radius: 5px;
             padding: 15px;
             margin: 10px;
-            width: calc(33% - 20px);
+            width: calc(25% - 20px);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #f8f9fa;
             position: relative;
@@ -47,23 +55,34 @@
             font-weight: bold;
             color: #6c757d;
             position: absolute;
-            top: 10px;
+            bottom: 10px;
             right: 15px;
+            display: none;
         }
         .keyword-line {
             font-size: 1.25rem;
             font-weight: bold;
             color: #007bff;
             margin-bottom: 5px;
+            margin-right: 25px;
+            
+        }
+
+        .trans {
+            font-size: 0.675rem;
+            font-weight: bold;
         }
         .phonetic {
             font-size: 0.85rem;
             font-weight: normal;
             color: #28a745;
             margin-bottom: 10px;
+            margin-right: 15px;
+            //float:left;
+
         }
         .context-info {
-            font-size: 0.875rem;
+            font-size: 0.675rem;
             color: #6c757d;
             margin-top: 5px;
         }
@@ -102,193 +121,13 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4">Random Keyword List with CSV Upload</h1>
+        <h2 class="mt-4">Random Keyword List with CSV Upload</h2>
         <input type="file" id="csvFileInput" class="form-control-file mt-3" />
         <button id="generateButton" class="btn btn-primary mt-3">Generate Random Keywords</button>
         <div id="keywordContainer" class="keyword-container mt-3"><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">extent of work</div>
-                        <div class="phonetic">/ɪkˈstɛnt ʌv wɜːrk (étendue du travail)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The <span class="highlighted">extent of work</span> required is larger than initially expected</li>
-                                <div class="translation"><i>L'étendue du travail nécessaire est plus grande que prévu</i></div>
-                                <li>Understanding the <span class="highlighted">extent of work</span> is key to accurate planning</li>
-                                <div class="translation"><i>Comprendre l'étendue du travail est essentiel pour une planification précise</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>étendue du travail / ampleur du travail / portée du travail</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">optimize</div>
-                        <div class="phonetic">/ˈɒptɪmaɪz (optimiser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We must <span class="highlighted">optimize</span> our workflow to increase productivity</li>
-                                <div class="translation"><i>Nous devons optimiser notre flux de travail pour augmenter la productivité</i></div>
-                                <li>Optimizing processes can lead to better performance</li>
-                                <div class="translation"><i>Optimiser les processus peut conduire à de meilleures performances</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>optimiser / améliorer / perfectionner</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">if I'm not mistaken</div>
-                        <div class="phonetic">/ɪf aɪm nɒt mɪsˈteɪkən (si je ne me trompe pas)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li><span class="highlighted">If I'm not mistaken</span> the deadline is next week</li>
-                                <div class="translation"><i>Si je ne me trompe pas la date limite est la semaine prochaine</i></div>
-                                <li><span class="highlighted">If I'm not mistaken</span> we have completed most of the tasks</li>
-                                <div class="translation"><i>Si je ne me trompe pas nous avons terminé la plupart des tâches</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>si je ne me trompe pas / à moins que je ne me trompe pas / si je ne fais pas d'erreur</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">weight</div>
-                        <div class="keyword-line">keyword</div>
-                        <div class="phonetic">/phonetic/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>context1</li>
-                                <div class="translation"><i>context1_translation</i></div>
-                                <li>context2</li>
-                                <div class="translation"><i>context2_translation</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>keyword_translation_1 / keyword_translation_2 / keyword_translation_3</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">review</div>
-                        <div class="phonetic">/rɪˈvjuː (révision)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The <span class="highlighted">review</span> process is essential for quality control</li>
-                                <div class="translation"><i>Le processus de révision est essentiel pour le contrôle qualité</i></div>
-                                <li>Regular <span class="highlighted">review</span>s ensure continuous improvement</li>
-                                <div class="translation"><i>Des révisions régulières assurent une amélioration continue</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>révision / examen / évaluation</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">negotiate</div>
-                        <div class="phonetic">/nɪˈɡoʊʃiˌeɪt (négocier)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>Negotiating effectively is key to securing good deals</li>
-                                <div class="translation"><i>Négocier efficacement est essentiel pour conclure de bonnes affaires</i></div>
-                                <li>We need to <span class="highlighted">negotiate</span> the terms of the contract carefully</li>
-                                <div class="translation"><i>Nous devons négocier les termes du contrat avec soin</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>négocier / discuter / traiter</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">implement</div>
-                        <div class="phonetic">/ˈɪmplɪˌmɛnt (mettre en œuvre)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The team will <span class="highlighted">implement</span> the new strategy next quarter</li>
-                                <div class="translation"><i>L'équipe mettra en œuvre la nouvelle stratégie au prochain trimestre</i></div>
-                                <li><span class="highlighted">Implement</span>ing changes requires careful planning</li>
-                                <div class="translation"><i>Mettre en œuvre les changements nécessite une planification minutieuse</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>mettre en œuvre / appliquer / exécuter</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">16</div>
-                        <div class="keyword-line">leverage</div>
-                        <div class="phonetic">/ˈlɛvərɪdʒ (levier)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li><span class="highlighted">Leverage</span> our existing resources to maximize efficiency</li>
-                                <div class="translation"><i>Exploitez nos ressources existantes pour maximiser l'efficacité</i></div>
-                                <li><span class="highlighted">Leverage</span> your strengths to overcome challenges</li>
-                                <div class="translation"><i>Tirez parti de vos forces pour surmonter les défis</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>levier / avantage / exploiter</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">synchronize</div>
-                        <div class="phonetic">/ˈsɪŋkrəˌnaɪz (synchroniser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>Synchronizing schedules helps in managing resources better</li>
-                                <div class="translation"><i>Synchroniser les emplois du temps aide à mieux gérer les ressources</i></div>
-                                <li>Effective synchronization of tasks improves team efficiency</li>
-                                <div class="translation"><i>Une synchronisation efficace des tâches améliore l'efficacité de l'équipe</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>synchroniser / harmoniser / coordonner</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">ins and outs</div>
-                        <div class="phonetic">/ɪnz ənd aʊts (détails)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>Understanding the <span class="highlighted">ins and outs</span> of the process is essential</li>
-                                <div class="translation"><i>Comprendre les tenants et les aboutissants du processus est essentiel</i></div>
-                                <li>The <span class="highlighted">ins and outs</span> of the operation need to be carefully studied</li>
-                                <div class="translation"><i>Les tenants et les aboutissants de l'opération doivent être soigneusement étudiés</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>détails / complexités / nuances</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">8</div>
-                        <div class="keyword-line">advance</div>
-                        <div class="phonetic">/ədˈvɑːns (avancer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We aim to <span class="highlighted">advance</span> our goals through strategic planning</li>
-                                <div class="translation"><i>Nous visons à faire avancer nos objectifs par une planification stratégique</i></div>
-                                <li>Advancing technology helps in achieving business objectives</li>
-                                <div class="translation"><i>Avancer la technologie aide à atteindre les objectifs commerciaux</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>avancer / promouvoir / faire progresser</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">educate</div>
-                        <div class="phonetic">/ˈɛdʒʊˌkeɪt (éduquer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">educate</span> our team on the new procedures</li>
-                                <div class="translation"><i>Nous devons éduquer notre équipe sur les nouvelles procédures</i></div>
-                                <li>Educating clients on the benefits of our products is key</li>
-                                <div class="translation"><i>Éduquer les clients sur les avantages de nos produits est essentiel</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>éduquer / instruire / former</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">8</div>
                         <div class="keyword-line">benchmark</div>
-                        <div class="phonetic">/ˈbɛnʃmɑːrk (référence)/</div>
+                        <div class="phonetic">/ˈbɛnʃmɑːrk/</div>
+                        <div class="trans">(référence / point de comparaison / norme)</div>
                         <div class="context-info">
                             <ol>
                                 <li>To <span class="highlighted">benchmark</span> our performance against industry standards</li>
@@ -297,133 +136,66 @@
                                 <div class="translation"><i>Le <span class="highlighted">benchmark</span>ing aide à identifier les domaines à améliorer</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
                             <i><strong>référence / point de comparaison / norme</strong></i>
-                        </div>
+                        </div>-->
                     </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">integrate</div>
-                        <div class="phonetic">/ˈɪntɪɡreɪt (intégrer)/</div>
+                        <div class="keyword-line">endeavours</div>
+                        <div class="phonetic">/ɪnˈdɛvərz/</div>
+                        <div class="trans">(efforts / tentatives / entreprises)</div>
                         <div class="context-info">
                             <ol>
-                                <li>Integrating new solutions is crucial for progress</li>
-                                <div class="translation"><i>L'intégration de nouvelles solutions est cruciale pour le progrès</i></div>
-                                <li>Effective integration enhances overall system performance</li>
-                                <div class="translation"><i>Une intégration efficace améliore les performances globales du système</i></div>
+                                <li>Our <span class="highlighted">endeavours</span> in this project will yield results</li>
+                                <div class="translation"><i>Nos efforts dans ce projet porteront leurs fruits</i></div>
+                                <li><span class="highlighted">Endeavours</span> are crucial for achieving our goals</li>
+                                <div class="translation"><i>Les efforts sont cruciaux pour atteindre nos objectifs</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
-                            <i><strong>intégrer / combiner / fusionner</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
                         <div class="weight-info">8</div>
-                        <div class="keyword-line">engage</div>
-                        <div class="phonetic">/ɪnˈɡeɪdʒ (impliquer)/</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>efforts / tentatives / entreprises</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">capture</div>
+                        <div class="phonetic">/ˈkæp.tʃər/</div>
+                        <div class="trans">(capturer / prendre / obtenir)</div>
                         <div class="context-info">
                             <ol>
-                                <li>We need to <span class="highlighted">engage</span> stakeholders early in the process</li>
-                                <div class="translation"><i>Nous devons impliquer les parties prenantes dès le début du processus</i></div>
-                                <li>Engaging team members increases motivation and productivity</li>
-                                <div class="translation"><i>Impliquer les membres de l'équipe augmente la motivation et la productivité</i></div>
+                                <li>We need to <span class="highlighted">capture</span> the data accurately for analysis</li>
+                                <div class="translation"><i>Nous devons <span class="highlighted">capture</span>r les données avec précision pour l'analyse</i></div>
+                                <li>Capturing accurate information is vital for informed decisions</li>
+                                <div class="translation"><i><span class="highlighted">Capture</span>r des informations précises est vital pour des décisions éclairées</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
-                            <i><strong>impliquer / associer / mobiliser</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">consult with the developer</div>
-                        <div class="phonetic">/kənˈsʌlt wɪð ðə dɪˈvɛləpər (consulter le développeur)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>It is important to <span class="highlighted">consult with the developer</span> before making changes</li>
-                                <div class="translation"><i>Il est important de consulter le développeur avant de faire des changements</i></div>
-                                <li>Consulting with the developer ensures the changes align with the project goals</li>
-                                <div class="translation"><i>Consulter le développeur garantit que les changements sont alignés avec les objectifs du projet</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>consulter le développeur / demander l'avis du développeur / s'entretenir avec le développeur</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
                         <div class="weight-info">7</div>
-                        <div class="keyword-line">evaluate</div>
-                        <div class="phonetic">/ɪˈvæljueɪt (évaluer)/</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>capturer / prendre / obtenir</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">timeline wise</div>
+                        <div class="phonetic">/ˈtaɪmlaɪn waɪz/</div>
+                        <div class="trans">(en termes de chronologie / par rapport à la chronologie / du point de vue de la chronologie)</div>
                         <div class="context-info">
                             <ol>
-                                <li>We need to <span class="highlighted">evaluate</span> the effectiveness of our approach</li>
-                                <div class="translation"><i>Nous devons évaluer l'efficacité de notre approche</i></div>
-                                <li>Evaluating outcomes helps in refining strategies</li>
-                                <div class="translation"><i>Évaluer les résultats aide à affiner les stratégies</i></div>
+                                <li>Timeline-wise we are ahead of schedule</li>
+                                <div class="translation"><i>En termes de chronologie nous sommes en avance sur le calendrier</i></div>
+                                <li>Reviewing progress timeline-wise helps in staying on track</li>
+                                <div class="translation"><i>Réviser les progrès en termes de chronologie aide à rester sur la bonne voie</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
-                            <i><strong>évaluer / juger / examiner</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">8</div>
-                        <div class="keyword-line">delegate</div>
-                        <div class="phonetic">/ˈdɛlɪˌɡeɪt (déléguer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The manager should <span class="highlighted">delegate</span> tasks to ensure efficiency</li>
-                                <div class="translation"><i>Le manager doit déléguer des tâches pour assurer l'efficacité</i></div>
-                                <li>Delegating responsibilities helps in better team management</li>
-                                <div class="translation"><i>Déléguer des responsabilités aide à une meilleure gestion de l'équipe</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>déléguer / répartir / confier</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">16</div>
-                        <div class="keyword-line">dictate the pace</div>
-                        <div class="phonetic">/dɪkˌteɪt ðə peɪs (dictionner le rythme)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The leader should <span class="highlighted">dictate the pace</span> of the project</li>
-                                <div class="translation"><i>Le leader doit dicter le rythme du projet</i></div>
-                                <li>Dictating the pace effectively is crucial for meeting deadlines</li>
-                                <div class="translation"><i>Dicter le rythme efficacement est crucial pour respecter les délais</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>dictionner le rythme / régir le rythme / imposer le rythme</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">tell a story</div>
-                        <div class="phonetic">/tɛl ə ˈstɔːri (raconter une histoire)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">tell a story</span> that resonates with our audience</li>
-                                <div class="translation"><i>Nous devons raconter une histoire qui résonne avec notre audience</i></div>
-                                <li>Telling a compelling story can make our message more impactful</li>
-                                <div class="translation"><i>Raconter une histoire captivante peut rendre notre message plus percutant</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>raconter une histoire / narrer / faire le récit</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
                         <div class="weight-info">7</div>
-                        <div class="keyword-line">comply with</div>
-                        <div class="phonetic">/kəmˈplaɪ wɪð (se conformer à)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We must <span class="highlighted">comply with</span> the new regulations</li>
-                                <div class="translation"><i>Nous devons nous conformer aux nouvelles régulations</i></div>
-                                <li>Complying with the new rules is mandatory</li>
-                                <div class="translation"><i>Se conformer aux nouvelles règles est obligatoire</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>se conformer à / s'aligner sur / adhérer à</strong></i>
-                        </div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>en termes de chronologie / par rapport à la chronologie / du point de vue de la chronologie</strong></i>
+                        </div>-->
                     </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
                         <div class="keyword-line">navigate</div>
-                        <div class="phonetic">/ˈnævɪɡeɪt (naviguer)/</div>
+                        <div class="phonetic">/ˈnævɪɡeɪt/</div>
+                        <div class="trans">(naviguer / gérer / traverser)</div>
                         <div class="context-info">
                             <ol>
                                 <li>To <span class="highlighted">navigate</span> complex regulations requires expertise</li>
@@ -432,223 +204,15 @@
                                 <div class="translation"><i>Naviguer efficacement à travers les défis est clé pour des résultats réussis</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
                             <i><strong>naviguer / gérer / traverser</strong></i>
-                        </div>
+                        </div>-->
                     </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">revise</div>
-                        <div class="phonetic">/rɪˈvaɪz (réviser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">revise</span> our strategy to meet the new objectives</li>
-                                <div class="translation"><i>Nous devons réviser notre stratégie pour atteindre les nouveaux objectifs</i></div>
-                                <li>Revising plans regularly helps in staying aligned with goals</li>
-                                <div class="translation"><i>Réviser les plans régulièrement aide à rester aligné avec les objectifs</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>réviser / revoir / ajuster</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
-                        <div class="keyword-line">revamp</div>
-                        <div class="phonetic">/rɪˈvæmp (refonte)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The system needs a complete <span class="highlighted">revamp</span> to improve performance</li>
-                                <div class="translation"><i>Le système a besoin d'une refonte complète pour améliorer les performances</i></div>
-                                <li><span class="highlighted">Revamp</span>ing processes can lead to better results</li>
-                                <div class="translation"><i>Réorganiser les processus peut conduire à de meilleurs résultats</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>refonte / révision / modernisation</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">allocate</div>
-                        <div class="phonetic">/ˈæləkɪt (allouer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">allocate</span> resources where they are needed most</li>
-                                <div class="translation"><i>Nous devons allouer les ressources là où elles sont le plus nécessaires</i></div>
-                                <li>Allocating time effectively ensures timely project completion</li>
-                                <div class="translation"><i>Allouer le temps efficacement assure l'achèvement du projet en temps voulu</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>allouer / répartir / distribuer</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">mediate</div>
-                        <div class="phonetic">/ˈmiːdiˌeɪt (médiation)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>A mediator will help resolve the conflict</li>
-                                <div class="translation"><i>Un médiateur aidera à résoudre le conflit</i></div>
-                                <li>Effective mediation can prevent disputes from escalating</li>
-                                <div class="translation"><i>Une médiation efficace peut prévenir l'escalade des conflits</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>médiation / arbitrer / intervenir</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">eliminate</div>
-                        <div class="phonetic">/ɪˈlɪmɪˌneɪt (éliminer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We must <span class="highlighted">eliminate</span> redundancies to streamline operations</li>
-                                <div class="translation"><i>Nous devons éliminer les redondances pour rationaliser les opérations</i></div>
-                                <li>Eliminating waste is essential for sustainable practices</li>
-                                <div class="translation"><i>Éliminer le gaspillage est essentiel pour des pratiques durables</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>éliminer / supprimer / réduire</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">16</div>
-                        <div class="keyword-line">timeline-wise</div>
-                        <div class="phonetic">/ˈtaɪmlaɪn waɪz (en termes de chronologie)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li><span class="highlighted">Timeline-wise</span> we are ahead of schedule</li>
-                                <div class="translation"><i>En termes de chronologie nous sommes en avance sur le calendrier</i></div>
-                                <li>Reviewing progress <span class="highlighted">timeline-wise</span> helps in staying on track</li>
-                                <div class="translation"><i>Réviser les progrès en termes de chronologie aide à rester sur la bonne voie</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>en termes de chronologie / par rapport à la chronologie / du point de vue de la chronologie</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">oversee</div>
-                        <div class="phonetic">/oʊvərˈsiː (superviser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The project manager will <span class="highlighted">oversee</span> the implementation</li>
-                                <div class="translation"><i>Le chef de projet supervisera la mise en œuvre</i></div>
-                                <li>Effective oversight ensures the project stays on track</li>
-                                <div class="translation"><i>Un suivi efficace garantit que le projet reste sur la bonne voie</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>superviser / contrôler / manager</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">facilitate</div>
-                        <div class="phonetic">/fəˈsɪlɪteɪt (faciliter)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>The new software will <span class="highlighted">facilitate</span> the workflow</li>
-                                <div class="translation"><i>Le nouveau logiciel facilitera le flux de travail</i></div>
-                                <li>We aim to <span class="highlighted">facilitate</span> communication between departments</li>
-                                <div class="translation"><i>Nous visons à faciliter la communication entre les départements</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>faciliter / aider / permettre</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">8</div>
-                        <div class="keyword-line">sustain</div>
-                        <div class="phonetic">/səˈsteɪn (maintenir)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">sustain</span> our efforts to see long-term results</li>
-                                <div class="translation"><i>Nous devons maintenir nos efforts pour voir des résultats à long terme</i></div>
-                                <li><span class="highlighted">Sustain</span>ing progress requires continuous improvement and adaptation</li>
-                                <div class="translation"><i>Maintenir les progrès nécessite une amélioration continue</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>maintenir / préserver / continuer</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">16</div>
-                        <div class="keyword-line">hands-on practice</div>
-                        <div class="phonetic">/hændz-ɒn ˈpræktɪs (pratique concrète)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li><span class="highlighted">Hands-on practice</span> is crucial for mastering new skills</li>
-                                <div class="translation"><i>La pratique concrète est cruciale pour maîtriser de nouvelles compétences</i></div>
-                                <li>Providing <span class="highlighted">hands-on practice</span> enhances learning and retention</li>
-                                <div class="translation"><i>Offrir une pratique concrète améliore l'apprentissage et la rétention</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>pratique concrète / expérience pratique / formation pratique</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">16</div>
-                        <div class="keyword-line">craft</div>
-                        <div class="phonetic">/kræft (élaborer)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">craft</span> a detailed proposal for the project</li>
-                                <div class="translation"><i>Nous devons élaborer une proposition détaillée pour le projet</i></div>
-                                <li><span class="highlighted">Craft</span>ing effective solutions requires creativity and skill</li>
-                                <div class="translation"><i>Élaborer des solutions efficaces nécessite créativité et compétence</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>élaborer / concevoir / mettre au point</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">7</div>
-                        <div class="keyword-line">amplify</div>
-                        <div class="phonetic">/ˈæmplɪˌfaɪ (amplifier)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">amplify</span> our efforts to reach a larger audience</li>
-                                <div class="translation"><i>Nous devons amplifier nos efforts pour atteindre un public plus large</i></div>
-                                <li><span class="highlighted">Amplify</span>ing the message ensures it resonates with the target group</li>
-                                <div class="translation"><i>Amplifier le message garantit qu'il résonne avec le groupe cible</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>amplifier / intensifier / renforcer</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">prioritize</div>
-                        <div class="phonetic">/praɪˈɒrɪtaɪz (prioriser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>We need to <span class="highlighted">prioritize</span> tasks to meet our deadlines</li>
-                                <div class="translation"><i>Nous devons prioriser les tâches pour respecter nos délais</i></div>
-                                <li>Prioritizing effectively can improve project outcomes</li>
-                                <div class="translation"><i>Prioriser efficacement peut améliorer les résultats du projet</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>prioriser / mettre en priorité / classer</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">6</div>
-                        <div class="keyword-line">centralize</div>
-                        <div class="phonetic">/ˈsɛntrəˌlaɪz (centraliser)/</div>
-                        <div class="context-info">
-                            <ol>
-                                <li>Centralizing operations can lead to cost savings</li>
-                                <div class="translation"><i>Centraliser les opérations peut entraîner des économies de coûts</i></div>
-                                <li>We aim to <span class="highlighted">centralize</span> the decision-making process for efficiency</li>
-                                <div class="translation"><i>Nous visons à centraliser le processus de décision pour plus d'efficacité</i></div>
-                            </ol>
-                        </div>
-                        <div class="translation">
-                            <i><strong>centraliser / regrouper / concentrer</strong></i>
-                        </div>
-                    </div><div class="keyword-box">
-                        <div class="weight-info">14</div>
                         <div class="keyword-line">spare</div>
-                        <div class="phonetic">/speə (épargner)/</div>
+                        <div class="phonetic">/speə/</div>
+                        <div class="trans">(épargner / laisser de côté / réserver)</div>
                         <div class="context-info">
                             <ol>
                                 <li>We should <span class="highlighted">spare</span> no effort in achieving our goals</li>
@@ -657,13 +221,457 @@
                                 <div class="translation"><i>Avoir du temps libre est essentiel pour améliorer la productivité</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
                             <i><strong>épargner / laisser de côté / réserver</strong></i>
-                        </div>
+                        </div>-->
                     </div><div class="keyword-box">
+                        <div class="keyword-line">craft</div>
+                        <div class="phonetic">/kræft/</div>
+                        <div class="trans">(élaborer / concevoir / mettre au point)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">craft</span> a detailed proposal for the project</li>
+                                <div class="translation"><i>Nous devons élaborer une proposition détaillée pour le projet</i></div>
+                                <li><span class="highlighted">Craft</span>ing effective solutions requires creativity and skill</li>
+                                <div class="translation"><i>Élaborer des solutions efficaces nécessite créativité et compétence</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>élaborer / concevoir / mettre au point</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">dynamic</div>
+                        <div class="phonetic">/dɪˈnamɪk/</div>
+                        <div class="trans">(dynamique / actif / évolutif)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The <span class="highlighted">dynamic</span> nature of the project requires flexibility</li>
+                                <div class="translation"><i>La nature dynamique du projet exige de la flexibilité</i></div>
+                                <li><span class="highlighted">Dynamic</span> strategies help in adapting to changing environments</li>
+                                <div class="translation"><i>Les stratégies dynamiques aident à s'adapter aux environnements changeants</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>dynamique / actif / évolutif</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">engage</div>
+                        <div class="phonetic">/ɪnˈɡeɪdʒ/</div>
+                        <div class="trans">(impliquer / associer / mobiliser)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">engage</span> stakeholders early in the process</li>
+                                <div class="translation"><i>Nous devons impliquer les parties prenantes dès le début du processus</i></div>
+                                <li>Engaging team members increases motivation and productivity</li>
+                                <div class="translation"><i>Impliquer les membres de l'équipe augmente la motivation et la productivité</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>impliquer / associer / mobiliser</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">implement</div>
+                        <div class="phonetic">/ˈɪmplɪˌmɛnt/</div>
+                        <div class="trans">(mettre en œuvre / appliquer / exécuter)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The team will <span class="highlighted">implement</span> the new strategy next quarter</li>
+                                <div class="translation"><i>L'équipe mettra en œuvre la nouvelle stratégie au prochain trimestre</i></div>
+                                <li><span class="highlighted">Implement</span>ing changes requires careful planning</li>
+                                <div class="translation"><i>Mettre en œuvre les changements nécessite une planification minutieuse</i></div>
+                            </ol>
+                        </div>
                         <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>mettre en œuvre / appliquer / exécuter</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">ins and outs</div>
+                        <div class="phonetic">/ɪnz ənd aʊts/</div>
+                        <div class="trans">(détails / complexités / nuances)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>Understanding the <span class="highlighted">ins and outs</span> of the process is essential</li>
+                                <div class="translation"><i>Comprendre les tenants et les aboutissants du processus est essentiel</i></div>
+                                <li>The <span class="highlighted">ins and outs</span> of the operation need to be carefully studied</li>
+                                <div class="translation"><i>Les tenants et les aboutissants de l'opération doivent être soigneusement étudiés</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>détails / complexités / nuances</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">review</div>
+                        <div class="phonetic">/rɪˈvjuː/</div>
+                        <div class="trans">(révision / examen / évaluation)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The <span class="highlighted">review</span> process is essential for quality control</li>
+                                <div class="translation"><i>Le processus de révision est essentiel pour le contrôle qualité</i></div>
+                                <li>Regular <span class="highlighted">review</span>s ensure continuous improvement</li>
+                                <div class="translation"><i>Des révisions régulières assurent une amélioration continue</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>révision / examen / évaluation</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">collaborate</div>
+                        <div class="phonetic">/kəˈlæbəˌreɪt/</div>
+                        <div class="trans">(collaborer / coopérer / partager)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">collaborate</span> with various stakeholders for success</li>
+                                <div class="translation"><i>Pour atteindre nos objectifs nous devons collaborer efficacement</i></div>
+                                <li>Effective collaboration leads to better project outcomes</li>
+                                <div class="translation"><i>Une collaboration efficace donne de meilleurs résultats</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>collaborer / coopérer / partager</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">prioritize</div>
+                        <div class="phonetic">/praɪˈɒrɪtaɪz/</div>
+                        <div class="trans">(prioriser / mettre en priorité / classer)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">prioritize</span> tasks to meet our deadlines</li>
+                                <div class="translation"><i>Nous devons prioriser les tâches pour respecter nos délais</i></div>
+                                <li>Prioritizing effectively can improve project outcomes</li>
+                                <div class="translation"><i>Prioriser efficacement peut améliorer les résultats du projet</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>prioriser / mettre en priorité / classer</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">optimize</div>
+                        <div class="phonetic">/ˈɒptɪmaɪz/</div>
+                        <div class="trans">(optimiser / améliorer / perfectionner)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We must <span class="highlighted">optimize</span> our workflow to increase productivity</li>
+                                <div class="translation"><i>Nous devons optimiser notre flux de travail pour augmenter la productivité</i></div>
+                                <li>Optimizing processes can lead to better performance</li>
+                                <div class="translation"><i>Optimiser les processus peut conduire à de meilleures performances</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>optimiser / améliorer / perfectionner</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">integrate</div>
+                        <div class="phonetic">/ˈɪntɪɡreɪt/</div>
+                        <div class="trans">(intégrer / combiner / fusionner)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>Integrating new solutions is crucial for progress</li>
+                                <div class="translation"><i>L'intégration de nouvelles solutions est cruciale pour le progrès</i></div>
+                                <li>Effective integration enhances overall system performance</li>
+                                <div class="translation"><i>Une intégration efficace améliore les performances globales du système</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>intégrer / combiner / fusionner</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">allocate</div>
+                        <div class="phonetic">/ˈæləkɪt/</div>
+                        <div class="trans">(allouer / répartir / distribuer)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">allocate</span> resources where they are needed most</li>
+                                <div class="translation"><i>Nous devons allouer les ressources là où elles sont le plus nécessaires</i></div>
+                                <li>Allocating time effectively ensures timely project completion</li>
+                                <div class="translation"><i>Allouer le temps efficacement assure l'achèvement du projet en temps voulu</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>allouer / répartir / distribuer</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">leverage</div>
+                        <div class="phonetic">/lɛv(ə)rɪdʒ/</div>
+                        <div class="trans">(exploiter / utiliser / mettre à profit)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">leverage</span> our resources effectively</li>
+                                <div class="translation"><i>Nous devons exploiter efficacement nos ressources</i></div>
+                                <li>The team will <span class="highlighted">leverage</span> their expertise to drive success</li>
+                                <div class="translation"><i>L'équipe utilisera son expertise pour réussir</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">10</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>exploiter / utiliser / mettre à profit</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">facilitate</div>
+                        <div class="phonetic">/fəˈsɪlɪteɪt/</div>
+                        <div class="trans">(faciliter / aider / permettre)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The new software will <span class="highlighted">facilitate</span> the workflow</li>
+                                <div class="translation"><i>Le nouveau logiciel facilitera le flux de travail</i></div>
+                                <li>We aim to <span class="highlighted">facilitate</span> communication between departments</li>
+                                <div class="translation"><i>Nous visons à faciliter la communication entre les départements</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>faciliter / aider / permettre</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">if I'm not mistaken</div>
+                        <div class="phonetic">/ɪf aɪm nɒt mɪsˈteɪkən/</div>
+                        <div class="trans">(si je ne me trompe pas / à moins que je ne me trompe pas / si je ne fais pas d'erreur)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li><span class="highlighted">If I'm not mistaken</span> the deadline is next week</li>
+                                <div class="translation"><i>Si je ne me trompe pas la date limite est la semaine prochaine</i></div>
+                                <li><span class="highlighted">If I'm not mistaken</span> we have completed most of the tasks</li>
+                                <div class="translation"><i>Si je ne me trompe pas nous avons terminé la plupart des tâches</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>si je ne me trompe pas / à moins que je ne me trompe pas / si je ne fais pas d'erreur</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">caveats</div>
+                        <div class="phonetic">/ˈkæviˌæts/</div>
+                        <div class="trans">(réserves / objections / précautions)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>There are several <span class="highlighted">caveats</span> to the proposed changes</li>
+                                <div class="translation"><i>Il y a plusieurs réserves concernant les changements proposés</i></div>
+                                <li>Understanding the <span class="highlighted">caveats</span> is important for proper implementation</li>
+                                <div class="translation"><i>Comprendre les réserves est important pour une mise en œuvre correcte</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>réserves / objections / précautions</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">contextualize</div>
+                        <div class="phonetic">/kənˈtɛkstjʊəˌlaɪz/</div>
+                        <div class="trans">(contextualiser / placer dans le contexte / mettre en perspective)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>To <span class="highlighted">contextualize</span> the data is crucial for accurate analysis</li>
+                                <div class="translation"><i>Il est crucial de contextualiser les données pour une analyse précise</i></div>
+                                <li>Contextualizing information improves decision-making processes</li>
+                                <div class="translation"><i>Contextualiser les informations améliore les processus décisionnels</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">9</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>contextualiser / placer dans le contexte / mettre en perspective</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">be mindful</div>
+                        <div class="phonetic">/biː ˈmaɪndfəl/</div>
+                        <div class="trans">(attentif / prudent / réfléchi)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li><span class="highlighted">Be mindful</span> of cultural differences in negotiations</li>
+                                <div class="translation"><i>Soyez attentif aux différences culturelles dans les négociations</i></div>
+                                <li>Mindfulness can lead to better decision-making</li>
+                                <div class="translation"><i>La pleine conscience peut mener à de meilleures décisions</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>attentif / prudent / réfléchi</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">shape</div>
+                        <div class="phonetic">/ʃeɪp/</div>
+                        <div class="trans">(façonner / former / structurer)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The policies will <span class="highlighted">shape</span> the future of the organization</li>
+                                <div class="translation"><i>Les politiques façonneront l'avenir de l'organisation</i></div>
+                                <li>Shaping strategies effectively is key to long-term success</li>
+                                <div class="translation"><i>Façonner les stratégies efficacement est clé pour le succès à long terme</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>façonner / former / structurer</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">major piece</div>
+                        <div class="phonetic">/ˈmeɪdʒər piːs/</div>
+                        <div class="trans">(pièce majeure / élément clé / composant principal)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The <span class="highlighted">major piece</span> of the puzzle is still missing</li>
+                                <div class="translation"><i>La pièce majeure du puzzle est encore manquante</i></div>
+                                <li>Identifying the <span class="highlighted">major piece</span>s of the plan is essential for success</li>
+                                <div class="translation"><i>Identifier les pièces majeures du plan est essentiel pour le succès</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">9</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>pièce majeure / élément clé / composant principal</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">education</div>
+                        <div class="phonetic">/ˌɛdʒʊˈkeɪʃən/</div>
+                        <div class="trans">(éducation / enseignement / formation)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li><span class="highlighted">Education</span> is a fundamental right for all children</li>
+                                <div class="translation"><i>L'éducation est un droit fondamental pour tous les enfants</i></div>
+                                <li>Investing in <span class="highlighted">education</span> improves societal outcomes</li>
+                                <div class="translation"><i>Investir dans l'éducation améliore les résultats sociétaux</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>éducation / enseignement / formation</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">comply with</div>
+                        <div class="phonetic">/kəmˈplaɪ wɪð/</div>
+                        <div class="trans">(se conformer à / s'aligner sur / adhérer à)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We must <span class="highlighted">comply with</span> the new regulations</li>
+                                <div class="translation"><i>Nous devons nous conformer aux nouvelles régulations</i></div>
+                                <li>Complying with the new rules is mandatory</li>
+                                <div class="translation"><i>Se conformer aux nouvelles règles est obligatoire</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>se conformer à / s'aligner sur / adhérer à</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">sequence</div>
+                        <div class="phonetic">/ˈsiːkwəns/</div>
+                        <div class="trans">(séquence / ordre / chronologie)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The <span class="highlighted">sequence</span> of events is crucial for accurate reporting</li>
+                                <div class="translation"><i>La séquence des événements est cruciale pour un rapport précis</i></div>
+                                <li>Establishing a proper <span class="highlighted">sequence</span> improves process efficiency</li>
+                                <div class="translation"><i>Établir une séquence correcte améliore l'efficacité du processus</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>séquence / ordre / chronologie</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">not set in stone</div>
+                        <div class="phonetic">/nɒt sɛt ɪn stoʊn/</div>
+                        <div class="trans">(non gravé dans la pierre / flexible / modifiable)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The plan is <span class="highlighted">not set in stone</span> and can be adjusted</li>
+                                <div class="translation"><i>Le plan n'est pas gravé dans la pierre et peut être ajusté</i></div>
+                                <li>Flexibility is key to adapting plans that are <span class="highlighted">not set in stone</span></li>
+                                <div class="translation"><i>La flexibilité est essentielle pour adapter des plans qui ne sont pas gravés dans la pierre</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>non gravé dans la pierre / flexible / modifiable</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">dictate the pace</div>
+                        <div class="phonetic">/dɪkˌteɪt ðə peɪs/</div>
+                        <div class="trans">(dictionner le rythme / régir le rythme / imposer le rythme)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The leader should <span class="highlighted">dictate the pace</span> of the project</li>
+                                <div class="translation"><i>Le leader doit dicter le rythme du projet</i></div>
+                                <li>Dictating the pace effectively is crucial for meeting deadlines</li>
+                                <div class="translation"><i>Dicter le rythme efficacement est crucial pour respecter les délais</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>dictionner le rythme / régir le rythme / imposer le rythme</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">at the end of the day</div>
+                        <div class="phonetic">/æt ði ɛnd ʌv ðə deɪ/</div>
+                        <div class="trans">(à la fin de la journée / finalement / ultimement)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li><span class="highlighted">At the end of the day</span> results matter more than processes</li>
+                                <div class="translation"><i>À la fin de la journée les résultats comptent plus que les processus</i></div>
+                                <li>What matters <span class="highlighted">at the end of the day</span> is the impact on the community</li>
+                                <div class="translation"><i>Ce qui compte à la fin de la journée c'est l'impact sur la communauté</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>à la fin de la journée / finalement / ultimement</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">seamlessly</div>
+                        <div class="phonetic">/ˈsiːm.ləs.li/</div>
+                        <div class="trans">(sans couture / fluidement / intégralement)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The new system integrates <span class="highlighted">seamlessly</span> with existing processes</li>
+                                <div class="translation"><i>Le nouveau système s'intègre parfaitement aux processus existants</i></div>
+                                <li>Seamless integration enhances operational efficiency</li>
+                                <div class="translation"><i>Une intégration transparente améliore l'efficacité opérationnelle</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">9</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>sans couture / fluidement / intégralement</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
                         <div class="keyword-line">streamline</div>
-                        <div class="phonetic">/ˈstriːmˌlaɪn (rationaliser)/</div>
+                        <div class="phonetic">/ˈstriːmˌlaɪn/</div>
+                        <div class="trans">(rationaliser / simplifier / optimiser)</div>
                         <div class="context-info">
                             <ol>
                                 <li>We need to <span class="highlighted">streamline</span> our processes for better efficiency</li>
@@ -672,9 +680,147 @@
                                 <div class="translation"><i>Rationaliser les opérations peut réduire les coûts et le temps</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
                             <i><strong>rationaliser / simplifier / optimiser</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">revamp</div>
+                        <div class="phonetic">/rɪˈvæmp/</div>
+                        <div class="trans">(refonte / révision / modernisation)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The system needs a complete <span class="highlighted">revamp</span> to improve performance</li>
+                                <div class="translation"><i>Le système a besoin d'une refonte complète pour améliorer les performances</i></div>
+                                <li><span class="highlighted">Revamp</span>ing processes can lead to better results</li>
+                                <div class="translation"><i>Réorganiser les processus peut conduire à de meilleurs résultats</i></div>
+                            </ol>
                         </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>refonte / révision / modernisation</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">sustain</div>
+                        <div class="phonetic">/səˈsteɪn/</div>
+                        <div class="trans">(maintenir / préserver / continuer)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">sustain</span> our efforts to see long-term results</li>
+                                <div class="translation"><i>Nous devons maintenir nos efforts pour voir des résultats à long terme</i></div>
+                                <li><span class="highlighted">Sustain</span>ing progress requires continuous improvement and adaptation</li>
+                                <div class="translation"><i>Maintenir les progrès nécessite une amélioration et une adaptation continues</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>maintenir / préserver / continuer</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">keyword</div>
+                        <div class="phonetic">/phonetic/</div>
+                        <div class="trans">(keyword_translation_1 / keyword_translation_2 / keyword_translation_3)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>context1</li>
+                                <div class="translation"><i>context1_translation</i></div>
+                                <li>context2</li>
+                                <div class="translation"><i>context2_translation</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">weight</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>keyword_translation_1 / keyword_translation_2 / keyword_translation_3</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">hands-on practice</div>
+                        <div class="phonetic">/hændz-ɒn ˈpræktɪs/</div>
+                        <div class="trans">(pratique concrète / expérience pratique / formation pratique)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li><span class="highlighted">Hands-on practice</span> is crucial for mastering new skills</li>
+                                <div class="translation"><i>La pratique concrète est cruciale pour maîtriser de nouvelles compétences</i></div>
+                                <li>Providing <span class="highlighted">hands-on practice</span> enhances learning and retention</li>
+                                <div class="translation"><i>Offrir une pratique concrète améliore l'apprentissage et la rétention</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>pratique concrète / expérience pratique / formation pratique</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">advance</div>
+                        <div class="phonetic">/ədˈvɑːns/</div>
+                        <div class="trans">(avancer / promouvoir / faire progresser)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We aim to <span class="highlighted">advance</span> our goals through strategic planning</li>
+                                <div class="translation"><i>Nous visons à faire avancer nos objectifs par une planification stratégique</i></div>
+                                <li>Advancing technology helps in achieving business objectives</li>
+                                <div class="translation"><i>Avancer la technologie aide à atteindre les objectifs commerciaux</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">8</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>avancer / promouvoir / faire progresser</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">oversee</div>
+                        <div class="phonetic">/oʊvərˈsiː/</div>
+                        <div class="trans">(superviser / contrôler / manager)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>The project manager will <span class="highlighted">oversee</span> the implementation</li>
+                                <div class="translation"><i>Le chef de projet supervisera la mise en œuvre</i></div>
+                                <li>Effective oversight ensures the project stays on track</li>
+                                <div class="translation"><i>Un suivi efficace garantit que le projet reste sur la bonne voie</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>superviser / contrôler / manager</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">synchronize</div>
+                        <div class="phonetic">/ˈsɪŋkrəˌnaɪz/</div>
+                        <div class="trans">(synchroniser / harmoniser / coordonner)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>Synchronizing schedules helps in managing resources better</li>
+                                <div class="translation"><i>Synchroniser les emplois du temps aide à mieux gérer les ressources</i></div>
+                                <li>Effective synchronization of tasks improves team efficiency</li>
+                                <div class="translation"><i>Une synchronisation efficace des tâches améliore l'efficacité de l'équipe</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">6</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>synchroniser / harmoniser / coordonner</strong></i>
+                        </div>-->
+                    </div><div class="keyword-box">
+                        <div class="keyword-line">evaluate</div>
+                        <div class="phonetic">/ɪˈvæljueɪt/</div>
+                        <div class="trans">(évaluer / juger / examiner)</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>We need to <span class="highlighted">evaluate</span> the effectiveness of our approach</li>
+                                <div class="translation"><i>Nous devons évaluer l'efficacité de notre approche</i></div>
+                                <li>Evaluating outcomes helps in refining strategies</li>
+                                <div class="translation"><i>Évaluer les résultats aide à affiner les stratégies</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info">7</div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>évaluer / juger / examiner</strong></i>
+                        </div>-->
                     </div></div>
 
     <script>
@@ -703,9 +849,10 @@
                         context2: parts[2] || 'No context available',
                         weight: parts[3] || 'No weight available',
                         phonetic: parts[4] || 'No phonetic available',
-                        context1_translation: parts[5] || 'No translation available',
-                        context2_translation: parts[6] || 'No translation available',
-                        keyword_translation: parts[7] || 'No keyword translation available'
+                        trans: parts[5] || 'No trans available',
+                        context1_translation: parts[6] || 'No translation available',
+                        context2_translation: parts[7] || 'No translation available',
+                        keyword_translation: parts[8] || 'No keyword translation available'
                     };
                 });
 
@@ -728,9 +875,9 @@
                     const keywordBox = document.createElement('div');
                     keywordBox.classList.add('keyword-box');
                     keywordBox.innerHTML = `
-                        <div class="weight-info">${item.weight}</div>
                         <div class="keyword-line">${item.keyword}</div>
                         <div class="phonetic">/${item.phonetic}/</div>
+                        <div class="trans">(${item.keyword_translation})</div>
                         <div class="context-info">
                             <ol>
                                 <li>${highlightKeyword(item.context1, item.keyword)}</li>
@@ -739,9 +886,11 @@
                                 <div class="translation"><i>${highlightKeyword(item.context2_translation, item.keyword)}</i></div>
                             </ol>
                         </div>
-                        <div class="translation">
+                        <div class="weight-info">${item.weight}</div>
+                        
+                        <!--<div class="translation">
                             <i><strong>${item.keyword_translation}</strong></i>
-                        </div>
+                        </div>-->
                     `;
                     keywordContainer.appendChild(keywordBox);
                 });
