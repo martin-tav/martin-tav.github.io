@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "4B2 Share of digital energy start-ups in total energy start-ups by region"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Percentage of digital energy start-ups in total energy start-ups by region (%)"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [[2000, 17.80821917808219], [2001, 22.07792207792208], [2002, 18.91891891891892], [2003, 21.59090909090909], [2004, 24.615384615384617], [2005, 18.181818181818183], [2006, 23.762376237623762], [2007, 27.27272727272727], [2008, 19.047619047619047], [2009, 29.7029702970297], [2010, 21.875], [2011, 30.630630630630627], [2012, 31.53153153153153], [2013, 44.554455445544555], [2014, 45.16129032258064], [2015, 42.15686274509804], [2016, 37.42690058479532], [2017, 42.68292682926829], [2018, 44.827586206896555], [2019, 29.166666666666668], [2020, 34.375], [2021, 42.857142857142854]], "type": "spline", "marker": {"enabled": false}, "name": "BCIIMS"}, {"data": [[2000, 20.078740157480315], [2001, 24.489795918367346], [2002, 18.218623481781375], [2003, 19.166666666666668], [2004, 17.689530685920577], [2005, 15.950920245398773], [2006, 20.7977207977208], [2007, 20.448877805486283], [2008, 23.933649289099527], [2009, 24.288840262582056], [2010, 25.303643724696357], [2011, 28.030303030303028], [2012, 35.57483731019523], [2013, 33.712984054669704], [2014, 39.705882352941174], [2015, 42.181069958847736], [2016, 48.888888888888886], [2017, 45.17766497461929], [2018, 49.69512195121951], [2019, 51.96850393700787], [2020, 56.88073394495413], [2021, 54.054054054054056]], "type": "spline", "marker": {"enabled": false}, "name": "Europe"}, {"data": [[2000, 24.464831804281346], [2001, 24.512534818941504], [2002, 24.464831804281346], [2003, 24.92753623188406], [2004, 22.025316455696203], [2005, 27.570093457943923], [2006, 23.81930184804928], [2007, 23.931623931623932], [2008, 25.0], [2009, 26.68428005284016], [2010, 24.20289855072464], [2011, 29.079159935379646], [2012, 32.54786450662739], [2013, 35.11659807956104], [2014, 38.944365192582026], [2015, 43.27217125382263], [2016, 40.530973451327434], [2017, 39.6], [2018, 47.82608695652174], [2019, 41.17647058823529], [2020, 43.125], [2021, 48.837209302325576]], "type": "spline", "marker": {"enabled": false}, "name": "North America"}, {"data": [[2000, 21.100917431192663], [2001, 18.01801801801802], [2002, 20.454545454545457], [2003, 14.399999999999999], [2004, 21.518987341772153], [2005, 21.428571428571427], [2006, 20.625], [2007, 20.0], [2008, 19.306930693069308], [2009, 25.116279069767444], [2010, 19.718309859154928], [2011, 26.291079812206576], [2012, 27.927927927927925], [2013, 32.093023255813954], [2014, 38.49557522123894], [2015, 39.03508771929825], [2016, 41.509433962264154], [2017, 46.93877551020408], [2018, 47.89473684210526], [2019, 44.927536231884055], [2020, 51.5625], [2021, 42.857142857142854]], "type": "spline", "marker": {"enabled": false}, "name": "Rest of world"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

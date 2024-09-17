@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": true}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Energy start ups per region and field (2005-2010)"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["BCIIMS", "EUROPE", "NORTH AMERICA", "Rest of world"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": 100, "opposite": false, "title": {"text": "Number of Start ups"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["BCIIMS", 35.9525593008739], ["EUROPE", 32.264971694184645], ["NORTH AMERICA", 24.79647639491246], ["Rest of world", 30.009456264775412]], "type": "column", "marker": {"enabled": false}, "name": "EE & EM"}, {"data": [["BCIIMS", 4.868913857677902], ["EUROPE", 1.9380761049397306], ["NORTH AMERICA", 1.3646120821833796], ["Rest of world", 2.1749408983451533]], "type": "column", "marker": {"enabled": false}, "name": "EVs"}, {"data": [["BCIIMS", 13.835205992509362], ["EUROPE", 14.007326873079649], ["NORTH AMERICA", 27.84651947255442], ["Rest of world", 19.349881796690298]], "type": "column", "marker": {"enabled": false}, "name": "Fossil fuels"}, {"data": [["BCIIMS", 11.147315855181024], ["EUROPE", 8.290733925335672], ["NORTH AMERICA", 7.038558140214074], ["Rest of world", 10.965327029156818]], "type": "column", "marker": {"enabled": false}, "name": "Grid (incl. storage)"}, {"data": [["BCIIMS", 0.062421972534332064], ["EUROPE", 0.1930197746789569], ["NORTH AMERICA", 0.07538587345395073], ["Rest of world", 0.21276595744680848]], "type": "column", "marker": {"enabled": false}, "name": "Other Energy"}, {"data": [["BCIIMS", 13.444444444444445], ["EUROPE", 24.12471440951706], ["NORTH AMERICA", 25.275733415107833], ["Rest of world", 19.24822695035461]], "type": "column", "marker": {"enabled": false}, "name": "Other renewables"}, {"data": [["BCIIMS", 19.026217228464418], ["EUROPE", 16.138479026685125], ["NORTH AMERICA", 12.43600414713571], ["Rest of world", 17.141055949566585]], "type": "column", "marker": {"enabled": false}, "name": "Solar"}, {"data": [["BCIIMS", 1.6629213483146066], ["EUROPE", 3.04267819157916], ["NORTH AMERICA", 1.1667104744381656], ["Rest of world", 0.8983451536643023]], "type": "column", "marker": {"enabled": false}, "name": "Wind"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

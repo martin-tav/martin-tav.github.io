@@ -1,0 +1,20 @@
+jQuery(document).ready(function($){
+	'use strict';
+	
+	if ( window.location.hash === '#jclldev' ) { return; }
+	
+	var imgs = $('img[data-src]');
+	//console.log(imgs);
+	
+	$(imgs).each(function(){
+		var img = $(this);
+		img.attr('src', img.attr('data-src') );
+		img.attr('data-src', null);
+		
+		if ( img.attr('data-srcset') !== undefined ) {
+			img.attr('srcset', img.attr('data-srcset') );
+			img.attr('data-srcset', null);
+		}
+	});
+	
+});

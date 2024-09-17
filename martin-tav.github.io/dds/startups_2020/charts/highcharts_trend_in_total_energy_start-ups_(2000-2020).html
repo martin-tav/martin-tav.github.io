@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Trend in total energy start-ups (2000-2020)"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": [2000.0, 2001.0, 2002.0, 2003.0, 2004.0, 2005.0, 2006.0, 2007.0, 2008.0, 2009.0, 2010.0, 2011.0, 2012.0, 2013.0, 2014.0, 2015.0, 2016.0, 2017.0, 2018.0, 2019.0, 2020.0]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Number of Energy Start ups"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [[2000.0, 630], [2001.0, 602], [2002.0, 614], [2003.0, 628], [2004.0, 723], [2005.0, 824], [2006.0, 957], [2007.0, 1134], [2008.0, 1073], [2009.0, 1174], [2010.0, 1164], [2011.0, 1096], [2012.0, 1149], [2013.0, 1097], [2014.0, 1149], [2015.0, 1052], [2016.0, 990], [2017.0, 913], [2018.0, 636], [2019.0, 386], [2020.0, 96]], "type": "line", "marker": {"enabled": false}, "name": "Energy Start-ups"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

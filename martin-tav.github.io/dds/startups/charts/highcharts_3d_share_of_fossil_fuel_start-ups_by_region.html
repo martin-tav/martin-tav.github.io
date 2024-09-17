@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "3D Share of fossil fuel start-ups by region"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["2001-2005", "2006-2010", "2011-2015", "2016-2020", "2021-2025"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Percentage of start-ups (%)"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["2001-2005", 21.59090909090909], ["2006-2010", 11.447447447447447], ["2011-2015", 7.164562879850397], ["2016-2020", 7.162162162162162], ["2021-2025", 0.0]], "type": "spline", "marker": {"enabled": false}, "name": "BCIIMS"}, {"data": [["2001-2005", 18.96728016359918], ["2006-2010", 11.213333333333333], ["2011-2015", 9.267050487156776], ["2016-2020", 6.959826275787187], ["2021-2025", 4.054054054054054]], "type": "spline", "marker": {"enabled": false}, "name": "Europe"}, {"data": [["2001-2005", 24.922118380062305], ["2006-2010", 21.257851591610773], ["2011-2015", 24.427853341218214], ["2016-2020", 19.84689413823272], ["2021-2025", 5.426356589147286]], "type": "spline", "marker": {"enabled": false}, "name": "North America"}, {"data": [["2001-2005", 16.774891774891774], ["2006-2010", 14.575163398692812], ["2011-2015", 12.069746376811594], ["2016-2020", 9.756576364350215], ["2021-2025", 2.380952380952381]], "type": "spline", "marker": {"enabled": false}, "name": "Rest of world"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

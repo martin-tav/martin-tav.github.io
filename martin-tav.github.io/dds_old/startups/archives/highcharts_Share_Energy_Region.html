@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container"}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Share Energy in total per Region"}, "tooltip": {}, "xAxis": {"categories": ["Rest of world", "US", "EUROPE", "BCIIMS"]}, "yAxis": {"allowDecimals": false, "min": 0, "title": {"text": "Share Energy in Total per Region (percentage)"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["Rest of world", 2.59], ["US", 2.36], ["EUROPE", 2.28], ["BCIIMS", 1.53]], "type": "column", "marker": {"enabled": false}, "name": "Share Energy per Region"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

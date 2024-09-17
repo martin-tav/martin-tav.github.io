@@ -1,0 +1,1061 @@
+<html>
+<meta charset="UTF-8">
+<head>
+    <link rel="stylesheet" type="text/css" href="../site.css" /><!--calendar2.css-->
+    
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+</head>
+<body>
+  <style>
+nav#menu {
+  width: max-content;
+  display: inline-block;
+}
+#logo {
+  padding: 10px 0;
+  display: inline-block;
+  margin-top: 5px;
+}
+#logo img {
+    max-height: 40px;
+}
+#logo span {
+  color: #7BC381;
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0 0 12px 15px;
+  vertical-align: bottom;
+  letter-spacing: -1px;
+}
+.flag-icon {
+border-radius: 2px;
+}
+span.social {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 1em;
+}
+div#header {
+  position: relative;
+  z-index: 99;
+  /*background: #3c4858;*/
+background: #000;
+  box-shadow: none;
+}
+#header .wrap {
+display: flex;
+}
+/*nav#mainNav {
+  float: right;
+  right: 0px;
+  margin-left: unset;
+}*/
+nav#mainNav {
+  /*padding: 1em 0;*/
+  padding: 1.5em 0 1em;
+  display: inline-block;
+  margin-left: 1em;
+}
+nav#mainNav a {
+  color: #fefefe;
+  padding: 1em;
+  /*padding: 1em 1.25em;*/
+}
+#mainNav a.selected {
+  /*background-color: #fefefe;
+  color: #3c4858;*/
+    color: #2980b9;
+}
+#logo span {
+  font-size: 1.1em;
+  margin: 0 0 4px 15px;
+  vertical-align: bottom;
+  width: 145px;
+  line-height: 21px;
+  color: #fefefe;
+  letter-spacing: 0px !important;
+}
+#lang {
+  position: absolute;
+  margin-top: 2px;
+  top: 0;
+  font-size: 12px;
+right: 0;
+}
+#lang a {
+  color: #fefefe;
+  margin-right: 1em;
+}
+#search-input {
+  width: 75%;
+}
+#mainNav #search-submit {
+    display: inline;
+    //background: url(/media/ieawebsite/responsive/search-icon-two.svg) no-repeat 50% 50%;
+    padding: 10px 20px;
+    margin-left: 1em;
+    border: 1px solid grey;
+    background-size: 50%;
+}
+#search-submit:hover {
+  color: #fefefe;
+}
+div.sub-nav {
+  display: none;
+  padding: 0 1.5em 1.5em 1.5em;
+}
+div.sub-nav a {
+  color: #3c4858;
+}
+div.sub-nav a:hover {
+  color: #2980b9;
+}
+div.sub-nav > div:last-child {
+  border-right: none;
+}
+ul.sub-menu {
+  height: 100%;
+}
+ul.sub-menu li {
+  width: 100%;
+  padding: 0 0 1em;
+}
+ul.sub-menu li a small {
+  display: block;
+  font-size: 0.8em;
+  color: #acadaf;
+}
+ul.sub-menu-small li {
+  padding-bottom: 0.5em;
+}
+
+div.sub-nav h3 {
+  font-size: 1em;
+  /*font-weight: 400;
+  text-transform: uppercase;
+  border-bottom: 2px solid #acadaf;*/
+    border-bottom: 1px solid #E7E7E7;
+    font-weight: bold;
+    padding: 3px 0;
+}
+ul.sub-menu li:hover a {
+  color: #2980b9;
+}
+
+div.sub-nav div.news {
+  padding-top: 2em;
+}
+div.sub-nav p.details {
+  margin: 6px 0;
+}
+div.sub-nav p.headline {
+  font-weight: 600;
+  margin: 0;
+}
+div.sub-nav div.news a h2 {
+  font-size: 1em;
+}
+.one-fourth.news {
+margin-right: 1.65%;
+}
+div.sub-nav div.news img {
+
+}
+
+div.sub-nav div.events ul li {
+  vertical-align: top;
+  margin-top: 1em;
+}
+div.sub-nav div.events ul li .details {
+  display: none;
+}
+div.sub-nav time.date {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+}
+div.sub-nav time.date span {
+  display: block;
+}
+div.sub-nav div.calendartest {
+  display: inline-block;
+  max-width: 165px;
+  margin-left: 1em;
+}
+
+div.sub-nav ul.contacts li {
+  vertical-align: top;
+  font-size: 14px;
+  margin-bottom: 1em;
+}
+div.sub-nav ul.contacts img, div.sub-nav ul.contacts svg {
+  width: 29px;
+  height: 29px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.cls-1 {
+    fill: none;
+    stroke: #333;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+div.sub-nav ul.contacts li > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ul.countries-list {
+  display: inline-block;
+  margin-right: 1.5em;
+  vertical-align: top;
+}
+ul.countries-list li {
+  padding-bottom: 0.4em;
+}
+
+input.menu-search {
+  width: 80%;
+  font-size: 18px;
+}
+input.menu-search-submit {
+  display: none !important;
+}
+
+#navTray {
+  position: absolute;
+  top: -375px;
+  width: 100%;
+  overflow: hidden;
+  height: 360px;
+  background: #f9f9f9;
+  transition: top 0.5s;
+box-shadow: 0 5px 15px 0 rgba(37,44,97,0.15), 0 2px 4px 0 rgba(93,100,148,0.2);
+    border-radius: 0 0 4px 4px;
+}
+#navTray.open {
+  top: 0;
+  transition: top 0.5s;
+}
+
+a#hamburger {
+  display: none;
+  border: 1px solid #fefefe;
+  font-size: 24px;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  right: 12px;
+top: 11px;
+  color: #fefefe;
+}
+a#hamburger:hover {
+  background: #fefefe;
+  color: #3c4858;
+}
+form.responsive-search {
+  display: none;
+}
+#responsive-search-input {
+  padding: 7px;
+  /*position: absolute;*/
+  right: 60px;
+  color: #eef2f5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  /*margin-top: 6px;*/
+ margin-top: 11px;
+}
+#responsive-search-input:focus {
+  color: #3c4858;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+}
+/*@media only screen and (max-width:1000px) {
+nav#mainNav a:not(#search-submit) {
+    padding: 0.5em;
+    font-size: 0.9em;
+}
+}*/
+@media only screen and (max-width:850px) {
+  div#header {
+    position: fixed;
+    width: 100%;
+  }
+  #main {
+    padding-top: 65px;
+  }
+  #navTray {
+    display: none;
+  }
+  nav#mainNav, #lang {
+    display: none;
+  }
+  nav#mainNav.open, nav#mainNav a {
+    display: block;
+  }
+  #logo, form.responsive-search {
+    display: inline-block;
+    vertical-align: top;
+  }
+  a#hamburger {
+    display: inline-block;
+  }
+  #search-submit {
+      display: none !important;
+    }
+  #header .wrap {
+      display: block;
+  }
+  #logo {
+    margin-top: 1px;
+  }
+}
+@media only screen and (max-width:525px) {
+  #logo span {
+    display: none;
+  }
+}
+@media only screen and (max-width:325px) {
+  form.responsive-search {
+    display: none;
+  }
+}
+</style>
+
+
+<script>
+window.countries = [{"country":"Canada","iso2":"CA","iso3":"CAN","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AMT, AMF, Bioenergy, EBC, C3E, DSM, DHC, 4E, ECES, EOR, ESEFP, FBC, FM, GO, GHG, HPT, HTS, HEV, IETS, NTFR, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"China","iso2":"CN","iso3":"CHN","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, EBC, CCC, SolarPACES, DHC, 4E, ECES, EOR, ESEFP, FBC, FM, Hydrogen, Hydropower, NTFR, OES, PVPS, ISGAN, SHC, CTP, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Algeria","iso2":"DZ","iso3":"DZA","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"SolarPACES","coverage":"Yes","flag":"","section":"countries"},{"country":"Australia","iso2":"AU","iso3":"AUS","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AMT, Bioenergy, EBC, CCC, C3E, SolarPACES, DSM, 4E, ETSAP, EOR, GO, Geothermal, GHG, Hydrogen, Hydropower, OES, PVPS, PWI, ISGAN, SHC, SH, CTP","coverage":"Yes","flag":"","section":"countries"},{"country":"Albania","iso2":"AL","iso3":"ALB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Angola","iso2":"AO","iso3":"AGO","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Argentina","iso2":"AR","iso3":"ARG","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"GO","coverage":"Yes","flag":"","section":"countries"},{"country":"Armenia","iso2":"AM","iso3":"ARM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Austria","iso2":"AT","iso3":"AUT","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, Bioenergy, EBC, C3E, SolarPACES, DSM, DHC, 4E, EOR, FBC, GHG, HPT, HEV, IETS, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Azerbaijan","iso2":"AZ","iso3":"AZE","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Bahrain","iso2":"BH","iso3":"BHR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Bangladesh","iso2":"BD","iso3":"BGD","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Belarus","iso2":"BY","iso3":"BLR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Belgium","iso2":"BE","iso3":"BEL","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy, EBC, DSM, ECES, ETSAP, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Benin","iso2":"BJ","iso3":"BEN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Bolivia","iso2":"BO","iso3":"BOL","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Bosnia and Herzegovina","iso2":"BA","iso3":"BIH","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Botswana","iso2":"BW","iso3":"BWA","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Brazil","iso2":"BR","iso3":"BRA","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"Yes","tcps":"Bioenergy, SolarPACES, GO, GHG, Hydropower","coverage":"Yes","flag":"","section":"countries"},{"country":"Brunei","iso2":"BN","iso3":"BRN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Bulgaria","iso2":"BG","iso3":"BGR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Cambodia","iso2":"KH","iso3":"KHM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Cameroon","iso2":"CM","iso3":"CMR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Chile","iso2":"CL","iso3":"CHL","member":"No","accession":"Yes","association":"No","partner":"No","tcp":"Yes","tcps":"AMF, SolarPACES, PVPS","coverage":"Yes","flag":"","section":"countries"},{"country":"Chinese Taipei","iso2":"TW","iso3":"TWN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Colombia","iso2":"CO","iso3":"COL","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"EOR","coverage":"Yes","flag":"","section":"countries"},{"country":"Congo","iso2":"CG","iso3":"COG","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Costa Rica","iso2":"CR","iso3":"CRI","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Cote d'Ivoire","iso2":"CI","iso3":"CIV","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Croatia","iso2":"HR","iso3":"HRV","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, Bioenergy","coverage":"Yes","flag":"","section":"countries"},{"country":"Cuba","iso2":"CU","iso3":"CUB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Curacao","iso2":"CW","iso3":"CUW","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Cyprus","iso2":"CY","iso3":"CYP","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Czech Republic","iso2":"CZ","iso3":"CZE","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"EBC, C3E, FBC","coverage":"Yes","flag":"","section":"countries"},{"country":"Democratic Republic of the Congo","iso2":"CD","iso3":"COD","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Denmark","iso2":"DK","iso3":"DNK","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, Bioenergy, EBC, DHC, 4E, ECES, ETSAP, EOR, HPT, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Dominican Republic","iso2":"DO","iso3":"DOM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Ecuador","iso2":"EC","iso3":"ECU","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Egypt","iso2":"EG","iso3":"EGY","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"SolarPACES","coverage":"Yes","flag":"","section":"countries"},{"country":"El Salvador","iso2":"SV","iso3":"SLV","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Eritrea","iso2":"ER","iso3":"ERI","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Estonia","iso2":"EE","iso3":"EST","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy","coverage":"Yes","flag":"","section":"countries"},{"country":"Ethiopia","iso2":"ET","iso3":"ETH","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Finland","iso2":"FI","iso3":"FIN","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, Bioenergy, EBC, C3E, Combustion, DSM, DHC, ECES, ETSAP, FBC, HPT, HTS, HEV, Hydrogen, Hydropower, PVPS, ISGAN, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"France","iso2":"FR","iso3":"FRA","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, Bioenergy, EBC, C3E, Combustion, SolarPACES, DHC, 4E, ECES, EOR, FBC, Geothermal, GHG, HPT, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"FYR Macedonia","iso2":"MK","iso3":"MKD","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Gabon","iso2":"GA","iso3":"GAB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Georgia","iso2":"GE","iso3":"GEO","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Germany","iso2":"DE","iso3":"DEU","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, Bioenergy, EBC, CCC, C3E, Combustion, SolarPACES, DHC, ECES, Geothermal, GHG, HPT, HTS, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Ghana","iso2":"GH","iso3":"GHA","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Gibraltar","iso2":"GI","iso3":"GIB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Greece","iso2":"GR","iso3":"GRC","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"SolarPACES, ETSAP, FBC, Hydrogen, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Guatemala","iso2":"GT","iso3":"GTM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Haiti","iso2":"HT","iso3":"HTI","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Honduras","iso2":"HN","iso3":"HND","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Hong Kong","iso2":"HK","iso3":"HKG","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Hungary","iso2":"HU","iso3":"HUN","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"FBC","coverage":"Yes","flag":"","section":"countries"},{"country":"Iceland","iso2":"IS","iso3":"ISL","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Geothermal","coverage":"Yes","flag":"","section":"countries"},{"country":"India","iso2":"IN","iso3":"IND","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"Yes","tcps":"AMF, CCC, DSM, FM, GHG, NTFR, OES, ISGAN, CTP","coverage":"Yes","flag":"","section":"countries"},{"country":"Indonesia","iso2":"ID","iso3":"IDN","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Iran","iso2":"IR","iso3":"IRN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Iraq","iso2":"IQ","iso3":"IRQ","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Ireland","iso2":"IE","iso3":"IRL","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy, EBC, DSM, ETSAP, HEV, OES, ISGAN, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Israel","iso2":"IL","iso3":"ISR","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, EBC, SolarPACES, HTS, Hydrogen, PVPS","coverage":"Yes","flag":"","section":"countries"},{"country":"Italy","iso2":"IT","iso3":"ITA","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, Bioenergy, EBC, CCC, C3E, SolarPACES, DSM, ECES, ETSAP, FBC, Geothermal, HPT, HTS, HEV, Hydrogen, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Jamaica","iso2":"JM","iso3":"JAM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Japan","iso2":"JP","iso3":"JPN","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, Bioenergy, EBC, CCC, Combustion, 4E, ECES, ETSAP, EOR, ESEFP, FBC, FM, Geothermal, GHG, HPT, HTS, Hydrogen, Hydropower, NTFR, OES, PVPS, PWI, RFP, ISGAN, ST, SH, CTP, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Jordan","iso2":"JO","iso3":"JOR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Kazakhstan","iso2":"KZ","iso3":"KAZ","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"ETSAP","coverage":"Yes","flag":"","section":"countries"},{"country":"Kenya","iso2":"KE","iso3":"KEN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Korea","iso2":"KR","iso3":"KOR","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, Bioenergy, EBC, Combustion, SolarPACES, DSM, DHC, 4E, ECES, ETSAP, EOR, ESEFP, FBC, FM, Geothermal, GHG, HPT, HTS, HEV, Hydrogen, NTFR, OES, PVPS, ISGAN, ST, CTP, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Korea, Democratic People's Republic of","iso2":"KP","iso3":"PRK","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Kosovo","iso2":"KV","iso3":"UNK","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Kuwait","iso2":"KW","iso3":"KWT","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Kyrgyzstan","iso2":"KG","iso3":"KGZ","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Latvia","iso2":"LV","iso3":"LVA","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Lebanon","iso2":"LB","iso3":"LBN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Libya","iso2":"LY","iso3":"LBY","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Lithuania","iso2":"LT","iso3":"LTU","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Hydrogen","coverage":"Yes","flag":"","section":"countries"},{"country":"Luxembourg","iso2":"LU","iso3":"LUX","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Malaysia","iso2":"MY","iso3":"MYS","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"PVPS","coverage":"Yes","flag":"","section":"countries"},{"country":"Malta","iso2":"MT","iso3":"MLT","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Mauritius","iso2":"MU","iso3":"MUS","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Mexico","iso2":"MX","iso3":"MEX","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, SolarPACES, EOR, Geothermal, GHG, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Moldova","iso2":"MD","iso3":"MDA","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Monaco","iso2":"MC","iso3":"MCO","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"OES","coverage":"No","flag":"","section":"countries"},{"country":"Mongolia","iso2":"MN","iso3":"MNG","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Montenegro","iso2":"ME","iso3":"MNE","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Morocco","iso2":"MA","iso3":"MAR","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"Yes","tcps":"SolarPACES, PVPS","coverage":"Yes","flag":"","section":"countries"},{"country":"Mozambique","iso2":"MZ","iso3":"MOZ","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Myanmar","iso2":"MM","iso3":"MMR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Namibia","iso2":"NA","iso3":"NAM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Nepal","iso2":"NP","iso3":"NPL","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"New Zealand","iso2":"NZ","iso3":"NZL","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy, EBC, DSM, Geothermal, Hydrogen, OES","coverage":"Yes","flag":"","section":"countries"},{"country":"Nicaragua","iso2":"NI","iso3":"NIC","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Niger","iso2":"NE","iso3":"NER","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Nigeria","iso2":"NG","iso3":"NGA","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"OES","coverage":"Yes","flag":"","section":"countries"},{"country":"Norway","iso2":"NO","iso3":"NOR","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy, EBC, Combustion, DSM, DHC, ECES, ETSAP, EOR, GO, Geothermal, GHG, HPT, Hydrogen, Hydropower, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Oman","iso2":"OM","iso3":"OMN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Pakistan","iso2":"PK","iso3":"PAK","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Panama","iso2":"PA","iso3":"PAN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Paraguay","iso2":"PY","iso3":"PRY","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Peru","iso2":"PE","iso3":"PER","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Philippines","iso2":"PH","iso3":"PHL","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Poland","iso2":"PL","iso3":"POL","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"CCC, FBC","coverage":"Yes","flag":"","section":"countries"},{"country":"Portugal","iso2":"PT","iso3":"PRT","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"EBC, FBC, IETS, OES, PVPS, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Qatar","iso2":"QA","iso3":"QAT","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Romania","iso2":"RO","iso3":"ROU","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Russia","iso2":"RU","iso3":"RUS","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"CCC, ETSAP, EOR, ESEFP, FBC, FM, NTFR, ISGAN, SH","coverage":"Yes","flag":"","section":"countries"},{"country":"Saudi Arabia","iso2":"SA","iso3":"SAU","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"HEV","coverage":"Yes","flag":"","section":"countries"},{"country":"Senegal","iso2":"SN","iso3":"SEN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Serbia","iso2":"RS","iso3":"SRB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Singapore","iso2":"SG","iso3":"SGP","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"No","tcps":"EBC, OES, ISGAN","coverage":"Yes","flag":"","section":"countries"},{"country":"Slovak Republic","iso2":"SK","iso3":"SVK","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"SHC","coverage":"Yes","flag":"","section":"countries"},{"country":"Slovenia","iso2":"SI","iso3":"SVN","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"ECES","coverage":"Yes","flag":"","section":"countries"},{"country":"South Africa","iso2":"ZA","iso3":"ZAF","member":"No","accession":"No","association":"No","partner":"Yes","tcp":"Yes","tcps":"Bioenergy, CCC, SolarPACES, GHG, OES, PVPS, ISGAN, SHC","coverage":"Yes","flag":"","section":"countries"},{"country":"South Sudan","iso2":"SS","iso3":"SSD","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Spain","iso2":"ES","iso3":"ESP","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, EBC, Combustion, SolarPACES, DSM, ECES, ETSAP, FBC, GO, Geothermal, GHG, HEV, Hydrogen, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Sri Lanka","iso2":"LK","iso3":"LKA","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Sudan","iso2":"SD","iso3":"SDN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Suriname","iso2":"SR","iso3":"SUR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Sweden","iso2":"SE","iso3":"SWE","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, Bioenergy, EBC, C3E, Combustion, DSM, DHC, 4E, ECES, ETSAP, FBC, GHG, HPT, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Switzerland","iso2":"CH","iso3":"CHE","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMF, Bioenergy, EBC, Combustion, SolarPACES, DSM, 4E, ECES, ETSAP, GO, Geothermal, GHG, HPT, HTS, HEV, Hydrogen, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Syria","iso2":"SY","iso3":"SYR","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Tajikistan","iso2":"TJ","iso3":"TJK","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Thailand","iso2":"TH","iso3":"THA","member":"No","accession":"No","association":"Yes","partner":"No","tcp":"No","tcps":"AMF, CCC, PVPS","coverage":"Yes","flag":"","section":"countries"},{"country":"The Netherlands","iso2":"NL","iso3":"NLD","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"Bioenergy, EBC, DSM, 4E, ECES, ETSAP, GO, GHG, HPT, HEV, Hydrogen, IETS, OES, PVPS, ISGAN, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Togo","iso2":"TG","iso3":"TGO","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Tunisia","iso2":"TN","iso3":"TUN","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Turkey","iso2":"TR","iso3":"TUR","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"ECES, HEV, Hydrogen, PVPS, SHC","coverage":"Yes","flag":"","section":"countries"},{"country":"Turkmenistan","iso2":"TM","iso3":"TKM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Ukraine","iso2":"UA","iso3":"UKR","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"SH","coverage":"Yes","flag":"","section":"countries"},{"country":"United Arab Emirates","iso2":"AE","iso3":"ARE","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"CCC, SolarPACES, GHG","coverage":"Yes","flag":"","section":"countries"},{"country":"United Kingdom","iso2":"GB","iso3":"GBR","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AMT, Bioenergy, EBC, Combustion, DSM, DHC, 4E, ECES, ETSAP, EOR, FBC, Geothermal, GHG, HPT, HEV, Hydrogen, OES, SHC, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"United States","iso2":"US","iso3":"USA","member":"Yes","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"AFC, AMT, AMF, Bioenergy, EBC, CCC, Combustion, SolarPACES, DSM, DHC, 4E, ECES, ETSAP, EOR, ESEFP, FBC, FM, GO, Geothermal, GHG, HPT, HTS, HEV, Hydrogen, Hydropower, IETS, NTFR, OES, PVPS, PWI, RFP, ISGAN, ST, SH, CTP, Wind","coverage":"Yes","flag":"","section":"countries"},{"country":"Uruguay","iso2":"UY","iso3":"URY","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Venezuela","iso2":"VE","iso3":"VEN","member":"No","accession":"No","association":"No","partner":"No","tcp":"Yes","tcps":"EOR","coverage":"Yes","flag":"","section":"countries"},{"country":"Vietnam","iso2":"VN","iso3":"VNM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Yemen","iso2":"YE","iso3":"YEM","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Zambia","iso2":"ZM","iso3":"ZMB","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},{"country":"Zimbabwe","iso2":"ZW","iso3":"ZWE","member":"No","accession":"No","association":"No","partner":"No","tcp":"No","tcps":"","coverage":"Yes","flag":"","section":"countries"},null];
+var selectedMenu;
+$(function () {
+  $('#mainNav a').mouseenter(function () {
+    $('#navTray').addClass('open');
+    $('#mainNav a').removeClass('selected').off('mouseout');
+    $('.sub-nav').hide();
+    selectedMenu = $(this);
+    $('#'+selectedMenu.attr('id')+'Menu').show()
+    selectedMenu.addClass('selected');
+    var startCloseNavCountdown = window.setInterval(function() {
+      if ($('#mainNav a:hover').length === 0 && $('#navTray:hover').length === 0) {
+        $('#navTray').removeClass('open');
+        $('#mainNav a.selected').removeClass('selected');
+        window.clearInterval(startCloseNavCountdown);
+      }
+    }, 750);
+  });
+  $('#hamburger').click(function() {
+    $('#mainNav').toggleClass('open');
+  })
+ window.countries.pop();
+ window.countries.sort(function(a, b) {
+      var textA = a.country.toUpperCase();
+      var textB = b.country.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  });
+  var membersProcessed = 0;
+  var countryList = 0;
+  $('#memberCountriesList').append('<ul class="countries-list list0"></ul>');
+   window.countries.forEach(function(country) {
+    if (country.coverage === 'Yes') {
+      $('.countries-select').append('<option value="/countries/' + country.country+ '">' + country.country+ '</option>');
+      if (country.member === 'Yes') {
+        if (membersProcessed > 9) {
+          countryList += 1;
+          membersProcessed = 0;
+          $('#memberCountriesList').append('<ul class="countries-list list'+countryList+'"></ul>');
+        }
+        $('#memberCountriesList .countries-list.list'+countryList).append('<li><span class="flag-icon flagwrapper flag-icon-'+country.iso2.toLowerCase()+'"></span> <a href="/countries/'+country.country+'">'+country.country+'</a></li>');
+        membersProcessed += 1;
+      }
+      if (country.association === 'Yes') {
+        $('#associationCountriesList .countries-list').append('<li><span class="flag-icon flagwrapper flag-icon-'+country.iso2.toLowerCase()+'"></span> <a href="/countries/'+country.country+'">'+country.country+'</a></li>');
+      }
+    }
+  });
+})
+
+
+
+      function runLoadModeleKMeans() {
+        //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          $('#messageLoad').text("Models KMeans Loading...");
+          $('#messageLoad').addClass("blink");
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/kmeansSaveFilesEERE.py",
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  //console.log("response");
+                  //console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  //$('#messageLoad').addClass("cluster");
+                  $('#messageLoad').text(response);
+                  $('#messageLoad').removeClass("blink");
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+      }
+
+       function runLoadModeleRandomForest() {
+        //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          $('#messageLoad').text("Models Random Forest Loading...");
+          $('#messageLoad').addClass("blink");
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/randomForestTrainAndSave.py",
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  //console.log("response");
+                  //console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  //$('#messageLoad').addClass("cluster");
+                  $('#messageLoad').text(response);
+                  $('#messageLoad').removeClass("blink");
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+      }
+
+
+function runTestDataRandomForest() {
+         var time = 0;
+        $('#messageLoad').text("Random Forest launched..");
+        $("table tbody tr td.views-field-title").each(function(index){
+          
+          // That = this (in order to pass the right element)
+          /*(function(that,i){
+            console.log($(that));
+            var t = setTimeout(function() { 
+                 inputValue = $(that).text();
+                 console.log(inputValue);
+                AjaxPythonCall(inputValue,$(that));
+            }, 5000 * i);
+
+        })(this,index);*/
+        var that = this; //ensure to pass the right element
+          var t = setTimeout(function() { 
+              
+              inputValue = $(that).text();
+              //console.log(inputValue);
+              AjaxPythonCallRF(inputValue,$(that));
+              
+          }, 2000 * index);        
+          });
+
+        //$('#messageLoad').text("Prediction finished");
+      }
+
+        function AjaxPythonCallRF(value,element){
+          //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/randomForestLoadModels.py?input=" + value,
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  //console.log("response");
+                  console.log(response);
+                  if(response.indexOf("0") > -1){
+                    value="positive";
+                  }else{
+                    value="negative";
+                  }
+
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  element.parent().children('.views-field-field-cluster').text(value);
+                  element.parent().addClass(value);
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+          }
+
+
+      function runClusters() {
+        //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          //console.log(element);
+          $('#messageLoad').text("Clusters loading...");
+          $('#messageLoad').addClass("blink");
+            $.ajax({
+                type: "POST",
+                url: "/py/kmeansLoadClusters_organization.py",
+                //url: "/python/myenv/test_pythonenv.py",
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  console.log("response");
+                  console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  
+                  var clusters = response.split(";");
+                  //console.log(clusters.length);
+                  //console.log(clusters[1]);
+                  $("#clusters").html("");
+                  $("#clusters").append('<h3>Run Predict and Filter Cluster</h3>');
+
+                  //$("#clusters").append('<div id="container2" class="mychart hidden" style="width: 100%;"></div><div style="width: 30%; margin-right: 20px;float:left;height:auto;"><div id="container" class="mychart hidden" style="width: 100%;"></div></div>');
+
+ $("#clusters").append('<div id="container2" class="mychart hidden" style="width: 100%;"></div><div style="width: 30%; margin-right: 20px;float:left;height:auto;"></div>');
+
+                  for (var i=0; i < clusters.length; i++){
+                    var titleCluster = clusters[i].split(":");
+                    if (titleCluster.length > 1){
+                      var wordsCluster = titleCluster[1];
+                      wordsCluster = wordsCluster.replace(new RegExp('efficiency', 'g'),'<span class="highlightblue">efficiency</span>');
+                      wordsCluster = wordsCluster.replace(new RegExp('building', 'g'),'<span class="highlightblue">building</span>');
+                      wordsCluster = wordsCluster.replace(new RegExp('renewable', 'g'),'<span class="highlightgreen">renewable</span>');
+                      wordsCluster = wordsCluster.replace(new RegExp('wind', 'g'),'<span class="highlightgreen">wind</span>');
+                      wordsCluster = wordsCluster.replace(new RegExp('solar', 'g'),'<span class="highlightgreen">solar</span>');
+                    }
+
+                    
+                    if(clusters[i].indexOf("Cluster 0") > -1){
+                        $("#clusters").append('<div onclick="filterEvents(\'cluster0\');addClassByClick(this);" class="button cluster0 cluster"><b><u>'+titleCluster[0]+"</u></b><br>"+wordsCluster+'</div>');
+                    }else if (clusters[i].indexOf("Cluster 1") > -1){
+                        $("#clusters").append('<div onclick="filterEvents(\'cluster1\');addClassByClick(this);" class="button cluster1 cluster"><b><u>'+titleCluster[0]+"</u></b><br>"+wordsCluster+'</div>');
+                    }else if (clusters[i].indexOf("Cluster 2") > -1){
+                        $("#clusters").append('<div onclick="filterEvents(\'cluster2\');addClassByClick(this);" class="button cluster2 cluster"><b><u>'+titleCluster[0]+"</u></b><br>"+wordsCluster+'</div>');
+                    }else if (clusters[i].indexOf("Cluster 3") > -1){
+                        $("#clusters").append('<div onclick="filterEvents(\'cluster3\');addClassByClick(this);" class="button cluster3 cluster"><b><u>'+titleCluster[0]+"</u></b><br>"+wordsCluster+'</div>');
+                    }else if (clusters[i].indexOf("Cluster 4") > -1){
+                        $("#clusters").append('<div onclick="filterEvents(\'cluster4\');addClassByClick(this);" class="button cluster4 cluster"><b><u>'+titleCluster[0]+"</u></b><br>"+wordsCluster+'</div>');
+                    }
+
+                    
+                    
+
+                  }
+
+                  $('#messageLoad').text("Clusters loaded");
+                  $('#messageLoad').removeClass("blink");
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+            
+      }
+
+
+
+      function runPredict(modelName) {
+        var time = 0;
+        $('#messageLoad').text("Classification launched..");
+        $('#container').removeClass("hidden");
+        $('#container2').removeClass("hidden");
+        $("table tbody tr td.views-field-body").each(function(index){
+
+          // That = this (in order to pass the right element)
+          /*(function(that,i){
+            console.log($(that));
+            var t = setTimeout(function() { 
+                 inputValue = $(that).text();
+                 console.log(inputValue);
+                AjaxPythonCall(inputValue,$(that));
+            }, 5000 * i);
+
+        })(this,index);*/
+        var that = this; //ensure to pass the right element
+          var t = setTimeout(function() { 
+              inputValue = $(that).text();
+              //console.log(inputValue);
+              AjaxPythonCall(inputValue,$(that));
+          }, 1000 * index);        
+          });
+
+        //$('#messageLoad').text("Prediction finished");
+      }
+
+        function AjaxPythonCall(value,element){
+          //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/kmeansPredict_organization.py?input=" + value,
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  console.log("response");
+                  console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  element.parent().children('.views-field-field-cluster').text(response);
+                  element.parent().addClass(response);
+
+                  displayCharts($('table.table tbody tr.cluster0').length,$('table.table tbody tr.cluster1').length,$('table.table tbody tr.cluster2').length,$('table.table tbody tr.cluster3').length,$('table.table tbody tr.cluster4').length);
+
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+                          
+
+
+
+        }
+
+
+        // Build the chart
+function displayCharts(cluster0,cluster1,cluster2,cluster3,cluster4){
+
+total = cluster0+cluster1+cluster2+cluster3+cluster4;
+if (cluster0 == 0) {
+  cluster0 =1;
+  //$('#messageLoad').text("");
+}else{
+  $('#messageLoad').html("Organizations classified : "+total+" / "+$('#numberSearch').text()+"<br><br>" 
+    /*+
+    "<div class=\"button cluster0\">"+cluster0+"</div> " +
+    "<div class=\"button cluster1\">"+cluster1+"</div> " +
+    "<div class=\"button cluster2\">"+cluster2+"</div> " +
+    "<div class=\"button cluster3\">"+cluster3+"</div> " +
+    "<div class=\"button cluster4\">"+cluster4+"</div>"*/
+    );
+}
+
+var cluster0RE = $('table.table tbody tr:contains(\'REPolicyType\').cluster0').length;
+var cluster1RE = $('table.table tbody tr:contains(\'REPolicyType\').cluster1').length;
+var cluster2RE = $('table.table tbody tr:contains(\'REPolicyType\').cluster2').length;
+var cluster3RE = $('table.table tbody tr:contains(\'REPolicyType\').cluster3').length;
+var cluster4RE = $('table.table tbody tr:contains(\'REPolicyType\').cluster4').length;
+
+
+
+
+percentageTemp = (total/parseInt($('#numberSearch').text())*100);
+var percentage = Math.round(percentageTemp);
+//console.log(percentage);
+Highcharts.chart('container2', {
+  title: {
+    text: 'Progress Bar',
+    align: 'left',
+    margin: 0,
+  },
+  chart: {
+    renderTo: 'container2',
+    type: 'bar',
+    height: 70,
+  },
+  credits: false,
+  tooltip: false,
+  legend: false,
+  navigation: {
+    buttonOptions: {
+      enabled: false
+    }
+  },
+  xAxis: {
+    visible: false,
+  },
+  yAxis: {
+    visible: false,
+    min: 0,
+    max: 100,
+  },
+  series: [{
+    data: [100],
+    grouping: false,
+    animation: false,
+    enableMouseTracking: false,
+    showInLegend: false,
+    color: '#aaaaaa',
+    pointWidth: 25,
+    borderWidth: 0,
+    borderRadiusTopLeft: '4px',
+    borderRadiusTopRight: '4px',
+    borderRadiusBottomLeft: '4px',
+    borderRadiusBottomRight: '4px',
+    dataLabels: {
+      className: 'highlight',
+      format: total + ' / '+$('#numberSearch').text(),
+      enabled: true,
+      align: 'right',
+      style: {
+        color: 'white',
+        textOutline: false,
+      }
+    }
+  }, {
+    enableMouseTracking: false,
+    data: [percentage],
+    borderRadiusBottomLeft: '4px',
+    borderRadiusBottomRight: '4px',
+    color: '#D8262C',
+    borderWidth: 0,
+    pointWidth: 25,
+    animation: false,
+    dataLabels: {
+      enabled: true,
+      inside: true,
+      align: 'left',
+      format: '{point.y}%',
+      style: {
+        color: 'white',
+        textOutline: false,
+      }
+    }
+  }]
+});
+
+
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    title: {
+        text: total,
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 30
+    },
+    tooltip: {
+        pointFormat: '<b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                distance: -10,
+                style: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                }
+            },
+            startAngle: -90,
+            endAngle: 90,
+            center: ['50%', '55%'],
+            size: '100%'
+        }
+    },
+    series: [{
+        type: 'pie',
+        animation:false,
+        name: 'share',
+        innerSize: '80%',
+        center: [150, 150],
+        size: 300,
+        data: [
+            { name: 'Cluster 0',  color: '#74c1f8', y: cluster0},
+            { name: 'Cluster 1', color: '#7fcdbb', y: cluster1 },
+            { name: 'Cluster 2', color: '#225ea8',y: cluster2 },
+            { name: 'Cluster 3', color: '#fd7171',y: cluster3 },
+            { name: 'Cluster 4', color: '#3a87ad',y: cluster4 }
+        ]
+    },{
+        type: 'pie',
+        animation:false,
+        name: 'share 2',
+        innerSize: '75%',
+        center: [150, 150],
+        size: 250,
+        data: [
+            { name: 'RE0',  color: 'green', y: cluster0RE},
+            { name: 'EE0', color: 'red', y: cluster0-cluster0RE},
+            { name: 'RE1', color: 'green',y: cluster1RE},
+            { name: 'EE1', color: 'red',y: cluster1-cluster1RE},
+            { name: 'RE2', color: 'green',y: cluster2RE},
+            { name: 'EE2', color: 'red',y: cluster2-cluster2RE},
+            { name: 'RE3', color: 'green',y: cluster3RE},
+            { name: 'EE3', color: 'red',y: cluster3-cluster3RE},
+            { name: 'RE4', color: 'green',y: cluster4RE},
+            { name: 'EE4', color: 'red',y: cluster4-cluster4RE}
+        ]
+    }
+    ]
+});
+
+
+
+/*
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Policies shares'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                },
+                connectorColor: 'silver'
+            }
+        }
+    },
+    series: [{
+        animation:false,
+        name: 'Share',
+        data: [
+            { name: 'Cluster0',  color: '#74c1f8', y: cluster0},
+            { name: 'Cluster1', color: '#7fcdbb', y: cluster1 },
+            { name: 'Cluster2', color: '#225ea8',y: cluster2 },
+            { name: 'Cluster3', color: '#fd7171',y: cluster3 },
+            { name: 'Cluster4', color: '#3a87ad',y: cluster4 }
+        ]
+    }]
+});
+*/
+}
+
+
+
+
+</script>
+
+</head>
+<body id="collection-5e039466f6f8a13316627e14" class="site-spacing-small site-outer-padding-small site-alignment-center tweak-site-ajax-loading-enable ancillary-header-full-width tweak-header-cart-style-text ancillary-header-branding-position-left ancillary-header-tagline-position-left ancillary-header-primary-nav-position-right ancillary-header-secondary-nav-position-hide ancillary-header-cart-position-hide ancillary-header-left-layout-horizontal ancillary-header-center-layout-horizontal ancillary-header-right-layout-horizontal ancillary-header-account-position-left tweak-header-account-style-text tweak-mobile-bar-account-style-text scale-heading-1-font-size scale-heading-2-font-size scale-quote-font-size quote-alignment-center show-quotation-marks show-page-banner show-gallery-title show-gallery-description show-page-description show-project-title show-project-description banner-height-small banner-image-alignment-center banner-image-crop banner-text-alignment-center page-banner-text-width-small scale-banner-description-font-size banner-text-background-indent-custom intro-text-width-small intro-text-height-extra-large index-intro-text-width-large index-intro-text-height-medium index-item-width-full index-item-height-large index-item-spacing-custom full-bleed-index index-item-image-alignment-center index-item-image-crop index-item-title-display-on-scroll index-item-title-alignment-bottom-left scale-index-item-title-font-size project-image-alignment-center project-image-spacing-custom project-banner-spacing-medium show-project-captions project-image-portrait-caption-style-alternate project-image-landscape-caption-style-standard project-left-image-portrait-caption-style-standard project-left-image-landscape-caption-style-standard project-right-image-portrait-caption-style-standard project-right-image-landscape-caption-style-standard collapse-landscape-spacing full-bleed-project tweak-project-slide-transition image-caption-title-alignment-center scale-image-caption-title-font image-caption-body-alignment-center scale-image-caption-body-font show-index-navigation index-link-spacing-large scale-index-link-font-size index-link-style-next-inline index-link-delimiter-type-slash tweak-page-transition-animation tweak-mobile-bar-position-top-fixed tweak-mobile-bar-branding-position-left tweak-mobile-bar-menu-icon-position-right tweak-mobile-bar-site-tagline-position-beside-branding tweak-mobile-bar-cart-hidden tweak-mobile-bar-cart-style-text tweak-icon-weight-light hide-album-share-link tweak-blog-meta-primary-date tweak-blog-meta-secondary-none tweak-blog-list-style-stacked tweak-blog-list-alignment-center tweak-blog-list-item-image-show tweak-blog-list-item-image-aspect-ratio-grid-23-standard-vertical tweak-blog-list-item-image-aspect-ratio-stacked-34-three-four-vertical tweak-blog-list-item-title-show tweak-blog-list-item-excerpt-show tweak-blog-list-item-body-show tweak-blog-list-item-readmore-inline tweak-blog-list-item-meta-position-below-title tweak-blog-list-pagination-link-label-show tweak-blog-list-pagination-link-icon-show tweak-blog-list-pagination-link-icon-weight-light tweak-blog-item-alignment-center tweak-blog-item-meta-position-below-title tweak-blog-item-share-position-below-content tweak-blog-item-pagination-link-label-show tweak-blog-item-pagination-link-title-show tweak-blog-item-pagination-link-meta-hide tweak-blog-item-pagination-link-icon-weight-hairline event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address event-list-icalgcal-links event-list-like-and-share-buttons event-icalgcal-links event-excerpts event-list-cta-button event-item-back-link gallery-design-grid aspect-ratio-23-standard-vertical lightbox-style-dark gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows tweak-product-list-image-aspect-ratio-11-square tweak-product-list-item-hover-behavior-fade tweak-product-list-meta-position-under tweak-product-list-mobile-meta-position-under tweak-product-list-meta-alignment-under-left tweak-product-list-meta-alignment-overlay-center-center tweak-product-list-show-title tweak-product-list-show-price tweak-product-list-filter-display-top tweak-product-list-filter-alignment-center tweak-product-item-nav-show-breadcrumb-and-pagination tweak-product-item-nav-pagination-style-previousnext tweak-product-item-nav-breadcrumb-alignment-left tweak-product-item-nav-pagination-alignment-split tweak-product-item-gallery-position-right tweak-product-item-gallery-design-slideshow tweak-product-item-gallery-aspect-ratio-11-square tweak-product-item-gallery-thumbnail-alignment-left tweak-product-item-details-alignment-left tweak-product-item-details-show-title tweak-product-item-details-show-price tweak-product-item-details-show-excerpt tweak-product-item-details-excerpt-position-below-add-to-cart-button tweak-product-item-details-show-share-buttons tweak-product-item-details-show-variants tweak-product-item-details-show-quantity tweak-product-item-details-options-style-square tweak-product-item-details-show-add-to-cart-button tweak-product-item-details-add-to-cart-button-style-solid tweak-product-item-details-add-to-cart-button-shape-square tweak-product-item-details-add-to-cart-button-padding-small tweak-product-item-image-zoom-enabled tweak-product-item-image-zoom-behavior-click tweak-product-item-lightbox-enabled tweak-related-products-image-aspect-ratio-11-square tweak-related-products-meta-alignment-under-center tweak-product-badge-style-circle tweak-product-badge-position-top-right tweak-product-badge-inset-floating newsletter-style-dark hide-opentable-icons opentable-style-dark small-button-style-solid small-button-shape-square medium-button-style-solid medium-button-shape-square large-button-style-solid large-button-shape-square image-block-poster-text-alignment-center image-block-card-dynamic-font-sizing image-block-card-content-position-center image-block-card-text-alignment-left image-block-overlap-dynamic-font-sizing image-block-overlap-content-position-center image-block-overlap-text-alignment-left image-block-collage-dynamic-font-sizing image-block-collage-content-position-top image-block-collage-text-alignment-left image-block-stack-dynamic-font-sizing image-block-stack-text-alignment-center button-style-solid button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light tweak-share-buttons-style-icon-only tweak-share-buttons-icons-show tweak-share-buttons-labels-show tweak-share-buttons-standard-background-color native-currency-code-usd collection-type-page collection-layout-default collection-5e039466f6f8a13316627e14 mobile-style-available has-site-title has-tagline has-cart has-social has-primary-nav has-secondary-nav" data-controller="BodyClassController" data-controllers-bound="BodyClassController" data-ajax-loader="loaded">
+
+  
+</div>
+
+</div>
+</header>
+
+
+      <div id="content" class="content-container" style="opacity: 1;-webkit-transition: opacity 0.78s;transition: opacity 0.78s;">
+        
+
+<div id="main">
+    <div class="wrap">
+      
+
+      
+      <nav class="page-nav" id="topMenu">
+        <ul id="calendarMenu">
+          <li style="color:rgba(0,0,0,0.3)">
+            Explore:
+          </li>
+          <!--<li class="selected"><a href="#" id="pageNavHome">Overview</a></li>-->
+          <li class="viewtab">
+            <a href="/dds" id="pageNavHome">
+              Home
+            </a>
+          </li>
+          <li class="viewtab">
+            <a href="/dds/text-mining">
+            Text-mining
+          </a>
+          </li>
+          <li class="viewtab external">
+            <a href="/dds/startups">
+              Startups
+            </a>
+          </li>
+          
+          <!--<li class="viewtab external">
+            <a href="programmeofpublications">
+              Programme of Publications
+            </a>
+          </li>-->
+        </ul>
+      </nav>
+    
+
+
+
+      <div class="print-only" style="margin-left: 10%;"></div>
+<div id="topBanner" class="black" style="text-align: center">
+  <h1>Data exploration </h1>
+  <h2>Crunchbase</h2>
+  <a href="#country">Per country </a>
+  <a href="#category">Per category </a>
+
+</div><!--fullcalendar.min.css-->
+<!--<link rel="stylesheet" type="text/css" href="/media/ieawebsite/responsive/rss_sharepoint.css" />rss_sharepoint.css-->
+<!--<link rel="stylesheet" type="text/css" href="/media/ieawebsite/responsive/bootstraptheme.min.css" /><!--bootstrap-theme.min.css-->
+<!--<link rel="stylesheet" type="text/css" href="/media/ieawebsite/responsive/bootstrap.min.css" /><!--bootstrap.min.css-->
+
+
+
+
+
+<div id="rss">
+
+
+
+</div><div class="layout-container top-hero box">
+
+  <div class="layout-container center-text" style="width:100%">
+
+<nav id="topMenu" class="page-nav">
+<ul id="calendarMenu">
+
+<!--<li class="selected"><a href="#" id="pageNavHome">Overview</a></li>-->
+</ul>
+</nav>
+</div>
+
+<div id="maincalendar" class="container theme-showcase" >
+
+   <div id="policySearch" style="display:none;float:left;width:100%;text-align:center;">Number of selected policies : 
+  <div id="numberSearch" style="background-color: yellow;">29</div>
+</div>
+
+
+
+
+
+   <div id="listView">
+    <div style="display:inline-block;width:100%;">
+      
+  </div>
+  </div>
+
+
+
+<!--
+
+<hr><hr>
+<iframe width="100%" height="1000" src="http://vopi.iea.org/dds/crunchbase/highcharts_start-ups_count_primary_sector.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+<hr><hr>
+
+<iframe width="100%" height="1000" src="http://vopi.iea.org/dds/crunchbase/highcharts_start-ups_count_sectors_ventilated.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<hr><hr>
+
+-->
+<div id = 'country'>
+
+<h2>Regional breakdown</h2>
+<iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups-bk-charts/highcharts_Share_Energy_Region.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<hr><hr>
+
+<iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups-bk-charts/highcharts_Share_Clean_Energy_Region.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+</div>
+<hr><hr>
+
+<div id = 'category'>
+
+<h2>Sectorial breakdown</h2>
+<iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups-bk-charts/highcharts_start-ups_number_per_primary_sector.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<iframe width="100%" height="500" src="http://vopi.iea.org/dds/startups-bk-charts/highcharts_start-ups_number_per_primary_sector_parent.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+</div>
+<hr><hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="organizations.js"></script><!--calendar2.js-->
+
+
+</div></div>
+
+
+
+
+      </div>
+    </div>
+
+
+    
+  
+
+</div></body>

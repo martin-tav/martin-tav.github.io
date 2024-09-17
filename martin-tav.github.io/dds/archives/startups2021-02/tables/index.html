@@ -1,0 +1,83 @@
+<html>
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+   
+$(function () {
+    $("#table_technology").load("table_energy_start_ups_per_country_and_field_2010.html");
+    $('.first').on('click', function(){
+        $(this).next('tr').toggleClass('collapsed');
+    });
+
+     
+
+})
+
+</script>
+<style>
+
+
+.collapsed {
+    display: none;
+}
+
+.first {
+
+    background: #f3f3f3;
+    color: #6f6f6f;
+    border-top: 1px solid #e6e6e6;
+}
+
+table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: right;
+    border: none;
+    background: #fff;
+}
+
+table td {
+    padding-top: 8px;
+    padding-bottom: 12px;
+    width:200px;
+}
+
+table tr {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+table tr:hover{
+    background:#04f;color:#fff
+}
+
+</style>
+
+<div id='table_technology'></div>
+<!--<table>
+    <thead>
+        <tr><th>Summary Row #1</th></tr>
+    </thead>
+    
+    <tbody class="collapsed">
+        <tr><td>Drill Down Data</td></tr>
+        <tr><td>Drill Down Data</td></tr>
+    </tbody>
+    
+    <thead>
+        <tr><th>Summary Row #2</th></tr>
+    </thead>
+    
+    <tbody class="collapsed">
+        <tr><td>Drill Down Data</td></tr>
+        <tr><td>Drill Down Data</td></tr>
+    </tbody>
+    
+    
+    
+</table>-->
+</html>

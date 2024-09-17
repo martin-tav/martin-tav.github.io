@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "4A4. Share of Clean Energy Start-ups in Energy Start-ups per country (2016-2020)"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["Switzerland", "Indonesia", "Italy", "Japan", "India", "France", "People's Republic Of China", "Australia", "United Kingdom", "Korea", "Germany", "Singapore", "Rest of world", "United States", "Brazil", "Canada", "Israel"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Share of clean energy start-ups (%)"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["Switzerland", 68.05555555555556], ["Indonesia", 64.70588235294117], ["Italy", 61.904761904761905], ["Japan", 58.536585365853654], ["India", 52.742616033755276], ["France", 52.5], ["People's Republic Of China", 51.02040816326531], ["Australia", 50.0], ["United Kingdom", 49.17355371900827], ["Korea", 47.05882352941176], ["Germany", 46.85314685314685], ["Singapore", 46.55172413793103], ["Rest of world", 45.26881720430108], ["United States", 42.97445255474452], ["Brazil", 38.333333333333336], ["Canada", 36.633663366336634], ["Israel", 27.500000000000004]], "type": "column", "marker": {"enabled": false}, "name": "Clean energy ratio"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

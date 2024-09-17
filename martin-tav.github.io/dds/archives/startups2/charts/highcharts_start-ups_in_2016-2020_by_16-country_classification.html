@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Start-ups in 2016-2020 by 16-country classification"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["CAN", "CHE", "AUS", "DEU", "SGP", "ITA", "USA", "FRA", "GBR", "Rest of world", "BRA", "ISR", "IDN", "IND", "JPN", "CHN", "KOR"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Number of Start ups per country in 2016-2020(%)"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["CAN", 4.951856946354883], ["CHE", 4.151177199504337], ["AUS", 3.0257186081694405], ["DEU", 2.8861571352218065], ["SGP", 2.802850356294537], ["ITA", 2.5787965616045847], ["USA", 2.3611770289511154], ["FRA", 2.322924600152323], ["GBR", 2.25816615901691], ["Rest of world", 2.10641768378424], ["BRA", 2.0456333595594023], ["ISR", 2.0325203252032518], ["IDN", 1.7857142857142856], ["IND", 1.5751420210018936], ["JPN", 1.328206920657113], ["CHN", 0.8894044856921888], ["KOR", 0.8571428571428572]], "type": "column", "marker": {"enabled": false}, "name": "Energy ratio"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

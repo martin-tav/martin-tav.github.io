@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": ["#49D3FF", "#3E7AD3", "#68F394", "#00ADA1", "#FFF45A", "#FFB743", "#FF754B", "#B187EF", "#AF6AB1", "#6F6F6F"], "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "2Dbis Start-ups in 2016-2020 in Rest of World (Countries CETP) sorted by all start-ups"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["Netherlands", "Spain", "Sweden", "Hong Kong (China)", "United Arab Emirates", "Nigeria", "Turkey", "Poland", "Mexico", "Denmark", "Norway", "Belgium", "Ireland", "Ukraine", "Russian Federation", "Egypt", "Finland", "Malaysia", "Estonia", "Pakistan", "Portugal", "South Africa", "Bangladesh", "New Zealand", "Viet Nam", "Austria", "Kenya", "Colombia", "Argentina", "Philippines", "Chile", "Taiwan", "Czech Republic", "Saudi Arabia", "Hungary", "Thailand", "Lithuania", "Cyprus", "Greece", "Bulgaria", "Latvia", "Ghana", "Luxembourg", "Peru", "Uganda", "Croatia", "Islamic Republic Of Iran", "Jordan", "Slovak Republic", "Malta", "Ethiopia", "Serbia", "Sri Lanka", "Lebanon", "Belarus", "Slovenia", "Tunisia", "Puerto Rico", "Cayman Islands", "Morocco", "Ecuador", "Myanmar", "Qatar", "Costa Rica", "Cambodia", "Trinidad And Tobago", "Republic Of Moldova", "Kazakhstan", "Azerbaijan", "Mauritius", "Rwanda", "Zambia", "Senegal", "Cote D'Ivoire", "Zimbabwe", "Plurinational State Of Bolivia", "Bosnia And Herzegovina", "El Salvador", "Oman", "Guatemala", "Bermuda", "Republic Of North Macedonia", "Mali", "State Of Palestine", "Barbados", "Madagascar", "Botswana", "Namibia", "Mozambique", "Sierra Leone", "Somalia", "Suriname"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Number of Start ups per country in Rest of World (Countries CETP) in 2016-2020"}, "reversedStacks": false}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["Netherlands", 9885.0], ["Spain", 3338.0], ["Sweden", 2233.0], ["Hong Kong (China)", 1222.0], ["United Arab Emirates", 1217.0], ["Nigeria", 1161.0], ["Turkey", 927.0], ["Poland", 926.0], ["Mexico", 912.0], ["Denmark", 904.0], ["Norway", 893.0], ["Belgium", 863.0], ["Ireland", 849.0], ["Ukraine", 811.0], ["Russian Federation", 759.0], ["Egypt", 741.0], ["Finland", 712.0], ["Malaysia", 700.0], ["Estonia", 698.0], ["Pakistan", 683.0], ["Portugal", 610.0], ["South Africa", 609.0], ["Bangladesh", 602.0], ["New Zealand", 564.0], ["Viet Nam", 527.0], ["Austria", 514.0], ["Kenya", 432.0], ["Colombia", 431.0], ["Argentina", 428.0], ["Philippines", 395.0], ["Chile", 386.0], ["Taiwan", 371.0], ["Czech Republic", 365.0], ["Saudi Arabia", 349.0], ["Hungary", 314.0], ["Thailand", 290.0], ["Lithuania", 243.0], ["Cyprus", 234.0], ["Greece", 219.0], ["Bulgaria", 207.0], ["Latvia", 186.0], ["Ghana", 177.0], ["Luxembourg", 177.0], ["Peru", 171.0], ["Uganda", 170.0], ["Croatia", 149.0], ["Islamic Republic Of Iran", 141.0], ["Jordan", 138.0], ["Slovak Republic", 129.0], ["Malta", 128.0], ["Ethiopia", 120.0], ["Serbia", 115.0], ["Sri Lanka", 111.0], ["Lebanon", 108.0], ["Belarus", 102.0], ["Slovenia", 101.0], ["Tunisia", 97.0], ["Puerto Rico", 88.0], ["Cayman Islands", 85.0], ["Morocco", 84.0], ["Ecuador", 65.0], ["Myanmar", 61.0], ["Qatar", 60.0], ["Costa Rica", 56.0], ["Cambodia", 52.0], ["Trinidad And Tobago", 51.0], ["Republic Of Moldova", 50.0], ["Kazakhstan", 48.0], ["Azerbaijan", 48.0], ["Mauritius", 47.0], ["Rwanda", 43.0], ["Zambia", 40.0], ["Senegal", 37.0], ["Cote D'Ivoire", 35.0], ["Zimbabwe", 34.0], ["Plurinational State Of Bolivia", 27.0], ["Bosnia And Herzegovina", 26.0], ["El Salvador", 26.0], ["Oman", 23.0], ["Guatemala", 23.0], ["Bermuda", 22.0], ["Republic Of North Macedonia", 21.0], ["Mali", 21.0], ["State Of Palestine", 17.0], ["Barbados", 11.0], ["Madagascar", 11.0], ["Botswana", 9.0], ["Namibia", 7.0], ["Mozambique", 7.0], ["Sierra Leone", 6.0], ["Somalia", 5.0], ["Suriname", 2.0]], "type": "column", "marker": {"enabled": false}, "name": "All Start-ups"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

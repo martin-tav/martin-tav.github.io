@@ -1,0 +1,120 @@
+<html>
+<meta charset="UTF-8">
+<head>
+  <link rel="stylesheet" type="text/css" href="http://vopi.iea.org/dds/dds.css" /><!--calendar2.css-->
+ 
+</head>
+<body>
+<div id="main">
+    <div class="wrap">
+      <div id="topBanner" class="black" style="text-align: center">
+        <div id='title'>Data exploration </div>
+        <div id='subtitle'>Start-ups in Energy</div>
+      </div>
+
+       <nav class="page-nav" id="topMenu">
+        <ul id="menu">
+          <li style="color:rgba(0,0,0,0.3)">
+            Tabs:
+          </li>
+          <li class="viewtab">
+            <a href="/dds/startups" id="pageNavHome">
+              Start-ups rate
+            </a>
+          </li>
+          <li class="viewtab active selected">
+            <a href="/dds/startups/fundings">
+            Fundings
+          </a>
+          </li>
+          <li class="viewtab external">
+            <a href="/dds/startups/gender">
+              Gender
+            </a>
+          </li>
+          <li class="viewtab">
+            <a href="/dds/startups/text-mining">
+            Text-mining
+          </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mainframe" class="container theme-showcase" >
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+  </script>
+
+
+<script>   
+    $(function(){
+      //$("#4B3").load("tables/table_share_of_digital_energy_start-ups_in_energy_start-ups_per_country.html")
+
+    });
+</script> 
+
+<script src="http://vopi.iea.org/dds/jqueryheaderanchors.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   
+ $("h1").each(function(i) {
+      var heading = $(this);
+      var headingId = "topic" + (i + 1);
+      heading.attr("id", headingId);
+      //heading.append("<a class='heading-link' href='#" + headingId + "'><div id='anchor-icon'>&#160;&#160;&#160;&#160;</div></a>");
+      heading.append("<a class='heading-link-h1' href='#" + headingId + "'></a>");
+    });
+
+ $("h2").each(function(i) {
+      var heading = $(this);
+      var headingId = "topic" + (i + 1);
+      heading.attr("id", headingId);
+      //heading.append("<a class='heading-link' href='#" + headingId + "'><div id='anchor-icon'>&#160;&#160;&#160;&#160;</div></a>");
+      heading.append("<a class='heading-link-h2' href='#" + headingId + "'></a>");
+    });
+  })
+</script>
+
+
+<div id="tocbox"></div>
+
+
+<!-- Start content -->
+<h1>Investment Types exploration</h1>
+
+
+
+
+<h2>1.1. Breakdown by investment stage - amount</h2>
+<iframe width="100%" height="400" src="http://vopi.iea.org/dds/startups/fundings/charts/highcharts_breakdown_by_investment_stage_(2000-2020)_-_amount.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<h2>1.2. Breakdown by investment stage - count</h2>
+<iframe width="100%" height="400" src="http://vopi.iea.org/dds/startups/fundings/charts/highcharts_breakdown_by_investment_stage(2000-2020)_-_count.html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<h2>1.2. Breakdown by typical amount - amount</h2>
+<iframe width="100%" height="400" src="http://vopi.iea.org/dds/startups/fundings/charts/highcharts_breakdown_by_typical_investment_amount_(2000-2020).html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<iframe width="100%" height="400" src="http://vopi.iea.org/dds/startups/fundings/charts/highcharts_breakdown_by_typical_investment_amount_-_percentage_(2000-2020).html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+<h2>1.0. Breakdown by investment type (original) - amount</h2>
+<iframe width="100%" height="400" src="http://vopi.iea.org/dds/startups/fundings/charts/highcharts_breakdown_by_investment_types_(2000-2020).html?rs:embed=true" frameborder="0" allowFullScreen="true"></iframe>
+
+
+
+<!-- End content -->        
+
+
+
+      
+      
+      </div>
+      </div>
+    </div>
+</body>

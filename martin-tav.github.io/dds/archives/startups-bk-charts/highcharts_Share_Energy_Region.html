@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container"}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Share Energy per Region"}, "tooltip": {}, "xAxis": {"categories": ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]}, "yAxis": {"allowDecimals": false, "min": 0, "title": {"text": "Share Energy per Region (percentage)"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["2010", 3.68], ["2011", 3.05], ["2012", 3.05], ["2013", 2.57], ["2014", 2.67], ["2015", 2.57], ["2016", 2.54], ["2017", 2.18], ["2018", 2.2], ["2019", 2.1], ["2020", 2.09]], "type": "line", "marker": {"enabled": false}, "name": "Europe"}, {"data": [["2010", 2.2], ["2011", 3.27], ["2012", 2.35], ["2013", 1.59], ["2014", 1.88], ["2015", 1.66], ["2016", 1.7], ["2017", 1.98], ["2018", 1.77], ["2019", 3.04], ["2020", 1.57]], "type": "line", "marker": {"enabled": false}, "name": "Asia-Pacific"}, {"data": [["2010", 3.85], ["2011", 3.32], ["2012", 3.05], ["2013", 3.03], ["2014", 2.88], ["2015", 2.59], ["2016", 2.94], ["2017", 2.94], ["2018", 2.38], ["2019", 2.26], ["2020", 1.43]], "type": "line", "marker": {"enabled": false}, "name": "North America"}, {"data": [["2010", 2.25], ["2011", 2.45], ["2012", 1.24], ["2013", 1.0], ["2014", 1.06], ["2015", 1.06], ["2016", 0.89], ["2017", 1.11], ["2018", 0.54], ["2019", 0.39], ["2020", 7.14]], "type": "line", "marker": {"enabled": false}, "name": "China"}, {"data": [["2010", 3.98], ["2011", 3.42], ["2012", 3.43], ["2013", 2.73], ["2014", 2.78], ["2015", 2.25], ["2016", 2.38], ["2017", 2.91], ["2018", 2.66], ["2019", 2.04], ["2020", 2.53]], "type": "line", "marker": {"enabled": false}, "name": "Rest of world"}, {"data": [["2010", 1.7], ["2011", 1.69], ["2012", 1.61], ["2013", 1.42], ["2014", 1.49], ["2015", 1.04], ["2016", 1.6], ["2017", 1.65], ["2018", 1.53], ["2019", 1.7], ["2020", 0.91]], "type": "line", "marker": {"enabled": false}, "name": "India"}, {"data": [["2010", 1.78], ["2011", 1.57], ["2012", 1.5], ["2013", 2.43], ["2014", 1.55], ["2015", 2.51], ["2016", 2.87], ["2017", 2.27], ["2018", 1.78], ["2019", 2.53], ["2020", 0.0]], "type": "line", "marker": {"enabled": false}, "name": "Latin America"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

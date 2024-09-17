@@ -1,0 +1,155 @@
+<html>
+<meta charset="UTF-8">
+<head>
+  <link rel="stylesheet" type="text/css" href="http://vopi.iea.org/dds/dds.css" /><!--calendar2.css-->
+ 
+</head>
+<body>
+<div id="main">
+    <div class="wrap">
+      <div id="topBanner" class="black" style="text-align: center">
+        <div id='title'>Data exploration </div>
+        <div id='subtitle'>Start-ups in Energy</div>
+      </div>
+
+       <nav class="page-nav" id="topMenu">
+        <ul id="menu">
+          
+        </ul>
+      </nav>
+
+      <div id="mainframe" class="container theme-showcase" >
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+  </script>
+
+
+<script>   
+    $(function(){
+      $("#menu").load("menu_nowcast.html"); 
+    });
+</script> 
+
+<script src="http://vopi.iea.org/dds/jqueryheaderanchors.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   
+ $("h1").each(function(i) {
+      var heading = $(this);
+      var headingId = "topic" + (i + 1);
+      heading.attr("id", headingId);
+      //heading.append("<a class='heading-link' href='#" + headingId + "'><div id='anchor-icon'>&#160;&#160;&#160;&#160;</div></a>");
+      heading.append("<a class='heading-link-h1' href='#" + headingId + "'></a>");
+    });
+
+ $("h2").each(function(i) {
+      var heading = $(this);
+      var headingId = "topic" + (i + 1);
+      heading.attr("id", headingId);
+      //heading.append("<a class='heading-link' href='#" + headingId + "'><div id='anchor-icon'>&#160;&#160;&#160;&#160;</div></a>");
+      heading.append("<a class='heading-link-h2' href='#" + headingId + "'></a>");
+    });
+  })
+
+
+ function runLoadModeleRandomForest() {
+        //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          $('#messageLoad').text("Loading for Randrom Forest is running...");
+          $('#messageLoad').addClass("blink");
+          country = 'FRA';
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/fundings/randomForestRegressor.py?save=1&country=" + country,
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  //console.log("response");
+                  //console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  //$('#messageLoad').addClass("cluster");
+                  $('#messageLoad').html(response);
+                  $('#messageLoad').removeClass("blink");
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+      }
+
+
+function runPredictModeleRandomForest() {
+        //console.log(value);
+          paramMyData = "inp1=val1&inp2=val2";
+          $('#messageLoad').text("Prediction for Random Forest is running...");
+          $('#messageLoad').addClass("blink");
+          country = 'FRA';
+          //console.log(element);
+            $.ajax({
+                type: "POST",
+                url: "/py/fundings/randomForestRegressor.py?save=0&country=" + country,
+                data: paramMyData, // "inp1=val1&inp2=val2"
+                success: function(response) {
+                  
+                  //console.log("response");
+                  //console.log(response);
+                  
+                  //console.log(element);
+                  //console.log(element.parent().children('td.views-field-field-cluster').text());
+                  //$('#messageLoad').addClass("cluster");
+                  $('#messageLoad').html(response);
+                  $('#messageLoad').removeClass("blink");
+                  //$(this).text(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+      }
+
+</script>
+
+
+<div id="tocbox"></div>
+
+
+<!-- Start content -->
+<h1>Nowcasting model</h1>
+
+<!--<h2>1. Preparing and Cleaning</h2>
+<h3>1.1 Cleaning dates format for announced date and creation date into the database to compute lag time</h3>
+<h2>2. Descriptive statistiques</h2>
+<h3>How does lag time look in the dataset and focus on some selected countries</h3>
+<h3>Visualize dataset over years with year lag breakdown</h3>-->
+<h2>3. Modelling</h2>
+<h3>Purpose : Predict lag time (output) based on fields input : metrics (ENERGY, DIGITAL, GREEN) and country_code</h3>
+ <div style="width:100%;padding:2px;float:left;">
+      <h4>RandomForest Model</h4>
+      <div>Select a country (FRA by default)</div>
+      <div>Select the announced year (2015 by default)</div>
+      <!--<div class="buttonModels button" onclick="runLoadModeleRandomForest();">Load RandomForest Model</div>-->
+      <div class="buttonModels button" onclick="runPredictModeleRandomForest();">Predict RandomForest Model</div>
+    </div>
+<div id="messageLoad"></div>
+
+<!-- End content -->        
+
+
+
+      
+      
+      </div>
+      </div>
+    </div>
+</body>

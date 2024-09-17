@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "inverted": false}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"column": {"stacking": "normal"}, "area": {"stacking": "normal"}}, "series": {}, "subtitle": {}, "title": {"text": "Start-ups in 2016-2020 in Rest of World (Countries CETP)"}, "tooltip": {"valueDecimals": 2}, "xAxis": {"categories": ["NLD", "ESP", "SWE", "HKG", "NGA", "ARE", "POL", "NOR", "UKR", "BEL", "DNK", "MEX", "TUR", "IRL", "RUS", "MYS", "FIN", "EST", "PAK", "PRT", "BGD", "EGY", "NZL", "ZAF", "AUT", "VNM", "KEN", "COL", "ARG", "HUN", "PHL", "CZE", "TWN", "CHL", "THA", "SAU", "CYP", "LTU", "GRC", "UGA", "LUX", "LVA", "GHA", "PER", "JOR", "MLT", "SVK", "BLR", "LBN", "SVN", "CYM", "LKA", "TUN", "MAR", "MMR", "PRI", "URY", "BHR", "GEO", "CRI", "ECU", "KHM", "AZE", "RWA", "MUS", "ETH", "CIV", "KAZ", "ZMB", "ZWE", "SLV", "MLI", "GTM", "BIH", "DOM", "OMN", "BMU", "BRB", "YEM", "SOM", "MOZ", "SLE", "SUR"]}, "yAxis": {"allowDecimals": false, "min": 0, "max": null, "opposite": false, "title": {"text": "Number of Start ups per country in Rest of World (Countries CETP) in 2016-2020"}}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [["NLD", 9382.0], ["ESP", 2809.0], ["SWE", 1981.0], ["HKG", 1012.0], ["NGA", 913.0], ["ARE", 873.0], ["POL", 743.0], ["NOR", 711.0], ["UKR", 711.0], ["BEL", 671.0], ["DNK", 666.0], ["MEX", 657.0], ["TUR", 652.0], ["IRL", 641.0], ["RUS", 624.0], ["MYS", 571.0], ["FIN", 565.0], ["EST", 535.0], ["PAK", 521.0], ["PRT", 483.0], ["BGD", 473.0], ["EGY", 463.0], ["NZL", 453.0], ["ZAF", 452.0], ["AUT", 418.0], ["VNM", 415.0], ["KEN", 347.0], ["COL", 319.0], ["ARG", 319.0], ["HUN", 315.0], ["PHL", 291.0], ["CZE", 281.0], ["TWN", 267.0], ["CHL", 260.0], ["THA", 225.0], ["SAU", 196.0], ["CYP", 184.0], ["LTU", 177.0], ["GRC", 175.0], ["UGA", 152.0], ["LUX", 147.0], ["LVA", 145.0], ["GHA", 131.0], ["PER", 124.0], ["JOR", 110.0], ["MLT", 107.0], ["SVK", 97.0], ["BLR", 92.0], ["LBN", 87.0], ["SVN", 81.0], ["CYM", 72.0], ["LKA", 68.0], ["TUN", 68.0], ["MAR", 68.0], ["MMR", 61.0], ["PRI", 58.0], ["URY", 54.0], ["BHR", 53.0], ["GEO", 47.0], ["CRI", 45.0], ["ECU", 44.0], ["KHM", 42.0], ["AZE", 42.0], ["RWA", 37.0], ["MUS", 36.0], ["ETH", 36.0], ["CIV", 34.0], ["KAZ", 34.0], ["ZMB", 31.0], ["ZWE", 30.0], ["SLV", 20.0], ["MLI", 20.0], ["GTM", 20.0], ["BIH", 19.0], ["DOM", 19.0], ["OMN", 17.0], ["BMU", 13.0], ["BRB", 9.0], ["YEM", 8.0], ["SOM", 6.0], ["MOZ", 6.0], ["SLE", 3.0], ["SUR", 2.0]], "type": "column", "marker": {"enabled": false}, "name": "All Start-ups"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Word Cloud with Tooltips</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        ol{
+            padding-inline-start: 10px;
+        }
+
+        .highlighted {
+            font-weight: bold;
+            color: red;
+        }
+        .translation{
+            //display: none;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .definition {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+            margin-right: 25px;
+            
+        }
+
+        .trans {
+            font-size: 0.675rem;
+            font-weight: bold;
+        }
+        .phonetic {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #28a745;
+            margin-bottom: 10px;
+            margin-right: 15px;
+            //float:left;
+
+        }
+        .context-info {
+            font-size: 0.675rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .context-info ol {
+            margin-left: 20px;
+        }
+
+        .word-cloud {
+            text-align: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .word-cloud span {
+            display: inline-block;
+            margin: 8px;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .word-cloud span:hover {
+            //color: #007bff;
+            transform: scale(1.1);
+        }
+        .category-1 { color: #1f77b4; } /* Blue - Strategy */
+        .category-2 { color: #ff7f0e; } /* Orange - Operations */
+        .category-3 { color: #2ca02c; } /* Green - Execution */
+        .category-4 { color: #d62728; } /* Red - Assessment */
+        .category-5 { color: #9467bd; } /* Purple - General */
+        .size-1 { font-size: 14px; }
+        .size-2 { font-size: 18px; }
+        .size-3 { font-size: 22px; }
+        .size-4 { font-size: 26px; }
+        .size-5 { font-size: 32px; }
+
+        /* Tooltip styles */
+  .tooltip {
+            display: none;
+            position: absolute;
+            background: #ffffff;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            max-width: 300px;
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Breaks long words */
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for better visibility */
+        }
+        .tooltip.show {
+            display: block;
+        }
+
+        .crossed-out {
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+    <h3><center>Words translation</center></h3>
+    <div class="word-cloud" id="wordCloud">
+        <!-- Words will be randomized and inserted here by JavaScript -->
+    </div>
+    <div id="tooltip" class="tooltip"></div>
+    
+    <script>
+       const words = [
+    { text: 'Leverage', category: 'category-1', size: 'size-3', definition: 'Use something to maximum advantage.', translation: 'Exploitation', phonetics: '/ˈlɛvərɪdʒ/', sentence: 'We need to leverage our existing resources.', sentenceTranslation: 'Nous devons exploiter nos ressources existantes.' },
+    { text: 'Dynamic', category: 'category-2', size: 'size-4', definition: 'Characterized by constant change or activity.', translation: 'Dynamique', phonetics: '/daɪˈnæmɪk/', sentence: 'She is a dynamic leader who adapts to changes quickly.', sentenceTranslation: 'C\'est une leader dynamique qui s\'adapte rapidement aux changements.' },
+    { text: 'Facilitate', category: 'category-2', size: 'size-3', definition: 'Make an action or process easier.', translation: 'Faciliter', phonetics: '/fəˈsɪlɪˌteɪt/', sentence: 'The software is designed to facilitate communication between teams.', sentenceTranslation: 'Le logiciel est conçu pour faciliter la communication entre les équipes.' },
+    { text: 'Contextualize', category: 'category-1', size: 'size-4', definition: 'Place or study in context.', translation: 'Contextualiser', phonetics: '/kənˈtɛkstʃuəˌlaɪz/', sentence: 'It is important to contextualize the findings within the broader framework.', sentenceTranslation: 'Il est important de contextualiser les résultats dans le cadre plus large.' },
+    { text: 'Collaborate', category: 'category-1', size: 'size-4', definition: 'Work together to achieve a goal.', translation: 'Collaborer', phonetics: '/kəˈlæbəˌreɪt/', sentence: 'The teams will collaborate to meet the project deadline.', sentenceTranslation: 'Les équipes collaboreront pour respecter l\'échéance du projet.' },
+    { text: 'Education', category: 'category-5', size: 'size-2', definition: 'The process of receiving or giving systematic instruction.', translation: 'Éducation', phonetics: '/ˌɛdʒuˈkeɪʃən/', sentence: 'Education is essential for societal progress.', sentenceTranslation: 'L\'éducation est essentielle pour le progrès de la société.' },
+    { text: 'Be Mindful', category: 'category-1', size: 'size-3', definition: 'Be conscious or aware of something.', translation: 'Être attentif', phonetics: '/bi ˈmaɪndfəl/', sentence: 'Be mindful of the client\'s expectations when drafting the proposal.', sentenceTranslation: 'Soyez attentif aux attentes du client lors de la rédaction de la proposition.' },
+    { text: 'Seamlessly', category: 'category-2', size: 'size-2', definition: 'Smoothly and continuously.', translation: 'Sans couture', phonetics: '/ˈsiːmləsli/', sentence: 'The changes were implemented seamlessly without any disruptions.', sentenceTranslation: 'Les changements ont été mis en œuvre sans couture, sans aucune perturbation.' },
+    { text: 'Not Set in Stone', category: 'category-2', size: 'size-2', definition: 'Not fixed or rigid.', translation: 'Non gravé dans la pierre', phonetics: '/nɒt sɛt ɪn stoʊn/', sentence: 'The plan is not set in stone; we can still make changes.', sentenceTranslation: 'Le plan n\'est pas gravé dans la pierre ; nous pouvons encore faire des modifications.' },
+    { text: 'At the End of the Day', category: 'category-1', size: 'size-2', definition: 'Ultimately; when all is said and done.', translation: 'En fin de compte', phonetics: '/æt ði ɛnd ʌv ðə deɪ/', sentence: 'At the end of the day, results matter most.', sentenceTranslation: 'En fin de compte, ce sont les résultats qui comptent le plus.' },
+    { text: 'Sequence', category: 'category-2', size: 'size-3', definition: 'A particular order in which related events or things follow each other.', translation: 'Séquence', phonetics: '/ˈsiːkwəns/', sentence: 'Follow the sequence of steps carefully.', sentenceTranslation: 'Suivez attentivement la séquence des étapes.' },
+    { text: 'Capture', category: 'category-2', size: 'size-4', definition: 'Take possession or control of something.', translation: 'Capturer', phonetics: '/ˈkæpʧər/', sentence: 'The photograph captures the essence of the moment.', sentenceTranslation: 'La photo capture l\'essence du moment.' },
+    { text: 'Dictate the Pace', category: 'category-2', size: 'size-2', definition: 'Control the speed or rhythm of something.', translation: 'Dicter le rythme', phonetics: '/ˈdɪkteɪt ðə peɪs/', sentence: 'The market leader dictates the pace of innovation.', sentenceTranslation: 'Le leader du marché dicte le rythme de l\'innovation.' },
+    { text: 'Shape', category: 'category-1', size: 'size-3', definition: 'Give a particular form or appearance.', translation: 'Forme', phonetics: '/ʃeɪp/', sentence: 'This will shape the future of the company.', sentenceTranslation: 'Cela façonnera l\'avenir de l\'entreprise.' },
+    { text: 'Caveats', category: 'category-1', size: 'size-2', definition: 'Warnings or limitations.', translation: 'Réserves', phonetics: '/ˈkæviæts/', sentence: 'There are a few caveats to the proposal that need to be addressed.', sentenceTranslation: 'Il y a quelques réserves dans la proposition qui doivent être abordées.' },
+    { text: 'Endeavours', category: 'category-5', size: 'size-3', definition: 'Efforts or attempts to achieve something.', translation: 'Efforts', phonetics: '/ɛnˈdɛvərz/', sentence: 'Their endeavours to improve the system paid off.', sentenceTranslation: 'Leurs efforts pour améliorer le système ont porté leurs fruits.' },
+    { text: 'Major Piece', category: 'category-1', size: 'size-4', definition: 'An important or significant part.', translation: 'Pièce maîtresse', phonetics: '/ˈmeɪʤər pis/', sentence: 'The research is a major piece of the puzzle.', sentenceTranslation: 'La recherche est une pièce maîtresse du puzzle.' },
+    { text: 'Revamp', category: 'category-3', size: 'size-5', definition: 'Give a new and improved form or appearance.', translation: 'Réaménager', phonetics: '/rɪˈvæmp/', sentence: 'They decided to revamp the company website.', sentenceTranslation: 'Ils ont décidé de réaménager le site web de l\'entreprise.' },
+    { text: 'Hands-On Practice', category: 'category-3', size: 'size-3', definition: 'Learning through practical experience.', translation: 'Pratique', phonetics: '/hændz-ɒn præktɪs/', sentence: 'Hands-on practice is essential in this field.', sentenceTranslation: 'La pratique est essentielle dans ce domaine.' },
+    { text: 'Ins and Outs', category: 'category-5', size: 'size-2', definition: 'The detailed and complicated facts about something.', translation: 'Les tenants et les aboutissants', phonetics: '/ɪnz ænd aʊts/', sentence: 'He knows the ins and outs of the industry.', sentenceTranslation: 'Il connaît les tenants et les aboutissants de l\'industrie.' },
+    { text: 'Craft', category: 'category-3', size: 'size-2', definition: 'Create or make with skill.', translation: 'Créer', phonetics: '/kræft/', sentence: 'He carefully crafted the presentation.', sentenceTranslation: 'Il a soigneusement conçu la présentation.' },
+    { text: 'Spare', category: 'category-5', size: 'size-2', definition: 'Additional to what is required.', translation: 'Supplémentaire', phonetics: '/spɛər/', sentence: 'Do you have any spare copies of the document?', sentenceTranslation: 'Avez-vous des copies supplémentaires du document?' },
+    { text: 'Timeline Wise', category: 'category-1', size: 'size-2', definition: 'Regarding the timeline.', translation: 'En termes de chronologie', phonetics: '/ˈtaɪmlaɪn waɪz/', sentence: 'Timeline-wise, we are ahead of schedule.', sentenceTranslation: 'En termes de chronologie, nous sommes en avance sur le calendrier.' },
+    { text: 'If I’m Not Mistaken', category: 'category-1', size: 'size-2', definition: 'If I remember correctly.', translation: 'Si je ne me trompe pas', phonetics: '/ɪf aɪm nɒt mɪsˈteɪkən/', sentence: 'If I’m not mistaken, we have already completed that task.', sentenceTranslation: 'Si je ne me trompe pas, nous avons déjà terminé cette tâche.' },
+    { text: 'Comply With', category: 'category-4', size: 'size-2', definition: 'Act in accordance with a wish or command.', translation: 'Se conformer à', phonetics: '/kəmˈplaɪ wɪθ/', sentence: 'The company must comply with new regulations.', sentenceTranslation: 'L\'entreprise doit se conformer aux nouvelles réglementations.' },
+    { text: 'Oversee', category: 'category-2', size: 'size-3', definition: 'Supervise or manage.', translation: 'Superviser', phonetics: '/ˌoʊvərˈsiː/', sentence: 'She oversees the entire production process.', sentenceTranslation: 'Elle supervise l\'ensemble du processus de production.' },
+    { text: 'Streamline', category: 'category-3', size: 'size-3', definition: 'Make more efficient by simplifying.', translation: 'Rationaliser', phonetics: '/ˈstriːmlaɪn/', sentence: 'They streamlined the workflow to save time.', sentenceTranslation: 'Ils ont rationalisé le flux de travail pour gagner du temps.' },
+    { text: 'Benchmark', category: 'category-3', size: 'size-2', definition: 'A standard or point of reference.', translation: 'Référence', phonetics: '/ˈbɛnʧˌmɑrk/', sentence: 'We used industry benchmarks to measure our performance.', sentenceTranslation: 'Nous avons utilisé des références de l\'industrie pour mesurer notre performance.' },
+    { text: 'Prioritize', category: 'category-3', size: 'size-4', definition: 'Designate or treat something as more important.', translation: 'Prioriser', phonetics: '/praɪˈɒrɪtaɪz/', sentence: 'You should prioritize your tasks based on urgency.', sentenceTranslation: 'Vous devez prioriser vos tâches en fonction de l\'urgence.' },
+    { text: 'Implement', category: 'category-4', size: 'size-4', definition: 'Put into effect.', translation: 'Mettre en œuvre', phonetics: '/ˈɪmplɪˌmɛnt/', sentence: 'We will implement the new policies next week.', sentenceTranslation: 'Nous mettrons en œuvre les nouvelles politiques la semaine prochaine.' },
+    { text: 'Evaluate', category: 'category-4', size: 'size-3', definition: 'Assess or determine the value.', translation: 'Évaluer', phonetics: '/ɪˈvæljueɪt/', sentence: 'You need to evaluate the performance of each employee.', sentenceTranslation: 'Vous devez évaluer la performance de chaque employé.' },
+    { text: 'Review', category: 'category-4', size: 'size-3', definition: 'Assess or examine again.', translation: 'Réviser', phonetics: '/rɪˈvjuː/', sentence: 'Let\'s review the report before the meeting.', sentenceTranslation: 'Revisons le rapport avant la réunion.' },
+    { text: 'Engage', category: 'category-4', size: 'size-3', definition: 'Involve or participate in something.', translation: 'S\'engager', phonetics: '/ɪnˈɡeɪdʒ/', sentence: 'We need to engage with our stakeholders.', sentenceTranslation: 'Nous devons nous engager auprès de nos parties prenantes.' },
+    { text: 'Navigate', category: 'category-4', size: 'size-3', definition: 'Plan and direct a course or path.', translation: 'Naviguer', phonetics: '/ˈnævɪˌɡeɪt/', sentence: 'He navigated the team through difficult times.', sentenceTranslation: 'Il a guidé l\'équipe à travers des moments difficiles.' },
+    { text: 'Synchronize', category: 'category-4', size: 'size-4', definition: 'Cause to occur at the same time.', translation: 'Synchroniser', phonetics: '/ˈsɪŋkrəˌnaɪz/', sentence: 'We need to synchronize our schedules to meet.', sentenceTranslation: 'Nous devons synchroniser nos calendriers pour nous rencontrer.' },
+    { text: 'Optimize', category: 'category-4', size: 'size-4', definition: 'Make the best or most effective use.', translation: 'Optimiser', phonetics: '/ˈɒptɪˌmaɪz/', sentence: 'We optimized the process for maximum efficiency.', sentenceTranslation: 'Nous avons optimisé le processus pour une efficacité maximale.' },
+    { text: 'Allocate', category: 'category-3', size: 'size-3', definition: 'Distribute for a specific purpose.', translation: 'Allouer', phonetics: '/ˈæləˌkeɪt/', sentence: 'We need to allocate resources more effectively.', sentenceTranslation: 'Nous devons allouer les ressources plus efficacement.' },
+    { text: 'Advance', category: 'category-4', size: 'size-4', definition: 'Move forward or make progress.', translation: 'Avancer', phonetics: '/ədˈvɑns/', sentence: 'We are advancing towards our goal.', sentenceTranslation: 'Nous avançons vers notre objectif.' },
+    { text: 'Integrate', category: 'category-3', size: 'size-4', definition: 'Combine or bring together.', translation: 'Intégrer', phonetics: '/ˈɪntɪˌɡreɪt/', sentence: 'The new system integrates seamlessly with existing software.', sentenceTranslation: 'Le nouveau système s\'intègre parfaitement aux logiciels existants.' },
+    { text: 'Sustain', category: 'category-4', size: 'size-4', definition: 'Maintain or support over time.', translation: 'Soutenir', phonetics: '/səˈsteɪn/', sentence: 'It\'s important to sustain growth in the long term.', sentenceTranslation: 'Il est important de soutenir la croissance à long terme.' },
+
+    {        text: 'Jeopardize', 
+        category: 'category-4', 
+        size: 'size-3', 
+        definition: 'Put someone or something into a situation in which there is a danger of loss, harm, or failure.', 
+        translation: 'Compromettre', 
+        phonetics: '/ˈʤɛpəˌdaɪz/', 
+        sentence: 'His reckless behavior could jeopardize his career.', 
+        sentenceTranslation: 'Son comportement imprudent pourrait compromettre sa carrière.' 
+    },
+    { 
+        text: 'Alleviate', 
+        category: 'category-3', 
+        size: 'size-3', 
+        definition: 'Make suffering or a problem less severe.', 
+        translation: 'Soulager', 
+        phonetics: '/əˈliːviˌeɪt/', 
+        sentence: 'The medicine helped alleviate the pain.', 
+        sentenceTranslation: 'Le médicament a aidé à soulager la douleur.' 
+    },
+    { 
+        text: 'Entail', 
+        category: 'category-3', 
+        size: 'size-3', 
+        definition: 'Involve something as a necessary or inevitable part or consequence.', 
+        translation: 'Impliquer', 
+        phonetics: '/ɪnˈteɪl/', 
+        sentence: 'The project will entail significant costs.', 
+        sentenceTranslation: 'Le projet impliquera des coûts importants.' 
+    },
+    { 
+        text: 'Spectrum', 
+        category: 'category-3', 
+        size: 'size-4', 
+        definition: 'A range of different positions, opinions, etc., between two extreme points.', 
+        translation: 'Spectre', 
+        phonetics: '/ˈspɛktrəm/', 
+        sentence: 'The spectrum of responses varied widely.', 
+        sentenceTranslation: 'Le spectre des réponses variait considérablement.' 
+    },
+    { 
+        text: 'Big Picture', 
+        category: 'category-5', 
+        size: 'size-3', 
+        definition: 'The overall perspective or objective view of a situation or issue.', 
+        translation: 'Vue d’ensemble', 
+        phonetics: '/bɪɡ ˈpɪkʧər/', 
+        sentence: 'We need to focus on the big picture, not just the details.', 
+        sentenceTranslation: 'Nous devons nous concentrer sur la vue d’ensemble, pas seulement sur les détails.' 
+    },
+    { 
+        text: 'Emphasize', 
+        category: 'category-4', 
+        size: 'size-3', 
+        definition: 'Give special importance or value to something in speaking or writing.', 
+        translation: 'Souligner', 
+        phonetics: '/ˈɛmfəˌsaɪz/', 
+        sentence: 'It is crucial to emphasize the key points of the proposal.', 
+        sentenceTranslation: 'Il est crucial de souligner les points clés de la proposition.' 
+    },
+        { 
+        text: 'Articulate', 
+        category: 'category-4', 
+        size: 'size-3', 
+        definition: 'Express an idea or feeling fluently and coherently.', 
+        translation: 'Articuler', 
+        phonetics: '/ɑːrˈtɪkjʊˌleɪt/', 
+        sentence: 'She is able to articulate her thoughts very clearly.', 
+        sentenceTranslation: 'Elle est capable d\'articuler ses pensées très clairement.' 
+    },
+    { 
+        text: 'Behind the Scenes', 
+        category: 'category-5', 
+        size: 'size-2', 
+        definition: 'In a way that is not visible to the public but is essential to the functioning of an organization or project.', 
+        translation: 'En coulisses', 
+        phonetics: '/bɪˈhaɪnd ðə siːnz/', 
+        sentence: 'Much of the work was done behind the scenes.', 
+        sentenceTranslation: 'Une grande partie du travail a été réalisée en coulisses.' 
+    },
+    { 
+        text: 'Robustness', 
+        category: 'category-3', 
+        size: 'size-4', 
+        definition: 'The quality or condition of being strong and in good condition.', 
+        translation: 'Robustesse', 
+        phonetics: '/roʊˈbʌstnəs/', 
+        sentence: 'The robustness of the system is crucial for handling unexpected issues.', 
+        sentenceTranslation: 'La robustesse du système est cruciale pour gérer les problèmes inattendus.' 
+    },
+    { 
+        text: 'Hamper', 
+        category: 'category-3', 
+        size: 'size-2', 
+        definition: 'Hinder or impede the movement or progress of something.', 
+        translation: 'Entraver', 
+        phonetics: '/ˈhæmpər/', 
+        sentence: 'The unexpected delays will hamper our progress.', 
+        sentenceTranslation: 'Les retards imprévus entraveront notre progrès.' 
+    },
+    { 
+        text: 'Strive', 
+        category: 'category-3', 
+        size: 'size-4', 
+        definition: 'Make great efforts to achieve or obtain something.', 
+        translation: 'S\'efforcer', 
+        phonetics: '/straɪv/', 
+        sentence: 'They strive to provide the best service possible.', 
+        sentenceTranslation: 'Ils s\'efforcent de fournir le meilleur service possible.' 
+    },
+    {
+    text: 'Around the Corner',
+    category: 'category-1',  // Adjust category as needed
+    size: 'size-2',         // Adjust size as needed
+    definition: 'Close to happening or about to occur.',
+    translation: 'Imminent',
+    phonetics: '/əˈraʊnd ðə ˈkɔːrnər/',
+    sentence: 'The new project is just around the corner.',
+    sentenceTranslation: 'Le nouveau projet est juste au coin de la rue.'
+},{
+    text: 'Bear in Mind',
+    category: 'category-1',
+    size: 'size-3',
+    definition: 'To remember or take into account.',
+    translation: 'Garder à l\'esprit',
+    phonetics: '/bɛər ɪn maɪnd/',
+    sentence: 'Bear in mind that the deadline is approaching.',
+    sentenceTranslation: 'Gardez à l\'esprit que la date limite approche.'
+},
+           {
+    text: 'On That Front',
+    category: 'category-2',
+    size: 'size-2',
+    definition: 'Regarding that particular issue.',
+    translation: 'À ce sujet',
+    phonetics: '/ɒn ðæt frʌnt/',
+    sentence: 'We have made significant progress on that front.',
+    sentenceTranslation: 'Nous avons fait des progrès significatifs à ce sujet.'
+},
+           {
+    text: 'Regardless',
+    category: 'category-3',
+    size: 'size-3',
+    definition: 'In spite of everything.',
+    translation: 'Quoi qu\'il en soit',
+    phonetics: '/rɪˈɡɑːrdlɪs/',
+    sentence: 'We will proceed regardless of the challenges.',
+    sentenceTranslation: 'Nous continuerons malgré les défis.'
+},
+           {
+    text: 'Beforehand',
+    category: 'category-1',
+    size: 'size-2',
+    definition: 'In advance; ahead of time.',
+    translation: 'Au préalable',
+    phonetics: '/bɪˈfɔːrhænd/',
+    sentence: 'Make sure to prepare everything beforehand.',
+    sentenceTranslation: 'Assurez-vous de tout préparer au préalable.'
+},
+           {
+    text: 'Shortcomings',
+    category: 'category-1',
+    size: 'size-3',
+    definition: 'Failures or deficiencies in something.',
+    translation: 'Lacunes',
+    phonetics: '/ˈʃɔːrtˌkʌmɪŋz/',
+    sentence: 'The report highlights the shortcomings of the current system.',
+    sentenceTranslation: 'Le rapport souligne les lacunes du système actuel.'
+},
+           {
+    text: 'Digest',
+    category: 'category-2',
+    size: 'size-3',
+    definition: 'To break down information or food into a simpler form.',
+    translation: 'Digérer',
+    phonetics: '/daɪˈdʒɛst/',
+    sentence: 'It took me some time to digest all the information from the meeting.',
+    sentenceTranslation: 'Il m\'a fallu du temps pour digérer toutes les informations de la réunion.'
+},
+           {
+    text: 'Tier',
+    category: 'category-2',
+    size: 'size-3',
+    definition: 'A level or rank in a hierarchy.',
+    translation: 'Niveau',
+    phonetics: '/tɪər/',
+    sentence: 'The subscription service offers three tiers of membership.',
+    sentenceTranslation: 'Le service d\'abonnement propose trois niveaux d\'adhésion.'
+},
+           {
+    text: 'Swing of Things',
+    category: 'category-3',
+    size: 'size-2',
+    definition: 'Getting used to or back into a routine or normal activities.',
+    translation: 'Se remettre dans le bain',
+    phonetics: '/swɪŋ ʌv θɪŋz/',
+    sentence: 'After a long break, it took some time to get back into the swing of things at work.',
+    sentenceTranslation: 'Après une longue pause, il a fallu un certain temps pour se remettre dans le bain au travail.'
+}
+];
+
+
+
+        // Function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function highlightKeyword(text, keyword) {
+            const regex = new RegExp(`(${keyword})`, 'gi'); // Case-insensitive regex
+            return text.replace(regex, '<span class="highlighted">$1</span>');
+        }
+
+        // Randomize words
+        const shuffledWords = shuffleArray(words);
+        //const shuffledWords = words;
+
+        // Insert words into the word cloud container
+        const wordCloud = document.getElementById('wordCloud');
+        const tooltip = document.getElementById('tooltip');
+
+        shuffledWords.forEach(word => {
+            const span = document.createElement('span');
+            span.className = `${word.category} ${word.size}`;
+            span.textContent = word.text;
+            span.dataset.category = word.category;
+            span.dataset.definition = word.definition;
+            span.dataset.translation = word.translation;
+            span.dataset.sentence = word.sentence;
+            span.dataset.sentenceTranslation = word.sentenceTranslation;
+            span.dataset.phonetics = word.phonetics;
+            wordCloud.appendChild(span);
+
+
+            // Add click event to cross out the keyword
+                span.addEventListener('click', () => {
+                    span.classList.toggle('crossed-out');
+                });
+
+
+            // Event handlers
+            span.addEventListener('mouseover', function(e) {
+                tooltip.innerHTML = `
+                        <div class="phonetic">${span.dataset.phonetics}</div>
+                        <div class="definition">${span.dataset.definition}</div>
+                        <div class="trans">(${span.dataset.translation})</div>
+                        <div class="context-info">
+                            <ol>
+                                <li>${highlightKeyword(span.dataset.sentence, span.textContent)}</li>
+                                <div class="translation"><i>${highlightKeyword(span.dataset.sentenceTranslation, span.textContent)}</i></div>
+                            </ol>
+                        </div>
+                        <div class="weight-info"></div>
+                        
+                        <!--<div class="translation">
+                            <i><strong>${span.dataset.translation}</strong></i>
+                        </div>-->
+                `;
+                tooltip.style.display = 'block';
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+            });
+        });
+
+        // Hide tooltip when clicking outside
+        document.addEventListener('mouseout', function(event) {
+            tooltip.style.display = 'none';
+            
+        });
+
+
+    </script>
+</body>
+</html>
