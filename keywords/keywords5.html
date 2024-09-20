@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="keywords.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Word Cloud with Tooltips</title>
+</head>
+<body>
+    <div id="word-container-shuffle-title" class="title-click"><h3><i class="fa fa-minus-circle"></i> 3 random keywords</h3><button onclick="refreshPage()">Refresh</button></div>
+    <div id="word-container-shuffle"></div>
+    <div id="tooltip" class="tooltip"></div>
+    
+    <div id="wordCloudTitle" class="title-click"><h3><i class="fa fa-minus-circle"></i> Keywords</h3></div>
+    <div class="word-cloud" id="wordCloud"></div>
+    
+    <div id="tableTitle" class="title-click"><h3><i class="fa fa-minus-circle"></i> Table</h3></div>
+    <div id="word-container" class="container"></div>
+
+    <script src="words.js"></script>
+    <script src="functions.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
