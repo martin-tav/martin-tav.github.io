@@ -113,7 +113,7 @@ function renderCloudWords(finalWords){
         wordCloud.appendChild(span);
         // Add click event to cross out the keyword
         span.addEventListener('click', () => {
-            span.classList.toggle('crossed-out');
+            span.classList.toggle('highlight-word');
         });
         // Event handlers
         span.addEventListener('mouseover', function(e) {
