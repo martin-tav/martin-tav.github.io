@@ -51,8 +51,9 @@ ol{
     margin-right: 25px;
 }
 .trans {
-    font-size: 0.675rem;
+    font-size: 0.875rem;
     font-weight: bold;
+    color:red;
 }
 .phonetic {
     font-size: 0.85rem;
@@ -128,8 +129,10 @@ ol{
 .tooltip.show {
     display: block;
 }
-.crossed-out {
-    text-decoration: line-through;
+.highlight-word {
+    //text-decoration: line-through;
+    background-color:yellow;
+    transform: scale(1.1);
 }
 .container {
     display: flex;
