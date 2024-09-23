@@ -85,6 +85,7 @@ words.push(
 {text: 'left-hand side', category: 'category-1', size: 'size-2', definition: 'The left part or section of something.', translation: 'Côté gauche', phonetics: '/lɛft hænd saɪd/', sentence: 'Please look at the left-hand side of the page for the instructions.', sentenceTranslation: 'Veuillez consulter le côté gauche de la page pour les instructions.'},
 {text: 'consult', category: 'category-1', size: 'size-3', definition: 'To seek advice or information from someone.', translation: 'Consulter', phonetics: '/kənˈsʌlt/', sentence: 'You should consult the manual for more information.', sentenceTranslation: 'Vous devriez consulter le manuel pour plus d\'informations.'},
 {text: 'extend of work', category: 'category-2', size: 'size-4', definition: 'The scope or range of tasks to be completed.', translation: 'Étendue du travail', phonetics: '/ɪkˈstɛnd əv wɜrk/', sentence: 'We need to clarify the extend of work expected for this project.', sentenceTranslation: 'Nous devons clarifier l\'étendue du travail attendu pour ce projet.'},
+{text: 'sequence', category: 'category-1', size: 'size-2', definition: 'A particular order in which related events or things follow each other.', translation: 'Séquence', phonetics: '/ˈsiːkwəns/', sentence: 'The sequence of events in the story was captivating.', sentenceTranslation: 'La séquence des événements dans l\'histoire était captivante.'},
 
 
   
