@@ -17,8 +17,8 @@
                 wordCloudTitle.innerHTML = `<h3><i class="fa fa-minus-circle"></i> Keywords</h3>`
             }
         });
-        const reverseWords = words.slice().reverse();
-        renderCloudWords(reverseWords);
+        //const reverseWords = words.slice().reverse();
+        renderCloudWords(words);
 
         // Top 3 random
         const wordCloudTitleRandom = document.getElementById('word-container-shuffle-title');
