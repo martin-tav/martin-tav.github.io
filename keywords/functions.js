@@ -1,3 +1,26 @@
+function flipAllCards(card) {
+    const keywordBox = document.getElementsByClassName('keyword-box');
+    for (const card of keywordBox) {
+        card.classList.remove('flip');
+    }  
+    
+}
+
+
+function unFlipAllCards(card) {
+    const keywordBox = document.getElementsByClassName('keyword-box');
+    for (const card of keywordBox) {
+        card.classList.add('flip');
+    }  
+    
+}
+
+// Function to shuffle array
+function alphaArray(array) {
+    return array.sort((a, b) => a.text.localeCompare(b.text));
+   
+}
+
 // Function to shuffle array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -77,30 +100,42 @@ function renderWords(groupedWords) {
 }
 // Function to render the grouped words in HTML
 function renderShuffleWords(shuffleWords) {
-    topWords = shuffleWords.slice(0, 3)
+    shuffledWords = shuffleArray(shuffleWords);
+    count = 6
+    topWords = shuffleWords.slice(0, count)
     const keywordContainer = document.getElementById('word-container-shuffle');
+    keywordContainer.innerHTML= '';
     topWords.forEach(word => {
         const keywordBox = document.createElement('div');
         keywordBox.classList.add('keyword-box');
+        keywordBox.addEventListener('click', function() {
+            this.classList.toggle('flip');
+        });
         keywordBox.innerHTML = `
-        <div class="keyword-line">${word.text}</div>
-        <div class="phonetic">${word.phonetics}</div>
-        <div class="definition">${word.definition}</div>
-        <div class="trans">(${word.translation})</div>
-        <div class="context-info">
-        <ol>
-        <li>${highlightKeyword(word.sentence, word.text)}</li>
-        <div class="translation"><i>${highlightKeyword(word.sentenceTranslation, word.text)}</i></div>
-        </ol>
+        <div class="flashcard-inner">
+             <div class="flashcard-front">
+                <div class="keyword-line">${word.text}</div>
+             </div>
+            <div class="flashcard-back">
+                <div class="phonetic">${word.phonetics}</div>
+                <div class="definition">${word.definition}</div>
+                <div class="trans">(${word.translation})</div>
+                <div class="context-info">
+                    <ul>
+                        <li>${highlightKeyword(word.sentence, word.text)}</li>
+                        <div class="translation"><i>${highlightKeyword(word.sentenceTranslation, word.text)}</i></div>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="weight-info"></div>
         `;
         keywordBox.style.display = 'block';
         keywordContainer.appendChild(keywordBox);
     });
 }
-function renderCloudWords(finalWords){
-    finalWords.forEach(word => {
+function renderCloudWords(cloudWords){
+    wordCloud.innerHTML= ''
+    cloudWords.forEach(word => {
         const span = document.createElement('span');
         span.className = `${word.category} ${word.size}`;
         span.textContent = word.text;
@@ -110,6 +145,7 @@ function renderCloudWords(finalWords){
         span.dataset.sentence = word.sentence;
         span.dataset.sentenceTranslation = word.sentenceTranslation;
         span.dataset.phonetics = word.phonetics;
+
         wordCloud.appendChild(span);
         // Add click event to cross out the keyword
         span.addEventListener('click', () => {
