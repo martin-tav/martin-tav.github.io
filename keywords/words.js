@@ -1,6 +1,4 @@
-const words = [];
-
-words.push(
+const words = [
 
 {text: 'merely', category: 'category-1', size: 'size-2', definition: 'Used to emphasize that something is not larger or more important than it actually is.', translation: 'Simplement', phonetics: '/ˈmɪrli/', sentence: 'The proposal was merely a suggestion and not a requirement.', sentenceTranslation: 'La proposition n\'était qu\'une suggestion et non une exigence.'},   
 {text: 'overall', category: 'category-1', size: 'size-1', definition: 'In general; all things considered.', translation: 'Dans l\'ensemble', phonetics: '/ˌoʊvərˈɔl/', sentence: 'Overall, the project was a success despite some challenges.', sentenceTranslation: 'Dans l\'ensemble, le projet a été un succès malgré quelques défis.'}, 
@@ -95,4 +93,12 @@ words.push(
 
   
   
-)
+];
+
+
+//words = words.slice().reverse().reverse();
+alphaWords = words.sort((a, b) => a.text.localeCompare(b.text));
+reverseAlphaWords = alphaWords.slice().reverse()
+reverseWords = words.slice().reverse();
+shuffledWords = shuffleArray(words);
+
