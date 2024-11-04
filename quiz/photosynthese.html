@@ -39,7 +39,6 @@
         input[type="text"] {
             padding: 8px;
             font-size: 1em;
-            width: 100px;
             border: 2px solid #bbb;
             border-radius: 4px;
             outline: none;
@@ -62,7 +61,7 @@
             margin-top: 20px;
         }
 
-        #showAnswersButton {
+        #showAnswersButton, #nextPartButton {
             background-color: #e74c3c;
             color: white;
             padding: 10px 20px;
@@ -74,38 +73,65 @@
             transition: background-color 0.3s;
         }
 
-        #showAnswersButton:hover {
+        #showAnswersButton:hover, #nextPartButton:hover {
             background-color: #c0392b;
+        }
+
+        #secondPart {
+            display: none; /* Hide the second part initially */
         }
     </style>
 </head>
 <body>
 
-    <!-- Indice Général au-dessus du Titre -->
     <div id="indice-general" class="indice-general"></div>
     <h1>Apprendre la Photosynthèse</h1>
 
-    <div class="question">La <span class="input-wrapper"><input type="text" id="photosynthese"></span> est le processus par lequel les plantes produisent de la nourriture et de l'oxygène en utilisant la lumière.</div>
+    <!-- First Part -->
+    <div id="firstPart">
+        <div class="question">La <span class="input-wrapper"><input type="text" id="photosynthese"></span> est le processus par lequel les plantes produisent de la nourriture et de l'oxygène en utilisant la lumière.</div>
 
-    <div class="question">Les plantes absorbent le <span class="input-wrapper"><input type="text" id="co2"></span> pour fabriquer des glucides.</div>
+        <div class="question">Les plantes absorbent le <span class="input-wrapper"><input type="text" id="co2"></span> pour fabriquer des glucides.</div>
 
-    <div class="question">La <span class="input-wrapper"><input type="text" id="chlorophylle"></span> est un pigment qui capte l'énergie lumineuse nécessaire à la photosynthèse.</div>
+        <div class="question">La <span class="input-wrapper"><input type="text" id="chlorophylle"></span> est un pigment qui capte l'énergie lumineuse nécessaire à la photosynthèse.</div>
 
-    <div class="question">Les <span class="input-wrapper"><input type="text" id="chloroplastes"></span> sont les organelles où se produit la photosynthèse.</div>
+        <div class="question">Les <span class="input-wrapper"><input type="text" id="chloroplastes"></span> sont les organelles où se produit la photosynthèse.</div>
 
-    <div class="question">Lors de la photosynthèse, le <span class="input-wrapper"><input type="text" id="eau"></span> est dissocié pour libérer de l'oxygène.</div>
+        <div class="question">Lors de la photosynthèse, le <span class="input-wrapper"><input type="text" id="eau"></span> est dissocié pour libérer de l'oxygène.</div>
+    </div>
 
-    <p id="score">Votre score est de 0/5</p>
+    <!-- Button to show the second part -->
+    <button id="nextPartButton" onclick="showSecondPart()">Partie suivante</button>
+
+    <!-- Second Part (Initially Hidden) -->
+    <div id="secondPart">
+        <div class="question">Le <span class="input-wrapper"><input type="text" id="glucose"></span> est une source d'énergie produite lors de la photosynthèse.</div>
+
+        <div class="question">La lumière bleue et <span class="input-wrapper"><input type="text" id="lumiere_rouge"></span> sont principalement absorbées par la chlorophylle.</div>
+
+        <div class="question">Les <span class="input-wrapper"><input type="text" id="stomates"></span> sont les structures par lesquelles les plantes absorbent le dioxyde de carbone de l'air.</div>
+
+        <div class="question">Les <span class="input-wrapper"><input type="text" id="carotenoides"></span> sont des pigments qui aident les plantes à s'adapter à différents environnements.</div>
+
+        <div class="question">La <span class="input-wrapper"><input type="text" id="respiration"></span> est le processus qui utilise l'oxygène produit par la photosynthèse pour fournir de l'énergie aux êtres vivants.</div>
+    </div>
+
+    <p id="score">Votre score est de 0/10</p>
     <button id="showAnswersButton" onclick="showAnswers()">Voir les réponses</button>
 
     <script>
-        // Définir les réponses correctes et les indices alternatifs
+        // Define the answers and hints
         const reponses = {
             photosynthese: "photosynthèse",
             co2: "dioxyde de carbone",
             chlorophylle: "chlorophylle",
             chloroplastes: "chloroplastes",
-            eau: "eau"
+            eau: "eau",
+            glucose: "glucose",
+            lumiere_rouge: "rouge",
+            stomates: "stomates",
+            carotenoides: "caroténoïdes",
+            respiration: "respiration"
         };
 
         const indicesAlternatifs = {
@@ -113,15 +139,26 @@
             co2: "Gaz essentiel absorbé par les feuilles.",
             chlorophylle: "Pigment vert des plantes.",
             chloroplastes: "Organelles contenant la chlorophylle.",
-            eau: "Substance divisée pour libérer de l'oxygène."
+            eau: "Substance divisée pour libérer de l'oxygène.",
+            glucose: "Sucre produit comme source d'énergie.",
+            lumiere_rouge: "Couleur complémentaire de la lumière bleue.",
+            stomates: "Ouvertures dans les feuilles pour échanger les gaz.",
+            carotenoides: "Pigments autres que la chlorophylle.",
+            respiration: "Utilisation de l'oxygène pour produire de l'énergie."
         };
 
-        // Variable pour stocker le score
+        function adjustInputWidth() {
+            for (const id in reponses) {
+                const input = document.getElementById(id);
+                const answerLength = reponses[id].length;
+                input.style.width = `${answerLength * 1.2}ch`;
+            }
+        }
+
         let score = 0;
         const total = Object.keys(reponses).length;
-        const ids = Object.keys(reponses); // Liste des ids pour navigation
+        const ids = Object.keys(reponses);
 
-        // Fonction pour vérifier chaque réponse
         function verifierReponse(id) {
             const input = document.getElementById(id);
             const reponseUtilisateur = input.value.toLowerCase();
@@ -134,38 +171,43 @@
                     input.classList.remove("incorrect");
                     score++;
                 }
-                indiceGeneral.style.display = "none"; // Masquer l'indice si la réponse est correcte
-                return true; // Réponse correcte
+                indiceGeneral.style.display = "none";
+                return true;
             } else {
                 if (input.classList.contains("correct")) {
                     input.classList.remove("correct");
                     score--;
                 }
                 input.classList.add("incorrect");
-
-                // Afficher les deux premières lettres de la réponse avec une définition alternative
                 const debutMot = reponseCorrecte.slice(0, 2).toUpperCase();
                 const indiceTexte = `Indice : ${debutMot}... - ${indicesAlternatifs[id]}`;
                 indiceGeneral.textContent = indiceTexte;
-                indiceGeneral.style.display = "block"; // Rendre l'indice visible
-                return false; // Réponse incorrecte
+                indiceGeneral.style.display = "block";
+                return false;
             }
         }
 
-        // Fonction pour afficher toutes les réponses
         function showAnswers() {
-            score = total; // Mettre à jour le score au maximum
+            score = total;
             for (const id in reponses) {
                 const input = document.getElementById(id);
-                input.value = reponses[id];
-                input.classList.add("correct");
-                input.disabled = true; // Désactiver les champs une fois les réponses affichées
+                const userAnswer = input.value.toLowerCase();
+                const correctAnswer = reponses[id];
+
+                input.value = correctAnswer;
+                input.classList.remove("incorrect", "correct");
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add("correct");
+                } else {
+                    input.classList.add("incorrect");
+                }
+                input.disabled = true;
             }
-            document.getElementById("indice-general").style.display = "none"; // Masquer l'indice général
+            document.getElementById("indice-general").style.display = "none";
             document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
         }
 
-        // Fonction pour passer au champ suivant
         function allerAuChampSuivant(currentId) {
             const currentIndex = ids.indexOf(currentId);
             if (currentIndex !== -1 && currentIndex < ids.length - 1) {
@@ -174,27 +216,32 @@
             }
         }
 
-        // Ajouter les écouteurs d'événements pour chaque champ de texte
         for (const id of ids) {
             const inputElement = document.getElementById(id);
 
-            // Vérifier la réponse lors de l'appui sur Entrée
             inputElement.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
-                    const isCorrect = verifierReponse(id); // Vérifier la réponse
+                    const isCorrect = verifierReponse(id);
                     if (isCorrect) {
-                        allerAuChampSuivant(id); // Passer au champ suivant si correct
+                        allerAuChampSuivant(id);
                     }
-                    document.getElementById("score").textContent = `Votre score est de ${score}/${total}`; // Mettre à jour le score
+                    document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
                 }
             });
 
-            // Vérifier la réponse et afficher l'indice lors du blur
             inputElement.addEventListener("blur", () => {
                 verifierReponse(id);
                 document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
             });
         }
+
+        // Function to show the second part of the quiz
+        function showSecondPart() {
+            document.getElementById("secondPart").style.display = "block";
+            document.getElementById("nextPartButton").style.display = "none";
+        }
+
+        adjustInputWidth();
     </script>
 </body>
 </html>
