@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul du Carré</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background: linear-gradient(to right, #e6f7ff, #f0f8ff); /* Dégradé de couleur de fond */
+            color: #333; /* Couleur du texte */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Ombre autour du contenu */
+            position: relative; /* Position relative pour les éléments de fond */
+            overflow: hidden; /* Pour cacher les éléments de fond qui débordent */
+        }
+        h1 {
+            color: #4a90e2; /* Couleur du titre */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Ombre du texte */
+        }
+        button {
+            background-color: #4CAF50; /* Vert */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets */
+        }
+        button:hover {
+            background-color: #45a049; /* Vert plus foncé au survol */
+            transform: translateY(-2px); /* Légère élévation au survol */
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: border-color 0.3s; /* Transition pour le focus */
+        }
+        input:focus {
+            border-color: #4CAF50; /* Bordure verte au focus */
+            outline: none; /* Supprimer le contour par défaut */
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .option {
+            display: inline-block;
+            margin: 5px;
+            padding: 15px; /* Augmenter le padding pour plus de clicabilité */
+            background-color: #e7e7e7;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre autour des options */
+        }
+        .option:hover {
+            background-color: #d1d1d1; /* Couleur au survol */
+            transform: translateY(-2px); /* Légère élévation au survol */
+        }
+        #bestScore {
+            font-size: 20px;
+            color: #d35400; /* Couleur du meilleur score */
+        }
+        /* Ajout de styles pour les images de végétation */
+        .leaf {
+            position: absolute;
+            width: 80px;
+            opacity: 0.8; /* Légère opacité */
+            pointer-events: none; /* Ne pas interférer avec les clics */
+        }
+        .leaf1 {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-30deg);
+        }
+        .leaf2 {
+            top: 50px;
+            right: 10px;
+            transform: rotate(30deg);
+        }
+        .leaf3 {
+            bottom: 20px;
+            left: 50px;
+            transform: rotate(-15deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calcul du Carré d'un Nombre Aléatoire</h1>
+    <button id="generate">Générer un Nombre</button>
+    <p id="number"></p>
+    <div id="options"></div>
+    <p id="result"></p>
+    <p id="bestScore">Meilleur score : <span id="bestTime">0</span> secondes</p>
+
+    <!-- Images de feuilles vertes pour la décoration -->
+    <img src="https://img.icons8.com/ios/452/leaf.png" class="leaf leaf1" alt="Feuille" style="filter: hue-rotate(100deg);">
+    <img src="https://img.icons8.com/ios/452/leaf.png" class="leaf leaf2" alt="Feuille" style="filter: hue-rotate(100deg);">
+    <img src="https://img.icons8.com/ios/452/leaf.png" class="leaf leaf3" alt="Feuille" style="filter: hue-rotate(100deg);">
+
+    <script>
+        let randomNumber;
+        let bestTime = localStorage.getItem('bestTime') ? parseInt(localStorage.getItem('bestTime')) : Infinity;
+
+        document.getElementById('generate').onclick = function() {
+            randomNumber = Math.floor(Math.random() * 101); // Nombre aléatoire entre 0 et 100
+            document.getElementById('number').innerText = "Nombre généré : " + randomNumber;
+            document.getElementById('result').innerText = '';
+            generateOptions();
+        };
+
+        function generateOptions() {
+            const correctAnswer = randomNumber * randomNumber;
+            const options = new Set();
+            options.add(correctAnswer); // Ajouter la réponse correcte
+
+            // Générer d'autres réponses incorrectes
+            while (options.size < 10) {
+                const randomOption = Math.floor(Math.random() * 10000); // Limite arbitraire pour générer des réponses
+                options.add(randomOption);
+            }
+
+            // Afficher les options
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter de nouvelles options
+            options.forEach(option => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerText = option;
+                optionDiv.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const correctAnswer = randomNumber * randomNumber;
+
+            if (selectedOption === correctAnswer) {
+                document.getElementById('result').innerText = "Correct !";
+                updateBestScore();
+            } else {
+                document.getElementById('result').innerText = "Incorrect. Le carré de " + randomNumber + " est " + correctAnswer + ".";
+            }
+        }
+
+        function updateBestScore() {
+            if (bestTime === Infinity || bestTime > 0) {
+                bestTime = 0; // Réinitialiser le meilleur temps à zéro
+                localStorage.setItem('bestTime', bestTime);
+                document.getElementById('bestTime').innerText = bestTime;
+            }
+        }
+
+        // Afficher le meilleur score lors du chargement de la page
+        window.onload = function() {
+            document.getElementById('bestTime').innerText = bestTime === Infinity ? 'Aucun' : bestTime;
+        };
+    </script>
+
+</body>
+</html>
