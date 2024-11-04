@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprendre la Photosynthèse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+
+        .indice-general {
+            font-size: 1em;
+            color: #e67e22;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .question {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .input-wrapper {
+            display: inline-block;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 1em;
+            width: 100px;
+            border: 2px solid #bbb;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input.correct {
+            border-color: #2ecc71;
+            background-color: #e8f5e9;
+        }
+
+        input.incorrect {
+            border-color: #e74c3c;
+            background-color: #fce4e4;
+        }
+
+        #score {
+            font-size: 1.5em;
+            color: #3498db;
+            margin-top: 20px;
+        }
+
+        #showAnswersButton {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #showAnswersButton:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Indice Général au-dessus du Titre -->
+    <div id="indice-general" class="indice-general"></div>
+    <h1>Apprendre la Photosynthèse</h1>
+
+    <div class="question">La <span class="input-wrapper"><input type="text" id="photosynthese"></span> est le processus par lequel les plantes produisent de la nourriture et de l'oxygène en utilisant la lumière.</div>
+
+    <div class="question">Les plantes absorbent le <span class="input-wrapper"><input type="text" id="co2"></span> pour fabriquer des glucides.</div>
+
+    <div class="question">La <span class="input-wrapper"><input type="text" id="chlorophylle"></span> est un pigment qui capte l'énergie lumineuse nécessaire à la photosynthèse.</div>
+
+    <div class="question">Les <span class="input-wrapper"><input type="text" id="chloroplastes"></span> sont les organelles où se produit la photosynthèse.</div>
+
+    <div class="question">Lors de la photosynthèse, le <span class="input-wrapper"><input type="text" id="eau"></span> est dissocié pour libérer de l'oxygène.</div>
+
+    <p id="score">Votre score est de 0/5</p>
+    <button id="showAnswersButton" onclick="showAnswers()">Voir les réponses</button>
+
+    <script>
+        // Définir les réponses correctes et les indices alternatifs
+        const reponses = {
+            photosynthese: "photosynthèse",
+            co2: "dioxyde de carbone",
+            chlorophylle: "chlorophylle",
+            chloroplastes: "chloroplastes",
+            eau: "eau"
+        };
+
+        const indicesAlternatifs = {
+            photosynthese: "Processus vital pour les plantes.",
+            co2: "Gaz essentiel absorbé par les feuilles.",
+            chlorophylle: "Pigment vert des plantes.",
+            chloroplastes: "Organelles contenant la chlorophylle.",
+            eau: "Substance divisée pour libérer de l'oxygène."
+        };
+
+        // Variable pour stocker le score
+        let score = 0;
+        const total = Object.keys(reponses).length;
+        const ids = Object.keys(reponses); // Liste des ids pour navigation
+
+        // Fonction pour vérifier chaque réponse
+        function verifierReponse(id) {
+            const input = document.getElementById(id);
+            const reponseUtilisateur = input.value.toLowerCase();
+            const reponseCorrecte = reponses[id];
+            const indiceGeneral = document.getElementById("indice-general");
+
+            if (reponseUtilisateur === reponseCorrecte) {
+                if (!input.classList.contains("correct")) {
+                    input.classList.add("correct");
+                    input.classList.remove("incorrect");
+                    score++;
+                }
+                indiceGeneral.style.display = "none"; // Masquer l'indice si la réponse est correcte
+                return true; // Réponse correcte
+            } else {
+                if (input.classList.contains("correct")) {
+                    input.classList.remove("correct");
+                    score--;
+                }
+                input.classList.add("incorrect");
+
+                // Afficher les deux premières lettres de la réponse avec une définition alternative
+                const debutMot = reponseCorrecte.slice(0, 2).toUpperCase();
+                const indiceTexte = `Indice : ${debutMot}... - ${indicesAlternatifs[id]}`;
+                indiceGeneral.textContent = indiceTexte;
+                indiceGeneral.style.display = "block"; // Rendre l'indice visible
+                return false; // Réponse incorrecte
+            }
+        }
+
+        // Fonction pour afficher toutes les réponses
+        function showAnswers() {
+            score = total; // Mettre à jour le score au maximum
+            for (const id in reponses) {
+                const input = document.getElementById(id);
+                input.value = reponses[id];
+                input.classList.add("correct");
+                input.disabled = true; // Désactiver les champs une fois les réponses affichées
+            }
+            document.getElementById("indice-general").style.display = "none"; // Masquer l'indice général
+            document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
+        }
+
+        // Fonction pour passer au champ suivant
+        function allerAuChampSuivant(currentId) {
+            const currentIndex = ids.indexOf(currentId);
+            if (currentIndex !== -1 && currentIndex < ids.length - 1) {
+                const nextInput = document.getElementById(ids[currentIndex + 1]);
+                nextInput.focus();
+            }
+        }
+
+        // Ajouter les écouteurs d'événements pour chaque champ de texte
+        for (const id of ids) {
+            const inputElement = document.getElementById(id);
+
+            // Vérifier la réponse lors de l'appui sur Entrée
+            inputElement.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    const isCorrect = verifierReponse(id); // Vérifier la réponse
+                    if (isCorrect) {
+                        allerAuChampSuivant(id); // Passer au champ suivant si correct
+                    }
+                    document.getElementById("score").textContent = `Votre score est de ${score}/${total}`; // Mettre à jour le score
+                }
+            });
+
+            // Vérifier la réponse et afficher l'indice lors du blur
+            inputElement.addEventListener("blur", () => {
+                verifierReponse(id);
+                document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
+            });
+        }
+    </script>
+</body>
+</html>
