@@ -145,7 +145,8 @@
             document.getElementById(`answer-${index}`).addEventListener("keydown", function(event) {
                 if (event.key === "Enter" || event.key === "Tab") {
                     event.preventDefault(); // Empêcher la tabulation
-                    checkAnswer(index, number, attempts++, maxAttempts);
+                    checkAnswer(index, number, attempts, maxAttempts);
+                    attempts++; // Incrémenter après l'appel pour afficher la bonne tentative restante
                 }
             });
         }
@@ -155,6 +156,7 @@
             const userAnswer = parseInt(document.getElementById(`answer-${index}`).value, 10);
             const correctAnswer = number * number;
             const feedback = document.getElementById(`feedback-${index}`);
+            const attemptsLeft = maxAttempts - attempts - 1;
 
             if (userAnswer === correctAnswer) {
                 const randomEncouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
@@ -164,7 +166,7 @@
                 focusNextQuestion(index); // Focus sur la question suivante
             } else {
                 if (attempts < maxAttempts - 1) {
-                    feedback.innerHTML = `<span style="color: orange;">Essayez encore !</span>`;
+                    feedback.innerHTML = `<span style="color: orange;">Nouvelle tentative : Il vous reste ${attemptsLeft} tentative(s).</span>`;
                 } else {
                     feedback.innerHTML = `<span style="color: red;">Incorrect. La bonne réponse est ${correctAnswer}.</span>`;
                     document.getElementById(`answer-${index}`).disabled = true;
@@ -192,8 +194,6 @@
             const nextQuestion = document.getElementById(`answer-${index + 1}`);
             if (nextQuestion) {
                 nextQuestion.focus();
-            } else {
-                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     </script>
