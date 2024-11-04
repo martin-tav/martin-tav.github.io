@@ -15,6 +15,14 @@
 
         h1 {
             color: #2c3e50;
+            margin-top: 10px;
+        }
+
+        .indice-general {
+            font-size: 1em;
+            color: #e67e22;
+            margin-bottom: 15px;
+            display: none;
         }
 
         .question {
@@ -48,13 +56,6 @@
             background-color: #fce4e4;
         }
 
-        .indice {
-            font-size: 0.9em;
-            color: #e67e22;
-            display: none;
-            margin-top: 5px;
-        }
-
         #score {
             font-size: 1.5em;
             color: #3498db;
@@ -63,93 +64,105 @@
     </style>
 </head>
 <body>
+
+    <!-- Indice Général au-dessus du Titre -->
+    <div id="indice-general" class="indice-general"></div>
     <h1>Apprendre l'Empire Romain</h1>
 
-    <div class="question">À l'époque romaine, la <span class="input-wrapper"><input type="text" id="republique"><span class="indice" id="indice-republique">Indice : Système politique à Rome</span></span> était un système politique où les <span class="input-wrapper"><input type="text" id="citoyens"><span class="indice" id="indice-citoyens">Indice : Ceux qui avaient le droit de vote</span></span> avaient le droit de <span class="input-wrapper"><input type="text" id="vote"><span class="indice" id="indice-vote">Indice : Acte de participer à une élection</span></span>.</div>
+    <div class="question">Le <span class="input-wrapper"><input type="text" id="forum"></span> était un lieu central où les Romains se rassemblaient pour discuter et commercer.</div>
 
-    <div class="question">Le <span class="input-wrapper"><input type="text" id="senat"><span class="indice" id="indice-senat">Indice : Institution influente du gouvernement</span></span> romain avait une grande influence dans les décisions politiques, même sous l’autorité de l'<span class="input-wrapper"><input type="text" id="empereur"><span class="indice" id="indice-empereur">Indice : Chef suprême de l'Empire</span></span>.</div>
+    <div class="question">La <span class="input-wrapper"><input type="text" id="republique"></span> était un système politique où les citoyens avaient des droits et pouvaient participer aux décisions.</div>
 
-    <div class="question">Les <span class="input-wrapper"><input type="text" id="legion"><span class="indice" id="indice-legion">Indice : Unité militaire de base</span></span> romaines étaient des unités militaires puissantes qui protégeaient l'Empire.</div>
+    <div class="question">Les citoyens romains avaient le droit de <span class="input-wrapper"><input type="text" id="vote"></span> pour choisir leurs représentants.</div>
 
-    <div class="question">Les combats de <span class="input-wrapper"><input type="text" id="gladiateurs"><span class="indice" id="indice-gladiateurs">Indice : Combattants dans les arènes</span></span> étaient une forme de divertissement populaire à Rome.</div>
+    <div class="question">Le chef gaulois <span class="input-wrapper"><input type="text" id="vercingetorix"></span> a résisté aux Romains pendant les Guerres gauloises.</div>
 
-    <div class="question">Les <span class="input-wrapper"><input type="text" id="aqueduc"><span class="indice" id="indice-aqueduc">Indice : Structure pour acheminer l'eau</span></span> transportaient l'eau vers les villes, montrant les compétences en ingénierie des Romains.</div>
+    <div class="question">La bataille de <span class="input-wrapper"><input type="text" id="gergovie"></span> a été un moment important dans la résistance des Gaulois contre les Romains.</div>
 
-    <p id="score">Votre score est de 0/10</p>
+    <p id="score">Votre score est de 0/5</p>
 
     <script>
-        // Définir les réponses correctes et les indices
+        // Définir les réponses correctes et les indices alternatifs
         const reponses = {
+            forum: "forum",
             republique: "république",
-            citoyens: "citoyens",
             vote: "vote",
-            alesia: "alesia",
             vercingetorix: "vercingétorix",
-            gergovie: "gergovie",
-            senat: "sénat",
-            empereur: "empereur",
-            legion: "légion",
-            gladiateurs: "gladiateurs",
-            aqueduc: "aqueduc"
+            gergovie: "gergovie"
+        };
+
+        const indicesAlternatifs = {
+            forum: "Lieu de rassemblement et de commerce.",
+            republique: "Gouvernement sans roi, fondé sur les citoyens.",
+            vote: "Acte de participation civique.",
+            vercingetorix: "Chef gaulois, opposant de César.",
+            gergovie: "Lieu d'une bataille célèbre en Gaule."
         };
 
         // Variable pour stocker le score
         let score = 0;
         const total = Object.keys(reponses).length;
+        const ids = Object.keys(reponses); // Liste des ids pour navigation
 
         // Fonction pour vérifier chaque réponse
         function verifierReponse(id) {
             const input = document.getElementById(id);
             const reponseUtilisateur = input.value.toLowerCase();
             const reponseCorrecte = reponses[id];
-            const indice = document.getElementById(`indice-${id}`);
+            const indiceGeneral = document.getElementById("indice-general");
 
-            // Vérifier si la réponse est correcte
             if (reponseUtilisateur === reponseCorrecte) {
                 if (!input.classList.contains("correct")) {
                     input.classList.add("correct");
                     input.classList.remove("incorrect");
-                    indice.style.display = "none";
                     score++;
                 }
+                indiceGeneral.style.display = "none"; // Masquer l'indice si la réponse est correcte
+                return true; // Réponse correcte
             } else {
                 if (input.classList.contains("correct")) {
                     input.classList.remove("correct");
                     score--;
                 }
                 input.classList.add("incorrect");
-                indice.style.display = "none"; // Masquer l'indice jusqu'à l'événement blur ou Enter
-            }
 
-            // Mettre à jour le score
-            document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
+                // Afficher les deux premières lettres de la réponse avec une définition alternative
+                const debutMot = reponseCorrecte.slice(0, 2).toUpperCase();
+                const indiceTexte = `Indice : ${debutMot}... - ${indicesAlternatifs[id]}`;
+                indiceGeneral.textContent = indiceTexte;
+                indiceGeneral.style.display = "block"; // Rendre l'indice visible
+                return false; // Réponse incorrecte
+            }
         }
 
-        // Fonction pour afficher l'indice si la réponse est incorrecte
-        function afficherIndice(id) {
-            const input = document.getElementById(id);
-            const reponseUtilisateur = input.value.toLowerCase();
-            const reponseCorrecte = reponses[id];
-            const indice = document.getElementById(`indice-${id}`);
-
-            if (reponseUtilisateur !== reponseCorrecte) {
-                indice.style.display = "inline"; // Afficher l'indice uniquement si la réponse est incorrecte
+        // Fonction pour passer au champ suivant
+        function allerAuChampSuivant(currentId) {
+            const currentIndex = ids.indexOf(currentId);
+            if (currentIndex !== -1 && currentIndex < ids.length - 1) {
+                const nextInput = document.getElementById(ids[currentIndex + 1]);
+                nextInput.focus();
             }
         }
 
         // Ajouter les écouteurs d'événements pour chaque champ de texte
-        for (const id in reponses) {
+        for (const id of ids) {
             const inputElement = document.getElementById(id);
 
-            // Vérifier la réponse en temps réel lors de la saisie
-            inputElement.addEventListener("input", () => verifierReponse(id));
-
-            // Afficher l'indice lors du blur ou lorsque l'utilisateur appuie sur Entrée
-            inputElement.addEventListener("blur", () => afficherIndice(id));
+            // Vérifier la réponse lors de l'appui sur Entrée
             inputElement.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
-                    afficherIndice(id);
+                    const isCorrect = verifierReponse(id); // Vérifier la réponse
+                    if (isCorrect) {
+                        allerAuChampSuivant(id); // Passer au champ suivant si correct
+                    }
+                    document.getElementById("score").textContent = `Votre score est de ${score}/${total}`; // Mettre à jour le score
                 }
+            });
+
+            // Vérifier la réponse et afficher l'indice lors du blur
+            inputElement.addEventListener("blur", () => {
+                verifierReponse(id);
+                document.getElementById("score").textContent = `Votre score est de ${score}/${total}`;
             });
         }
     </script>
