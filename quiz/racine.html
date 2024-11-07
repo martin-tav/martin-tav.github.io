@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0045)https://martin-tav.github.io/quiz/racine.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcul de la Racine Carrée</title>
     <style>
@@ -67,8 +67,14 @@
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: left;
+            text-align: center;
             margin-top: 5px;
+        }
+
+        #result{
+            font-size: 26px;
+            color: blue;
+            padding: 15px;
         }
     </style>
 </head>
@@ -89,12 +95,12 @@
         let startTime;
         let score = 0; // Score pour la série
         const encouragements = [
-            "Bravo, vous êtes incroyable !",
-            "Superbe réponse ! Continuez comme ça !",
-            "Fantastique ! Vous êtes un champion !",
-            "Magnifique ! Vous avez l’esprit vif !",
-            "Excellent travail ! Quel talent !",
-            "Vous êtes impressionnant ! Bravo !"
+            "Bravo, tu es incroyable Tomi !",
+            "Superbe réponse ! Continue comme ça Tomichou !",
+            "Fantastique ! Tu es un champion Mimi !",
+            "Magnifique ! Tu as l’esprit vif le Tomito!",
+            "Excellent travail ! Quel talent Mimichou!",
+            "Tu es impressionnant Mimichou ! Bravo !"
         ];
 
         document.getElementById('startSeries').onclick = function() {
@@ -134,7 +140,7 @@
             questionDiv.className = 'question-entry';
             questionDiv.innerHTML = `
                 <p>Question ${index + 1}: Quelle est la racine carrée de ${number} ?</p>
-                <input type="number" id="answer-${index}" placeholder="Votre réponse" />
+                <input type="number" id="answer-${index}" placeholder="" />
                 <p id="feedback-${index}"></p>
             `;
             questionsContainer.appendChild(questionDiv);
@@ -162,33 +168,42 @@
 
             if (userAnswer === correctAnswer) {
                 const randomEncouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
-                feedback.innerHTML = `<span style="color: green;">${randomEncouragement}</span>`;
                 score++;
+                feedback.innerHTML = `<span style="color: green;">${randomEncouragement}<br>Ton score actuel est de ${score}/${index+1}.</span>`;
+                
                 document.getElementById(`answer-${index}`).disabled = true;
                 focusNextQuestion(index); // Focus sur la question suivante
             } else {
                 if (attempts < maxAttempts - 1) {
-                    feedback.innerHTML = `<span style="color: orange;">Nouvelle tentative : Il vous reste ${attemptsLeft} tentative(s).</span>`;
+                    feedback.innerHTML = `<span style="color: orange;">Continue à chercher : Il te reste ${attemptsLeft} tentative(s).</span>`;
                 } else {
-                    feedback.innerHTML = `<span style="color: red;">Incorrect. La bonne réponse est ${correctAnswer}.</span>`;
+                    feedback.innerHTML = `<span style="color: red;">Dommage. La bonne réponse est ${correctAnswer}.<br>Ton score actuel est de ${score}/${index+1}.</span>`;
                     document.getElementById(`answer-${index}`).disabled = true;
                     focusNextQuestion(index); // Focus sur la question suivante après 3 tentatives
                 }
             }
 
+            //document.getElementById('result').innerText = `Ton score est de ${score}/${totalQuestions}.`;
+
             // Vérifier si toutes les questions ont été répondues
             if (document.querySelectorAll('input:disabled').length === totalQuestions) {
                 endSeries();
             }
+
+
+            
         }
 
         // Fin de la série, afficher le score et le message de félicitations
         function endSeries() {
             const endTime = new Date().getTime();
             const timeTaken = (endTime - startTime) / 1000; // Temps en secondes
-
-            document.getElementById('result').innerText = `Félicitations ! Vous avez terminé la série avec un score de ${score}/${totalQuestions}.`;
-            document.getElementById('replayButton').style.display = 'block';
+            if (score == totalQuestions){
+                document.getElementById('result').innerText = `Bravo ! Tu as fait le score maximum de  ${score}/${totalQuestions}.`;
+            } else{
+                document.getElementById('result').innerText = `Ton score final est de  ${score}/${totalQuestions}.`;
+            }
+            document.getElementById('replayButton').style.display = 'inline-block';
         }
 
         // Mettre le focus sur la question suivante
@@ -200,5 +215,6 @@
         }
     </script>
 
-</body>
-</html>
+
+
+</body></html>
