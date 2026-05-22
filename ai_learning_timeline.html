@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My AI Learning Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;
+  --border:rgba(0,0,0,0.08);--border-md:rgba(0,0,0,0.14);
+  --text:#1A1814;--text-secondary:#6B6760;--text-hint:#9E9B96;
+  --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#3C3489;
+  --teal:#0F6E56;--teal-light:#E1F5EE;--teal-dark:#085041;
+  --blue:#185FA5;--blue-light:#E6F1FB;--blue-dark:#0C447C;
+  --amber:#BA7517;--amber-light:#FAEEDA;--amber-dark:#633806;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1rem 4rem}
+.container{max-width:760px;margin:0 auto}
+header{margin-bottom:2rem}
+.header-tag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-hint);margin-bottom:.4rem}
+h1{font-family:'DM Serif Display',serif;font-size:30px;line-height:1.2;color:var(--text);margin-bottom:.4rem}
+.header-sub{font-size:13px;color:var(--text-secondary);line-height:1.6}
+
+/* TABS */
+.tabs{display:flex;gap:5px;margin-bottom:1.5rem;background:var(--surface);border-radius:999px;padding:4px;border:1px solid var(--border);width:fit-content;flex-wrap:wrap}
+.tab{font-size:12px;font-weight:500;padding:5px 14px;border-radius:999px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tab.active{background:var(--text);color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* PHASE CARDS */
+.phase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:.9rem;position:relative;overflow:hidden}
+.phase-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.phase-card.p1::before{background:var(--purple)}
+.phase-card.p2::before{background:var(--teal)}
+.phase-card.p3::before{background:var(--blue)}
+.phase-card.p4::before{background:var(--amber)}
+.phase-header{display:flex;align-items:center;gap:8px;margin-bottom:.9rem}
+.phase-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+.p1 .phase-badge{background:var(--purple-light);color:var(--purple-dark)}
+.p2 .phase-badge{background:var(--teal-light);color:var(--teal-dark)}
+.p3 .phase-badge{background:var(--blue-light);color:var(--blue-dark)}
+.p4 .phase-badge{background:var(--amber-light);color:var(--amber-dark)}
+.phase-title{font-size:14px;font-weight:600;color:var(--text);flex:1}
+.phase-weeks{font-size:12px;color:var(--text-hint);white-space:nowrap}
+.items{display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--surface2);border-radius:var(--radius-sm)}
+.item-icon{font-size:16px;margin-top:1px;flex-shrink:0}
+.p1 .item-icon{color:var(--purple)}.p2 .item-icon{color:var(--teal)}.p3 .item-icon{color:var(--blue)}.p4 .item-icon{color:var(--amber)}
+.item-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.item-desc{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.cert-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:999px;margin-top:4px;background:var(--blue-light);color:var(--blue-dark)}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-hint);margin:1.1rem 0 .5rem}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary)}
+.legend-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+
+/* CHECKLIST */
+.progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:1.25rem}
+.progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.progress-label{font-size:13px;font-weight:500;color:var(--text)}
+.progress-count{font-size:13px;color:var(--text-secondary)}
+.progress-bar-bg{height:6px;background:var(--surface2);border-radius:999px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--teal);border-radius:999px;transition:width .4s ease}
+.checklist-item{display:flex;align-items:center;gap:9px;padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:5px;cursor:pointer;transition:opacity .2s,background .15s;user-select:none}
+.checklist-item:hover{background:var(--surface2)}
+.checklist-item.done{opacity:.45}
+.checklist-item.done .cl-title{text-decoration:line-through}
+.cl-check{width:17px;height:17px;border:1.5px solid var(--border-md);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.cl-check.checked{background:var(--teal);border-color:var(--teal)}
+.cl-check .ti{font-size:11px;color:#fff;display:none}
+.cl-check.checked .ti{display:block}
+.cl-title{font-size:13px;font-weight:500;color:var(--text);flex:1}
+.cl-sub{font-size:11px;color:var(--text-hint);white-space:nowrap}
+
+/* PLANNER */
+.planner-toolbar{display:flex;align-items:center;gap:7px;margin-bottom:.9rem;flex-wrap:wrap}
+.planner-toolbar select,.planner-toolbar button{font-size:12px;padding:5px 11px;border-radius:var(--radius-sm);border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px;transition:background .15s}
+.planner-toolbar button:hover{background:var(--surface2)}
+.planner-toolbar button.primary{background:var(--text);color:#fff;border-color:var(--text)}
+.planner-toolbar button.primary:hover{opacity:.85}
+.planner-table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)}
+table.planner{width:100%;border-collapse:collapse;font-size:13px}
+table.planner th{background:var(--surface2);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-hint);padding:9px 11px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+table.planner td{padding:0;border-bottom:1px solid var(--border);vertical-align:top}
+table.planner tr:last-child td{border-bottom:none}
+table.planner tr:hover td{background:#faf9f7}
+.day-cell{padding:9px 11px !important;white-space:nowrap;min-width:90px}
+.day-date{font-size:12px;font-weight:600;color:var(--text)}
+.day-hours{font-size:10px;color:var(--teal);margin-top:1px;font-weight:500}
+.cell-input{width:100%;min-height:50px;padding:9px 11px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
+.cell-input:focus{background:#fffdf8}
+.cell-input::placeholder{color:var(--text-hint)}
+.status-cell{padding:7px 9px !important}
+.status-select{font-size:11px;font-weight:600;padding:4px 8px;border-radius:999px;border:none;cursor:pointer;outline:none;appearance:none;text-align:center;min-width:82px}
+.status-select.todo{background:var(--surface2);color:var(--text-secondary)}
+.status-select.inprogress{background:var(--amber-light);color:var(--amber-dark)}
+.status-select.done{background:var(--teal-light);color:var(--teal-dark)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--text-hint);font-size:13px;padding:3px 7px;border-radius:4px}
+.del-btn:hover{color:#c0392b;background:#fdecea}
+.phase-group-label td{padding:6px 11px !important;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--surface2);border-bottom:1px solid var(--border)}
+.phase-group-label.p1 td{color:var(--purple-dark)}
+.phase-group-label.p2 td{color:var(--teal-dark)}
+.phase-group-label.p3 td{color:var(--blue-dark)}
+.phase-group-label.p4 td{color:var(--amber-dark)}
+
+/* TECH WATCH */
+.newsletter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:7px;margin-top:.4rem}
+.nl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 13px}
+.nl-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.nl-freq{font-size:11px;font-weight:500;color:var(--teal);margin-bottom:3px}
+.nl-desc{font-size:12px;color:var(--text-secondary);line-height:1.4}
+.routine-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-top:1.25rem}
+.routine-item{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)}
+.routine-item:last-child{border-bottom:none;padding-bottom:0}
+.routine-num{width:26px;height:26px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-secondary);flex-shrink:0}
+.routine-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.routine-desc{font-size:12px;color:var(--text-secondary);line-height:1.5}
+
+/* GITHUB SETUP CARD */
+.setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:.9rem}
+.setup-step{display:flex;gap:11px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border)}
+.setup-step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-body .step-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.step-body .step-desc{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.step-body code{font-family:monospace;font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px;color:var(--text)}
+.url-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;background:var(--blue-light);color:var(--blue-dark);margin-top:4px;font-family:monospace}
+
+/* PRINT STYLES */
+@media print{
+  body{background:#fff;padding:.5rem}
+  .tabs,.planner-toolbar,.del-btn,header .header-sub{display:none !important}
+  .tab-content{display:block !important}
+  #tab-timeline,#tab-checklist,#tab-watch,#tab-access{display:none !important}
+  #tab-planner{display:block !important}
+  .phase-group-label td,.planner-table-wrap{border-color:#ccc}
+  .cell-input{min-height:40px}
+  table.planner{font-size:11px}
+  .status-select{background:#eee !important;color:#333 !important}
+  h1{font-size:20px}
+  footer{display:none}
+}
+footer{margin-top:2.5rem;text-align:center;font-size:12px;color:var(--text-hint)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-tag">Personal roadmap · 2026</div>
+  <h1>My AI Learning Journey</h1>
+  <p class="header-sub">From AI basics to LinkedIn-ready credentials — weekdays only, 2h/day, starting 26 May 2026.</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('timeline',this)">Roadmap</button>
+  <button class="tab" onclick="switchTab('checklist',this)">My progress</button>
+  <button class="tab" onclick="switchTab('planner',this)">Daily planner</button>
+  <button class="tab" onclick="switchTab('watch',this)">Tech watch</button>
+  <button class="tab" onclick="switchTab('access',this)">Access &amp; setup</button>
+</div>
+
+<!-- ROADMAP -->
+<div id="tab-timeline" class="tab-content active">
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Foundation</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--teal)"></span>Applied skills</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Certs &amp; credibility</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span>Mastery &amp; watch</span>
+  </div>
+  <div class="phase-card p1">
+    <div class="phase-header"><span class="phase-badge">Phase 1</span><span class="phase-title">AI fundamentals + first cert</span><span class="phase-weeks">26 May – 3 Jun · 7 days</span></div>
+    <div class="items">
+      <div class="item"><i class="ti ti-school item-icon"></i><div><div class="item-title">Elements of AI (free · University of Helsinki)</div><div class="item-desc">How AI works, no code needed. Widely recognized in Europe.</div><span class="cert-pill">Certificate on completion</span></div></div>
+      <div class="item"><i class="ti ti-message-chatbot item-icon"></i><div><div class="item-title">Claude 101 — Anthropic Academy</div><div class="item-desc">Official course: chat, projects, artifacts, cowork, connectors, enterprise search.</div><span class="cert-pill">Certificate on completion</span></div></div>
+      <div class="item"><i class="ti ti-book item-icon"></i><div><div class="item-title">AI vocabulary (LLM, RAG, tokens, agents…)</div><div class="item-desc">Speak the language fluently for meetings and interviews.</div></div></div>
+    </div>
+  </div>
+  <div class="phase-card p2">
+    <div class="phase-header"><span class="phase-badge">Phase 2</span><span class="phase-title">Prompt engineering + applied AI</span><span class="phase-weeks">4 Jun – 12 Jun · 7 days</span></div>
+    <div class="items">
+      <div class="item"><i class="ti ti-wand item-icon"></i><div><div class="item-title">Prompt engineering — DeepLearning.AI (free)</div><div class="item-desc">Chain-of-thought, few-shot, system prompts. Employers love this skill.</div><span class="cert-pill">Certificate</span></div></div>
+      <div class="item"><i class="ti ti-file-certificate item-icon"></i><div><div class="item-title">Google AI Essentials — Coursera</div><div class="item-desc">Broad, practical, issued by Google. Strong LinkedIn signal.</div><span class="cert-pill">Certificate (~$50 or free audit)</span></div></div>
+      <div class="item"><i class="ti ti-tools item-icon"></i><div><div class="item-title">Map AI tools to your actual job</div><div class="item-desc">Automation, writing, research, analysis — make AI tangibly useful at work.</div></div></div>
+    </div>
+  </div>
+  <div class="phase-card p3">
+    <div class="phase-header"><span class="phase-badge">Phase 3</span><span class="phase-title">Credibility certs &amp; ethics</span><span class="phase-weeks">15 Jun – 23 Jun · 7 days</span></div>
+    <div class="items">
+      <div class="item"><i class="ti ti-certificate item-icon"></i><div><div class="item-title">Microsoft AI-900</div><div class="item-desc">Azure AI Fundamentals — globally recognized. Validates AI literacy formally.</div><span class="cert-pill">Microsoft badge (~$165)</span></div></div>
+      <div class="item"><i class="ti ti-shield-check item-icon"></i><div><div class="item-title">AI ethics &amp; responsible AI</div><div class="item-desc">UNESCO / Coursera — signals you understand risk, not just hype. Key for employers.</div><span class="cert-pill">Free audit</span></div></div>
+      <div class="item"><i class="ti ti-brand-linkedin item-icon"></i><div><div class="item-title">LinkedIn profile update</div><div class="item-desc">Add all certs, write an AI-fluency headline, share one public post.</div></div></div>
+    </div>
+  </div>
+  <div class="phase-card p4">
+    <div class="phase-header"><span class="phase-badge">Phase 4</span><span class="phase-title">Ongoing mastery &amp; tech watch</span><span class="phase-weeks">Month 2 → ongoing</span></div>
+    <div class="items">
+      <div class="item"><i class="ti ti-rss item-icon"></i><div><div class="item-title">Weekly newsletter routine (30 min/week)</div><div class="item-desc">Read → ask Claude → apply one insight to your work each week.</div></div></div>
+      <div class="item"><i class="ti ti-chart-line item-icon"></i><div><div class="item-title">Advanced cert (optional)</div><div class="item-desc">IBM AI Engineering, DeepLearning.AI Specialization, or Anthropic Academy advanced tracks.</div><span class="cert-pill">Certs available</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div id="tab-checklist" class="tab-content">
+  <div class="progress-wrap">
+    <div class="progress-top"><span class="progress-label">Overall progress</span><span class="progress-count" id="progress-count">0 / 14 done</span></div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="section-label">Phase 1 — Foundation</div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Start Elements of AI</span><span class="cl-sub">Free · 6h</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Complete Elements of AI + cert</span><span class="cl-sub">Day 3</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Complete Claude 101 + cert</span><span class="cl-sub">Day 6</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Learn 20 key AI terms</span><span class="cl-sub">Day 7</span></div>
+  <div class="section-label">Phase 2 — Applied skills</div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">DeepLearning.AI prompt engineering cert</span><span class="cl-sub">Free · 1h</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Enroll in Google AI Essentials</span><span class="cl-sub">Day 10</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Complete Google AI Essentials cert</span><span class="cl-sub">Day 13</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Map 5 AI tools to my actual job</span><span class="cl-sub">Day 14</span></div>
+  <div class="section-label">Phase 3 — Credibility</div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Register for Microsoft AI-900</span><span class="cl-sub">~$165</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Pass AI-900 exam</span><span class="cl-sub">23 Jun</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Complete AI Ethics course</span><span class="cl-sub">Free audit</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Add all certs to LinkedIn</span><span class="cl-sub">23 Jun</span></div>
+  <div class="section-label">Ongoing</div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Subscribe to 2–3 AI newsletters</span><span class="cl-sub">Month 2</span></div>
+  <div class="checklist-item" onclick="toggleCheck(this)"><div class="cl-check"><i class="ti ti-check"></i></div><span class="cl-title">Share first AI insight on LinkedIn</span><span class="cl-sub">Month 2</span></div>
+</div>
+
+<!-- DAILY PLANNER -->
+<div id="tab-planner" class="tab-content">
+  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:.9rem;line-height:1.6">Weekdays only · 2h/day · starting 26 May 2026. Fill in your takeaways and update status as you go. Use the print button to get a clean paper version.</p>
+  <div class="planner-toolbar">
+    <select id="phase-filter" onchange="filterPhase(this.value)">
+      <option value="all">All phases</option>
+      <option value="p1">Phase 1 — Foundation</option>
+      <option value="p2">Phase 2 — Applied</option>
+      <option value="p3">Phase 3 — Credibility</option>
+      <option value="p4">Phase 4 — Ongoing</option>
+    </select>
+    <button onclick="addRow()"><i class="ti ti-plus"></i> Add day</button>
+    <button onclick="window.print()"><i class="ti ti-printer"></i> Print</button>
+    <button class="primary" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
+  </div>
+  <div class="planner-table-wrap">
+    <table class="planner" id="planner-table">
+      <thead><tr>
+        <th style="width:100px">Day</th>
+        <th style="width:32%">Chapter / section</th>
+        <th>Main takeaways</th>
+        <th style="width:100px">Status</th>
+        <th style="width:30px"></th>
+      </tr></thead>
+      <tbody id="planner-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TECH WATCH -->
+<div id="tab-watch" class="tab-content">
+  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1.1rem;line-height:1.6">Your 30-min/week tech watch routine — curated for job-market relevance.</p>
+  <div class="section-label">Best newsletters to follow</div>
+  <div class="newsletter-grid">
+    <div class="nl-card"><div class="nl-name">The Rundown AI</div><div class="nl-freq">Daily</div><div class="nl-desc">Fast digest of top AI news. Perfect start.</div></div>
+    <div class="nl-card"><div class="nl-name">TLDR AI</div><div class="nl-freq">Daily</div><div class="nl-desc">Technical but readable. Great signal-to-noise.</div></div>
+    <div class="nl-card"><div class="nl-name">Ben's Bites</div><div class="nl-freq">Daily</div><div class="nl-desc">Tools focus. Great for applied AI users.</div></div>
+    <div class="nl-card"><div class="nl-name">Import AI</div><div class="nl-freq">Weekly</div><div class="nl-desc">Deeper research lens. Builds credibility.</div></div>
+    <div class="nl-card"><div class="nl-name">Stratechery</div><div class="nl-freq">Weekly</div><div class="nl-desc">Business &amp; strategy. Impresses in interviews.</div></div>
+    <div class="nl-card"><div class="nl-name">MIT Tech Review</div><div class="nl-freq">Weekly</div><div class="nl-desc">Rigorous. Great for ethics &amp; big picture.</div></div>
+  </div>
+  <div class="routine-card">
+    <div class="section-label" style="margin-top:0">Weekly 30-min routine</div>
+    <div class="routine-item"><div class="routine-num">1</div><div><div class="routine-title">10 min — scan headlines</div><div class="routine-desc">Pick 1 story relevant to your field or job market.</div></div></div>
+    <div class="routine-item"><div class="routine-num">2</div><div><div class="routine-title">10 min — paste into Claude</div><div class="routine-desc">Ask: "Explain this simply and tell me how it could affect [my field]."</div></div></div>
+    <div class="routine-item"><div class="routine-num">3</div><div><div class="routine-title">10 min — apply or share</div><div class="routine-desc">Try the tool, or write a short LinkedIn post. Both build credibility fast.</div></div></div>
+  </div>
+</div>
+
+<!-- ACCESS & SETUP -->
+<div id="tab-access" class="tab-content">
+  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1.1rem;line-height:1.6">Three ways to keep this file always within reach.</p>
+
+  <div class="section-label">Option A — GitHub Pages (access from anywhere)</div>
+  <div class="setup-card">
+    <div class="setup-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Create a GitHub account</div><div class="step-desc">Go to <code>github.com</code> → Sign up (free). Use your real name so the URL looks professional.</div></div></div>
+    <div class="setup-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create a repository called <code>ai-roadmap</code></div><div class="step-desc">Click "+" → New repository → name it <code>ai-roadmap</code> → tick "Add README" → Create repository.</div></div></div>
+    <div class="setup-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Upload this file</div><div class="step-desc">In the repo → "Add file" → "Upload files" → drag <code>ai_learning_timeline.html</code> → rename it <code>index.html</code> → Commit.</div></div></div>
+    <div class="setup-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Enable GitHub Pages</div><div class="step-desc">Repo Settings → Pages → Source: "Deploy from branch" → Branch: main → Save. Done in ~60 seconds.</div></div></div>
+    <div class="setup-step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Your URL is live</div><div class="step-desc">It will be available at:</div><div class="url-pill">https://yourusername.github.io/ai-roadmap</div><div class="step-desc" style="margin-top:6px">Bookmark it. Open it on any device. Share with recruiters.</div></div></div>
+  </div>
+
+  <div class="section-label">Option B — Local bookmark (offline, instant)</div>
+  <div class="setup-card">
+    <div class="setup-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Save the file to your Desktop</div><div class="step-desc">Download <code>ai_learning_timeline.html</code> and place it on your Desktop or in a dedicated folder.</div></div></div>
+    <div class="setup-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Open in browser and bookmark it</div><div class="step-desc">Double-click the file → it opens in Chrome/Firefox → press <code>Ctrl+D</code> (or <code>Cmd+D</code> on Mac) → save to Bookmarks Bar.</div></div></div>
+    <div class="setup-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">One click away every day</div><div class="step-desc">The bookmark bar shows it permanently. Click it every morning to log your session.</div></div></div>
+  </div>
+
+  <div class="section-label">Option C — Use in Claude Cowork</div>
+  <div class="setup-card">
+    <div class="setup-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open Claude → go to Cowork</div><div class="step-desc">In Claude's left sidebar, click "Cowork" to open a collaborative workspace session.</div></div></div>
+    <div class="setup-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Upload the HTML file</div><div class="step-desc">In Cowork, use the file upload or attachment button to add <code>ai_learning_timeline.html</code> to the session.</div></div></div>
+    <div class="setup-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Ask Claude to open or summarize it</div><div class="step-desc">Type: "Open my learning roadmap and show me what's next for today." Claude will read and work with it directly.</div></div></div>
+  </div>
+</div>
+
+<footer>Created with Claude · May 2026 · Your personal AI learning roadmap</footer>
+</div>
+
+<script>
+function switchTab(name,el){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+const TOTAL=14;
+function toggleCheck(el){
+  const check=el.querySelector('.cl-check');
+  const done=!el.classList.contains('done');
+  el.classList.toggle('done',done);
+  check.classList.toggle('checked',done);
+  updateProgress();
+}
+function updateProgress(){
+  const done=document.querySelectorAll('.checklist-item.done').length;
+  document.getElementById('progress-count').textContent=done+' / '+TOTAL+' done';
+  document.getElementById('progress-fill').style.width=Math.round(done/TOTAL*100)+'%';
+}
+
+/* ── PLANNER ── */
+const PHASE_NAMES={p1:'Phase 1 — Foundation',p2:'Phase 2 — Applied skills',p3:'Phase 3 — Credibility',p4:'Phase 4 — Ongoing'};
+const PHASE_COLORS={p1:'p1',p2:'p2',p3:'p3',p4:'p4'};
+
+const SEED=[
+  {phase:'p1',day:'Tue 26 May',hours:'2h',chapter:'Elements of AI — What is AI?',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Wed 27 May',hours:'2h',chapter:'Elements of AI — AI problem solving',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Thu 28 May',hours:'2h',chapter:'Elements of AI — Real-world applications',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Fri 29 May',hours:'2h',chapter:'Claude 101 — Chat & Projects basics',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Mon 01 Jun',hours:'2h',chapter:'Claude 101 — Artifacts, Cowork & Connectors',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Tue 02 Jun',hours:'2h',chapter:'Claude 101 — Enterprise Search & Research Mode',takeaway:'',status:'todo'},
+  {phase:'p1',day:'Wed 03 Jun',hours:'2h',chapter:'AI vocabulary deep-dive (LLM, RAG, tokens, agents)',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Thu 04 Jun',hours:'2h',chapter:'DeepLearning.AI — Prompt engineering basics',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Fri 05 Jun',hours:'2h',chapter:'DeepLearning.AI — Chain-of-thought & few-shot',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Mon 08 Jun',hours:'2h',chapter:'Google AI Essentials — Week 1',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Tue 09 Jun',hours:'2h',chapter:'Google AI Essentials — Week 2',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Wed 10 Jun',hours:'2h',chapter:'Google AI Essentials — Week 3',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Thu 11 Jun',hours:'2h',chapter:'Google AI Essentials — Week 4 + certificate',takeaway:'',status:'todo'},
+  {phase:'p2',day:'Fri 12 Jun',hours:'2h',chapter:'Map 5 AI tools to my actual job',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Mon 15 Jun',hours:'2h',chapter:'AI-900 prep — Azure AI fundamentals',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Tue 16 Jun',hours:'2h',chapter:'AI-900 prep — Responsible AI principles',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Wed 17 Jun',hours:'2h',chapter:'AI-900 prep — ML workloads & services',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Thu 18 Jun',hours:'2h',chapter:'AI-900 practice exam + review gaps',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Fri 19 Jun',hours:'2h',chapter:'AI Ethics — Module 1 (UNESCO/Coursera)',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Mon 22 Jun',hours:'2h',chapter:'AI Ethics — Module 2 + LinkedIn cert update',takeaway:'',status:'todo'},
+  {phase:'p3',day:'Tue 23 Jun',hours:'2h',chapter:'AI-900 exam day + LinkedIn update',takeaway:'',status:'todo'},
+];
+
+let rows=[];
+let nextId=0;
+let currentFilter='all';
+
+function loadRows(){
+  try{
+    const saved=localStorage.getItem('planner_rows_v2');
+    if(saved){rows=JSON.parse(saved);nextId=rows.reduce((m,r)=>Math.max(m,r.id+1),0);return;}
+  }catch(e){}
+  rows=SEED.map((r,i)=>({...r,id:i}));
+  nextId=rows.length;
+}
+function save(){try{localStorage.setItem('planner_rows_v2',JSON.stringify(rows));}catch(e){}}
+
+function statusClass(s){return s==='done'?'done':s==='inprogress'?'inprogress':'todo';}
+function statusLabel(s){return s==='done'?'Done':s==='inprogress'?'In progress':'To do';}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderPlanner(){
+  const tbody=document.getElementById('planner-body');
+  tbody.innerHTML='';
+  let lastPhase=null;
+  const visible=currentFilter==='all'?rows:rows.filter(r=>r.phase===currentFilter);
+  visible.forEach(row=>{
+    if(row.phase!==lastPhase){
+      const gr=document.createElement('tr');
+      gr.className='phase-group-label '+row.phase;
+      gr.innerHTML=`<td colspan="5">${PHASE_NAMES[row.phase]||''}</td>`;
+      tbody.appendChild(gr);
+      lastPhase=row.phase;
+    }
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td class="day-cell">
+        <div class="day-date">${esc(row.day)}</div>
+        <div class="day-hours"><i class="ti ti-clock" style="font-size:10px"></i> ${esc(row.hours)}</div>
+      </td>
+      <td><textarea class="cell-input" placeholder="Chapter / section…" oninput="updateField(${row.id},'chapter',this.value)">${esc(row.chapter)}</textarea></td>
+      <td><textarea class="cell-input" placeholder="Key insight or takeaway…" oninput="updateField(${row.id},'takeaway',this.value)">${esc(row.takeaway)}</textarea></td>
+      <td class="status-cell">
+        <select class="status-select ${statusClass(row.status)}" onchange="updateStatus(${row.id},this)">
+          <option value="todo" ${row.status==='todo'?'selected':''}>To do</option>
+          <option value="inprogress" ${row.status==='inprogress'?'selected':''}>In progress</option>
+          <option value="done" ${row.status==='done'?'selected':''}>Done</option>
+        </select>
+      </td>
+      <td style="padding:4px;text-align:center"><button class="del-btn" onclick="deleteRow(${row.id})" title="Remove"><i class="ti ti-trash"></i></button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateField(id,field,val){const r=rows.find(r=>r.id===id);if(r){r[field]=val;save();}}
+function updateStatus(id,sel){const r=rows.find(r=>r.id===id);if(r){r.status=sel.value;sel.className='status-select '+statusClass(sel.value);save();}}
+function deleteRow(id){rows=rows.filter(r=>r.id!==id);save();renderPlanner();}
+function addRow(){rows.push({id:nextId++,phase:currentFilter==='all'?'p1':currentFilter,day:'New day',hours:'2h',chapter:'',takeaway:'',status:'todo'});save();renderPlanner();}
+function filterPhase(val){currentFilter=val;renderPlanner();}
+function exportCSV(){
+  const header=['Day','Hours','Chapter / Section','Main Takeaways','Status'];
+  const csvRows=[header,...rows.map(r=>[r.day,r.hours,r.chapter,r.takeaway,statusLabel(r.status)].map(v=>'"'+(v||'').replace(/"/g,'""')+'"'))];
+  const blob=new Blob([csvRows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ai_learning_planner.csv';a.click();
+}
+
+loadRows();
+renderPlanner();
+</script>
+</body>
+</html>
