@@ -1,0 +1,49 @@
+site_name: Notes de Martin
+site_description: Notes personnelles et professionnelles
+site_url: https://martin-tav.github.io/notes/
+use_directory_urls: true
+
+theme:
+  name: material
+  language: fr
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Basculer en mode sombre
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Basculer en mode clair
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+nav:
+  - Accueil: index.md
+  - Exemple: exemple/premiere-note.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - tables
+  - def_list
+
+plugins:
+  - search
+
+extra:
+  generator: false
+
