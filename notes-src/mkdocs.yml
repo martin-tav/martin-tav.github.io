@@ -18,6 +18,7 @@ theme:
         icon: material/brightness-4
         name: Basculer en mode clair
   features:
+    - navigation.expand
     - navigation.instant
     - navigation.tracking
     - navigation.top
