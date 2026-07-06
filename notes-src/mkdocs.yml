@@ -29,6 +29,8 @@ theme:
 
 nav:
   - Accueil: index.md
+  - Réflexions:
+    - IA réflexion (06/07/2026): reflexions/2026-07-06-ia-reflexion.md
   - Exemple: exemple/premiere-note.md
 
 markdown_extensions:
