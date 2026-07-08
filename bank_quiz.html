@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Bank Training – Quiz de révision (amélioré)</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --card: #ffffff;
+    --border: #e0ddd3;
+    --text-primary: #111111;
+    --text-secondary: #6b6b6b;
+    --accent: #0b5fae;
+    --accent-bg: #e6f1fb;
+    --success: #1d9e75;
+    --success-bg: #e1f5ee;
+    --warning: #ff9800;
+    --warning-bg: #fff3e0;
+    --error: #c0392b;
+    --error-bg: #ffebee;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 16px;
+    background: var(--bg);
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { max-width: 600px; width: 100%; }
+  h1 { font-size: 22px; margin: 0 0 4px 0; font-weight: 700; }
+  .subtitle { font-size: 14px; color: var(--text-secondary); font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 0 0 28px 0; }
+  .tip {
+    font-size: 15px; 
+    margin: 0 0 24px 0; 
+    line-height: 1.5;
+    background: var(--accent-bg);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+  }
+  
+  /* Progress bar */
+  .progress-container {
+    width: 100%;
+    background: var(--border);
+    border-radius: 3px;
+    margin: 20px 0;
+    height: 6px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  .card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .topic {
+    display: inline-block;
+    font-size: 12px;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  /* Topic color-coding */
+  .topic[data-topic="Organisation LCL"] { background: #e6f7ff; color: #0066cc; }
+  .topic[data-topic="Produits phares"] { background: #e6ffe6; color: #008000; }
+  .topic[data-topic="Bâle III"] { background: #fff2e6; color: #cc6600; }
+  .topic[data-topic="DORA"] { background: #f9e6ff; color: #800080; }
+  
+  .qcount { 
+    font-size: 13px; 
+    color: var(--text-secondary); 
+    font-family: -apple-system, Helvetica, Arial, sans-serif; 
+    float: right; 
+  }
+  .question { 
+    font-size: 16px; 
+    margin: 8px 0 14px 0; 
+    line-height: 1.5; 
+    clear: both; 
+  }
+  .answer {
+    font-size: 15px; 
+    color: var(--text-secondary); 
+    border-top: 0.5px solid var(--border); 
+    padding-top: 12px; 
+    margin: 0 0 14px 0; 
+    line-height: 1.5; 
+    display: none; 
+  }
+  .hint {
+    font-size: 14px;
+    color: var(--warning);
+    margin: 10px 0;
+    display: none;
+    font-style: italic;
+  }
+  button {
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 0.5px solid #999;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  button:hover { background: #f0f0f0; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .know-btn { border-color: var(--success); color: var(--success); }
+  .unknow-btn { border-color: var(--error); color: var(--error); }
+  .hint-btn { border-color: var(--warning); color: var(--warning); }
+  
+  .summary {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    text-align: center;
+    display: none;
+  }
+  .score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+  .topic-row {
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 14px; 
+    padding: 8px 0; 
+    border-top: 0.5px solid var(--border); 
+    text-align: left; 
+  }
+  .topic-row .bar-container {
+    width: 100px;
+    height: 10px;
+    background: var(--border);
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  .topic-row .bar {
+    height: 100%;
+    background: var(--success);
+    border-radius: 5px;
+  }
+  .restart { margin-top: 16px; }
+  hr.sep { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+  
+  /* Streak counter */
+  .streak {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+  }
+  .streak .count {
+    color: var(--success);
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bank Training — Quiz de révision</h1>
+  <p class="subtitle">Jours 1 à 3 · Organisation LCL, produits phares, Bâle III et DORA</p>
+  <p class="tip">
+    <strong>Conseil :</strong> Essaie de répondre avant de cliquer sur « Voir la réponse » ou « Indice ». 
+    L'effort de rappel renforce la mémorisation !
+  </p>
+  
+  <div class="progress-container">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+  
+  <div id="quiz"></div>
+  <div id="summary" class="summary"></div>
+</div>
+
+<script>
+// Questions with hints
+const questions = [
+  {
+    topic: "Organisation LCL", 
+    q: "Qui est le directeur général de LCL depuis janvier 2024, et qui en est le Président depuis avril 2025 ?", 
+    a: "Serge Magdeleine est directeur général depuis janvier 2024. Jérôme Grivet est Président depuis avril 2025 (il est aussi directeur général délégué de Crédit Agricole SA).",
+    hint: "Le DG a un prénom commençant par 'S', le Président par 'J'."
+  },
+  {
+    topic: "Organisation LCL", 
+    q: "À quelle division du groupe Crédit Agricole LCL est-il rattaché ?", 
+    a: "La division Banques universelles de proximité, aux côtés de Crédit Agricole Italia.",
+    hint: "C'est une division axée sur les banques 'universelles'."
+  },
+  {
+    topic: "Organisation LCL", 
+    q: "Cite deux filiales de LCL et leur spécialité.", 
+    a: "Interfimo (financement des professions libérales) et Angle Neuf (immobilier patrimonial neuf), aux côtés de LCL Banque privée pour la gestion de fortune.",
+    hint: "L'une commence par 'I', l'autre par 'A'."
+  },
+  {
+    topic: "Produits phares", 
+    q: "Quelle est la différence entre LCL Essentiel et LCL à la carte ?", 
+    a: "LCL Essentiel est une offre d'entrée de gamme à 2 euros par mois. LCL à la carte, dès 3,75 euros par mois, se module selon les services souscrits, avec des réductions si on en prend davantage.",
+    hint: "L'un est fixe, l'autre est modulable."
+  },
+  {
+    topic: "Produits phares", 
+    q: "Quel livret réglementé offre le meilleur taux net en 2026 pour les foyers éligibles ?", 
+    a: "Le LEP (Livret d'épargne populaire), rémunéré à 2,5 % net en 2026.",
+    hint: "C'est un livret pour les foyers modestes."
+  },
+  {
+    topic: "Produits phares", 
+    q: "Qu'est-ce que le crédit FLEX chez LCL ?", 
+    a: "Un crédit instantané plafonné à 2 000 euros, remboursable en trois fois.",
+    hint: "C'est un crédit 'instantané'."
+  },
+  {
+    topic: "Bâle III", 
+    q: "Que signifie CET1 et quel est son seuil plancher sous Bâle III ?", 
+    a: "CET1 = Common Equity Tier 1, le capital de meilleure qualité. Le plancher est de 4,5 % des actifs pondérés du risque (8 % tous fonds propres confondus, jusqu'à 13 % avec les coussins).",
+    hint: "C'est le capital de 'meilleure qualité'."
+  },
+  {
+    topic: "Bâle III", 
+    q: "Que mesure le LCR et pourquoi a-t-il été introduit après 2008 ?", 
+    a: "Le LCR (Liquidity Coverage Ratio) mesure la capacité à couvrir 30 jours de sorties de trésorerie avec des actifs facilement cessibles. Il a été introduit car des banques solvables sur le papier se sont retrouvées incapables d'honorer leurs échéances du jour au lendemain en 2008.",
+    hint: "C'est un ratio de 'liquidité'."
+  },
+  {
+    topic: "DORA", 
+    q: "Depuis quelle date DORA est-il en application, et qui porte désormais la responsabilité du risque informatique ?", 
+    a: "Depuis le 17 janvier 2025. Le conseil d'administration porte désormais cette responsabilité, plus seulement la DSI.",
+    hint: "La date commence par '17/01/'."
+  },
+  {
+    topic: "DORA", 
+    q: "Cite un des trois chantiers concrets que DORA impose à une DSI bancaire.", 
+    a: "Cartographier en continu les actifs informatiques critiques, déclarer les incidents majeurs selon une procédure harmonisée, ou remettre un registre des contrats avec les prestataires TIC d'ici le 31 mars 2026.",
+    hint: "L'un des chantiers concerne la 'cartographie'."
+  }
+];
+
+// Shuffle questions at the start
+function shuffleQuestions() {
+  questions.sort(() => Math.random() - 0.5);
+}
+
+// Load progress from localStorage
+let scores = JSON.parse(localStorage.getItem('quizScores')) || [];
+let currentStreak = parseInt(localStorage.getItem('quizStreak')) || 0;
+let maxStreak = parseInt(localStorage.getItem('quizMaxStreak')) || 0;
+
+let i = 0;
+const quizEl = document.getElementById("quiz");
+const summaryEl = document.getElementById("summary");
+
+// Update progress bar
+function updateProgress() {
+  const progress = (i / questions.length) * 100;
+  document.getElementById("progress").style.width = `${progress}%`;
+}
+
+// Render the current question
+function renderQuestion() {
+  const item = questions[i];
+  quizEl.innerHTML = `
+    <div class="card">
+      <div class="streak">
+        <span>Série en cours : <span class="count">${currentStreak}</span> ✅</span>
+        <span style="margin-left: 10px;">Record : <span class="count">${maxStreak}</span> ✅</span>
+      </div>
+      <span class="qcount">Question ${i + 1}/${questions.length}</span>
+      <span class="topic" data-topic="${item.topic}">${item.topic}</span>
+      <p class="question">${item.q}</p>
+      <p class="hint" id="hint">${item.hint}</p>
+      <p class="answer" id="answer">${item.a}</p>
+      <div id="buttons">
+        <button id="hint-btn" class="hint-btn">Indice</button>
+        <button id="reveal" class="hint-btn">Voir la réponse</button>
+      </div>
+      <span id="post-reveal"></span>
+    </div>
+  `;
+  
+  updateProgress();
+  
+  document.getElementById("hint-btn").addEventListener("click", () => {
+    document.getElementById("hint").style.display = "block";
+    document.getElementById("hint-btn").disabled = true;
+  });
+  
+  document.getElementById("reveal").addEventListener("click", () => {
+    document.getElementById("answer").style.display = "block";
+    document.getElementById("reveal").style.display = "none";
+    document.getElementById("hint-btn").style.display = "none";
+    document.getElementById("post-reveal").innerHTML = `
+      <button class="know-btn" id="know">J'ai su répondre</button>
+      <button class="unknow-btn" id="unknow">À revoir</button>
+    `;
+    document.getElementById("know").addEventListener("click", () => {
+      scores.push(1);
+      currentStreak++;
+      if (currentStreak > maxStreak) maxStreak = currentStreak;
+      advance();
+    });
+    document.getElementById("unknow").addEventListener("click", () => {
+      scores.push(0);
+      currentStreak = 0;
+      advance();
+    });
+  });
+}
+
+// Move to the next question
+function advance() {
+  i++;
+  if (i < questions.length) {
+    renderQuestion();
+  } else {
+    showSummary();
+  }
+}
+
+// Show the summary page
+function showSummary() {
+  quizEl.style.display = "none";
+  
+  // Save progress to localStorage
+  localStorage.setItem('quizScores', JSON.stringify(scores));
+  localStorage.setItem('quizStreak', currentStreak);
+  localStorage.setItem('quizMaxStreak', maxStreak);
+  
+  const total = scores.reduce((a, b) => a + b, 0);
+  const byTopic = {};
+  questions.forEach((q, idx) => {
+    byTopic[q.topic] = byTopic[q.topic] || { ok: 0, tot: 0 };
+    byTopic[q.topic].tot += 1;
+    byTopic[q.topic].ok += scores[idx];
+  });
+  
+  const rows = Object.entries(byTopic).map(([t, v]) => {
+    const percent = (v.ok / v.tot) * 100;
+    return `
+      <div class="topic-row">
+        <span>${t}</span>
+        <span>${v.ok}/${v.tot}</span>
+        <div class="bar-container">
+          <div class="bar" style="width: ${percent}%; background: ${percent > 50 ? 'var(--success)' : percent > 25 ? 'var(--warning)' : 'var(--error)'};"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+  
+  summaryEl.style.display = "block";
+  summaryEl.innerHTML = `
+    <p style="font-size:13px;color:var(--text-secondary);margin:0;font-family:-apple-system,Helvetica,Arial,sans-serif;">Score final</p>
+    <p class="score">${total}/${questions.length}</p>
+    <div style="margin: 20px 0;">
+      <p style="font-size:14px;color:var(--text-secondary);margin:0 0 10px 0;">Répartition par thème</p>
+      ${rows}
+    </div>
+    <p style="font-size:14px;color:var(--text-secondary);margin:20px 0 10px 0;">
+      Série en cours : <span class="count">${currentStreak}</span> ✅ | Record : <span class="count">${maxStreak}</span> ✅
+    </p>
+    <button class="restart" id="restart">Recommencer</button>
+    <button class="restart" id="shuffle" style="margin-left: 8px;">Mélanger et recommencer</button>
+  `;
+  
+  document.getElementById("restart").addEventListener("click", () => {
+    i = 0;
+    scores = [];
+    currentStreak = 0;
+    summaryEl.style.display = "none";
+    quizEl.style.display = "block";
+    renderQuestion();
+  });
+  
+  document.getElementById("shuffle").addEventListener("click", () => {
+    i = 0;
+    scores = [];
+    currentStreak = 0;
+    shuffleQuestions();
+    summaryEl.style.display = "none";
+    quizEl.style.display = "block";
+    renderQuestion();
+  });
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && document.getElementById("reveal") && document.getElementById("reveal").style.display !== 'none') {
+    document.getElementById("reveal").click();
+  } else if (e.key === '1' && document.getElementById("know")) {
+    document.getElementById("know").click();
+  } else if (e.key === '2' && document.getElementById("unknow")) {
+    document.getElementById("unknow").click();
+  }
+});
+
+// Initialize
+shuffleQuestions();
+renderQuestion();
+</script>
+</body>
+</html>
