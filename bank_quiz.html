@@ -148,6 +148,11 @@
   .topic[data-topic="DORA"] { background: #f2ddff; color: #800080; }
   .topic[data-topic="LCB-FT"] { background: #d6fbf5; color: #00807a; }
   .topic[data-topic="RGPD bancaire"] { background: #ffd9e6; color: #cc0055; }
+  .topic[data-topic="Data Factory LCL"] { background: #d6eef2; color: #1f6f8b; }
+  .topic[data-topic="Power BI & DAX"] { background: #fff3d6; color: #a37600; }
+  .topic[data-topic="SQL & Teradata"] { background: #ffe3d6; color: #d9480f; }
+  .topic[data-topic="Agile & Scrum"] { background: #e3e8f0; color: #4b6584; }
+  .topic[data-topic="LCL & le poste"] { background: #dce6ee; color: #1c3d5a; }
 
   .qcount { font-size: 14px; color: var(--text-tertiary); }
   .qtype {
@@ -271,7 +276,7 @@
   <div class="avatar">🏦</div>
   <h1>Quiz de révision</h1>
   <p class="subtitle">Bank training</p>
-  <p class="meta">Organisation LCL · Produits phares · Bâle III · DORA · LCB-FT · RGPD bancaire</p>
+  <p class="meta">11 catégories · Réglementation bancaire, organisation LCL et compétences du poste Data Analytics Engineering</p>
 
   <div id="screen-category">
     <div class="intro-box">
@@ -529,6 +534,595 @@ const allQuestions = [
     explanation: "Concrètement : registre des traitements, journalisation des accès, preuve des mesures de sécurité mises en place.",
     context: "L'accountability marque un changement de philosophie par rapport à l'ancienne loi Informatique et Libertés : avant 2018, certains traitements devaient être déclarés ou autorisés à l'avance par la CNIL. Le RGPD a basculé vers un contrôle a posteriori — l'organisme doit pouvoir prouver sa conformité à tout moment, plutôt que de demander une autorisation préalable.",
     hint: "Le mot anglais évoque la 'responsabilité' démontrable, pas seulement le respect des règles."
+  },
+
+  // ===== Data Factory LCL =====
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Au sein du Data Office LCL, quelle équipe alimente le dictionnaire de données et implémente les indicateurs qualité ?",
+    options: ["Data Management Office", "Data Factory", "Architectes Data", "Tribu IT Data"],
+    correct: 0,
+    explanation: "Le Data Management Office assure la gouvernance de la donnée : dictionnaire de données, data owners, contrôles qualité automatisés. La Data Factory, elle, développe des indicateurs sur son datalab pour les métiers.",
+    context: "Cette séparation entre 'gouvernance' (Data Management Office) et 'exécution/restitution' (Data Factory) est un schéma classique dans les grands groupes : une équipe pose les règles et la définition des données, une autre les exploite pour produire des tableaux de bord.",
+    hint: "C'est l'équipe qui pose les règles, pas celle qui restitue les indicateurs."
+  },
+  {
+    topic: "Data Factory LCL", type: "fill",
+    q: "Sur quelle technologie de base de données repose l'entrepôt de données gouverné de LCL ?",
+    accepted: ["teradata"],
+    explanation: "L'entrepôt de données gouverné de LCL est sur Teradata, avec un socle, une couche usage et des datamarts métier.",
+    context: "Teradata est un système historique très répandu dans les grands groupes bancaires et de distribution pour sa capacité à traiter de très gros volumes de données en parallèle (architecture MPP). Le connaître, même superficiellement, est un vrai plus pour un poste d'Analytics Engineer chez LCL.",
+    hint: "C'est aussi le nom d'une entreprise américaine spécialisée dans les entrepôts de données."
+  },
+  {
+    topic: "Data Factory LCL", type: "fill",
+    q: "Quel outil de data visualisation est l'outil retenu par LCL pour restituer les indicateurs de la Data Factory ?",
+    accepted: ["power bi", "powerbi"],
+    explanation: "La Data Factory restitue les indicateurs via des tableaux de bord Power BI, sur des workspaces gérés par une équipe IT dédiée. D'autres solutions existent mais sont proscrites pour de nouveaux cas d'usage.",
+    context: "Le fait que d'autres outils soient 'proscrits' pour de nouveaux usages est un signal important : LCL a fait un choix de standardisation, ce qui compte en entretien pour montrer que tu sais t'aligner sur les choix techniques déjà arbitrés plutôt que de proposer un outil différent.",
+    hint: "C'est l'outil dont la certification PL-300 valide la maîtrise."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Qui conçoit le modèle de données dans l'entrepôt avant son industrialisation, selon le cas d'usage LCL ?",
+    options: ["Les Architectes Data", "La Data Factory", "Le Data Management Office", "La Tribu IT Métier"],
+    correct: 0,
+    explanation: "Les Architectes Data ont une très bonne connaissance du patrimoine de données de l'entrepôt et conçoivent le modèle de données avant industrialisation ; ils peuvent aiguiller les Data Analysts dans le choix des tables.",
+    context: "En entretien, savoir distinguer le rôle de l'Architecte Data (modélisation, patrimoine) de celui du Data Analyst (analyse, restitution) montre que tu comprends la chaîne de valeur data et sauras solliciter la bonne personne au bon moment plutôt que de tout vouloir faire seul.",
+    hint: "Ce sont eux qui 'maîtrisent le patrimoine', pas forcément toutes les subtilités fonctionnelles."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Quelle entité, selon le schéma organisationnel du cas LCL, formalise le besoin data avec le métier et analyse la donnée ?",
+    options: ["La Data Factory", "Le Data Management Office", "Les Architectes Data", "La Tribu IT Métier"],
+    correct: 0,
+    explanation: "La Data Factory est le point de contact qui formalise le besoin avec les directions métier (comme la Direction Immobilière) et analyse la donnée avant de produire des indicateurs.",
+    context: "C'est précisément le rôle que tu occuperais : faire l'interface entre un métier qui exprime un besoin de façon informelle (souvent à l'oral) et une équipe technique qui a besoin d'exigences structurées.",
+    hint: "C'est ton futur rôle dans l'organigramme du cas d'usage."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Dans l'architecture décrite, qu'est-ce qu'un 'datamart' par rapport au socle de l'entrepôt de données ?",
+    options: [
+      "Une couche métier dérivée du socle, non mise en gouvernance par le Data Office",
+      "La couche brute où arrivent les données sources avant tout traitement",
+      "Un outil de visualisation utilisé par les métiers",
+      "Le registre des accès et permissions de l'entrepôt"
+    ],
+    correct: 0,
+    explanation: "L'entrepôt est décliné en socle, couche usage et datamarts métier ; ces datamarts ne sont pas mis en gouvernance par le Data Office, contrairement au socle.",
+    context: "Cette distinction entre données 'gouvernées' (socle) et 'non gouvernées' (datamarts, fichiers Excel) est un point clé à adresser dans ta présentation de mise en situation : elle conditionne la fiabilité et la traçabilité des données que tu utilises.",
+    hint: "C'est une couche 'métier', pas la couche brute du socle."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Quelles données la Direction Immobilière fournit-elle, selon le cas d'usage, sous format Excel ?",
+    options: ["Baux, superficies, coûts", "Effectifs par site", "Données démographiques INSEE", "Adresses normalisées des sites"],
+    correct: 0,
+    explanation: "La Direction immobilière fournit les baux, superficies et coûts des sites, sous format Excel, comme plusieurs autres contributeurs (Banque privée, Banque des entreprises).",
+    context: "Une grande partie de ta mission consistera à fiabiliser des données Excel non gouvernées pour les faire entrer dans un modèle de données structuré — un défi très classique en environnement Data Factory / Analytics Engineering.",
+    hint: "Ce sont des données propres à l'immobilier : loyers, m², dépenses."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Quelles données Marketing fournit-il pour le cas d'usage de cartographie immobilière ?",
+    options: [
+      "Données démographiques, base clients, géolocalisation des bâtiments",
+      "Baux, superficies et coûts des sites",
+      "Effectifs par site et type de marché servi",
+      "Adresses normalisées et codification des sites"
+    ],
+    correct: 0,
+    explanation: "Marketing fournit des données démographiques, une base clients et la géolocalisation des bâtiments, via un Datamart et des extractions Excel (dont des données externes de type INSEE).",
+    context: "Le fait que la même donnée démographique existe à la fois 'gouvernée' dans l'entrepôt (source INSEE) et 'non gouvernée' sous Excel illustre un vrai défi d'Analytics Engineer : choisir la bonne source de vérité et éviter les doublons/incohérences.",
+    hint: "C'est la direction qui fournit aussi les données 'externes' de type INSEE."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Sur quoi porte le moteur de scoring du 'dynamisme territorial' demandé par la Direction Immobilière ?",
+    options: [
+      "Démographie, évolution de la population sur 10 ans, patrimoine, tissu professionnel et entrepreneurial",
+      "Uniquement le chiffre d'affaires des agences",
+      "Le nombre de collaborateurs par agence",
+      "Le taux de vacance des locaux"
+    ],
+    correct: 0,
+    explanation: "L'outil de cartographie doit permettre de visualiser les sites du groupe et de comprendre leur positionnement par rapport au dynamisme local, basé sur un scoring : démographie, évolution de la population sur 10 ans, patrimoine, tissu professionnel et entrepreneurial.",
+    context: "Concevoir un moteur de scoring multi-critères de ce type suppose de bien définir la pondération de chaque critère et sa source — un sujet à aborder explicitement dans ta proposition de modèle de données.",
+    hint: "Il combine des critères démographiques et économiques, pas seulement financiers."
+  },
+  {
+    topic: "Data Factory LCL", type: "qcm",
+    q: "Quelles sont, selon l'offre d'emploi, les trois missions principales du Data & IA Office de LCL ?",
+    options: [
+      "Prioriser les projets Data et IA, superviser la gouvernance des données, accompagner la mise en conformité réglementaire",
+      "Développer des applications mobiles, gérer le support informatique, former les collaborateurs",
+      "Gérer la paie, le recrutement et la formation des data analysts",
+      "Vendre des produits d'épargne, gérer les crédits, superviser les agences"
+    ],
+    correct: 0,
+    explanation: "Le Data & IA Office de LCL a trois missions : prioriser les projets Data et IA selon la stratégie de l'entreprise, superviser la gouvernance des données, et accompagner les métiers dans leur mise en conformité réglementaire.",
+    context: "Cette dernière mission de 'mise en conformité réglementaire' fait le pont avec les sujets RGPD et LCB-FT déjà vus dans les autres catégories du quiz : la gouvernance data et la conformité réglementaire sont étroitement liées dans une banque.",
+    hint: "Une des trois missions concerne directement la conformité réglementaire."
+  },
+
+  // ===== Power BI & DAX =====
+  {
+    topic: "Power BI & DAX", type: "fill",
+    q: "Que signifie l'acronyme DAX, le langage de formules de Power BI ?",
+    accepted: ["data analysis expressions"],
+    explanation: "DAX = Data Analysis Expressions. C'est le langage utilisé pour créer des mesures, des colonnes calculées et des tables calculées dans Power BI.",
+    context: "DAX est aussi utilisé dans Power Pivot (Excel) et Analysis Services : le maîtriser est transférable au-delà de Power BI seul, ce qui est un vrai plus pour un poste orienté modélisation de données.",
+    hint: "Les 3 lettres sont les initiales des 3 premiers mots de l'expression complète."
+  },
+  {
+    topic: "Power BI & DAX", type: "fill",
+    q: "Quelle certification Microsoft, centrée sur Power BI, est recommandée dans l'offre LCL ?",
+    accepted: ["pl-300", "pl300"],
+    explanation: "La certification PL-300 (Microsoft Power BI Data Analyst) est recommandée dans l'offre, en complément d'une excellente pratique de Power BI (modélisation, DAX, performance).",
+    context: "Si tu ne l'as pas encore, mentionner en entretien que tu prévois de la passer (ou que tu es en train de la préparer) peut renforcer ta crédibilité technique, surtout si ton expérience Power BI est plus pratique que certifiée.",
+    hint: "Le code commence par 'PL' suivi d'un nombre à trois chiffres."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Quelle est la principale différence entre une mesure et une colonne calculée en DAX ?",
+    options: [
+      "La mesure est calculée à la volée selon le contexte de filtre, la colonne calculée est stockée physiquement dans le modèle",
+      "La mesure ne peut contenir que des sommes, la colonne calculée peut contenir toute formule",
+      "La colonne calculée est plus rapide car elle n'est jamais recalculée",
+      "Il n'y a aucune différence, ce sont deux noms pour la même chose"
+    ],
+    correct: 0,
+    explanation: "Une mesure est recalculée dynamiquement selon le contexte de filtre de la visualisation (donc pas stockée), alors qu'une colonne calculée est évaluée ligne par ligne à l'actualisation et stockée dans le modèle.",
+    context: "Ce choix a un impact direct sur la taille du modèle et la performance : abuser des colonnes calculées gonfle le fichier Power BI, alors que les mesures sont généralement recommandées dès que le calcul dépend du contexte d'analyse (par période, par site, etc.).",
+    hint: "L'une est stockée dans le modèle, l'autre non."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Que fait la fonction DAX CALCULATE ?",
+    options: [
+      "Elle modifie le contexte de filtre appliqué à une expression",
+      "Elle additionne toutes les colonnes numériques d'une table",
+      "Elle crée une nouvelle table à partir de deux tables existantes",
+      "Elle importe des données depuis une source externe"
+    ],
+    correct: 0,
+    explanation: "CALCULATE permet de modifier le contexte de filtre dans lequel une expression est évaluée : c'est l'une des fonctions les plus centrales et les plus puissantes du langage DAX.",
+    context: "CALCULATE est souvent qualifiée de fonction 'la plus importante' de DAX car presque toutes les mesures un peu avancées (comparaison à l'année précédente, part du total, etc.) reposent dessus.",
+    hint: "C'est la fonction la plus souvent citée comme 'la plus importante' de DAX."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Quel modèle de données est généralement recommandé dans Power BI pour la performance et la clarté des relations ?",
+    options: ["Un schéma en étoile (star schema)", "Une seule table plate contenant toutes les colonnes", "Un schéma en flocon inversé", "Un modèle sans aucune relation entre tables"],
+    correct: 0,
+    explanation: "Le schéma en étoile, avec une table de faits centrale reliée à des tables de dimension, est le modèle recommandé par Microsoft pour Power BI : il simplifie les relations et optimise les performances du moteur de calcul.",
+    context: "Ce principe rejoint directement l'un des points à traiter dans ta mise en situation LCL : ta proposition de modèle de données (entités, relations) devra probablement s'appuyer sur cette logique étoile pour rester lisible et performante dans Power BI.",
+    hint: "C'est un modèle avec une table centrale de 'faits' entourée de tables de 'dimensions'."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Dans un modèle en étoile, que contient typiquement une table de faits ?",
+    options: [
+      "Des mesures numériques et des clés vers les tables de dimension",
+      "Uniquement des attributs descriptifs comme un nom ou une catégorie",
+      "La liste des utilisateurs ayant accès au rapport",
+      "Le code source des mesures DAX"
+    ],
+    correct: 0,
+    explanation: "Une table de faits contient les mesures numériques (montants, quantités, effectifs...) et les clés étrangères pointant vers les tables de dimension qui les décrivent.",
+    context: "Pour le cas d'usage immobilier de LCL, la table de faits pourrait par exemple contenir des indicateurs par site (surface, coût, score de dynamisme), reliée à des dimensions comme le site, la direction métier, ou la période.",
+    hint: "C'est la table qui contient les chiffres, pas les descriptions."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Quelle est la différence principale entre le mode 'Import' et le mode 'DirectQuery' dans Power BI ?",
+    options: [
+      "En mode Import les données sont chargées en mémoire (rapide mais à rafraîchir), en DirectQuery les requêtes interrogent la source en direct (toujours à jour mais plus lent)",
+      "Le mode Import ne fonctionne qu'avec Excel, DirectQuery qu'avec Teradata",
+      "DirectQuery ne permet pas de créer de mesures DAX",
+      "Il n'y a pas de différence de performance entre les deux modes"
+    ],
+    correct: 0,
+    explanation: "En mode Import, les données sont copiées et compressées en mémoire, ce qui offre de très bonnes performances mais nécessite un rafraîchissement périodique. En DirectQuery, chaque interaction envoie une requête à la source, offrant des données toujours à jour mais avec une latence plus importante.",
+    context: "Le choix entre les deux modes est un vrai sujet d'architecture : pour un entrepôt Teradata avec de gros volumes, un compromis fréquent est le mode 'composite', mêlant Import pour certaines tables et DirectQuery pour d'autres.",
+    hint: "L'un stocke une copie des données, l'autre interroge la source à chaque clic."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "À quoi sert un 'workspace' dans Power BI Service ?",
+    options: [
+      "À organiser, partager et collaborer sur des rapports et tableaux de bord entre collaborateurs",
+      "À stocker uniquement les fichiers Excel bruts avant leur import",
+      "À définir les droits d'accès à l'entrepôt Teradata",
+      "À écrire des requêtes SQL directement sur Teradata"
+    ],
+    correct: 0,
+    explanation: "Un workspace Power BI est un espace de travail dans le service en ligne, qui permet d'organiser des rapports, tableaux de bord et jeux de données, et de les partager avec d'autres utilisateurs ou applications.",
+    context: "Dans le cas LCL, les workspaces sont gérés par une équipe IT dédiée sur un tenant unique : un point à connaître si on te demande comment tu comptes déployer et partager ton futur rapport de cartographie immobilière.",
+    hint: "C'est un espace de partage et de collaboration, pas un outil de requêtage SQL."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Quel langage est utilisé par Power Query pour transformer les données avant leur chargement dans le modèle ?",
+    options: ["Le langage M", "DAX", "Python", "PL/SQL"],
+    correct: 0,
+    explanation: "Power Query utilise le langage M pour définir les étapes de transformation des données (nettoyage, jointures, changements de type) avant leur chargement dans le modèle Power BI.",
+    context: "DAX et M sont souvent confondus par les débutants : DAX sert à calculer (mesures, colonnes) une fois les données chargées, tandis que M sert à transformer les données en amont, dans l'étape ETL de Power Query.",
+    hint: "Ce n'est pas DAX : c'est le langage de la fenêtre 'Power Query'."
+  },
+  {
+    topic: "Power BI & DAX", type: "qcm",
+    q: "Pourquoi la 'dimension cartographique' mentionnée dans le cas LCL est-elle un point d'attention particulier pour un rapport Power BI ?",
+    options: [
+      "Parce qu'elle nécessite une visualisation géographique (carte) reposant sur des coordonnées ou adresses fiables, en plus des indicateurs classiques",
+      "Parce que Power BI ne peut pas afficher de cartes du tout",
+      "Parce qu'elle remplace complètement le besoin de modélisation de données",
+      "Parce qu'elle ne concerne que les données financières"
+    ],
+    correct: 0,
+    explanation: "Restituer une cartographie de sites suppose de disposer de coordonnées ou d'adresses normalisées fiables (référentiel), et de choisir une visualisation adaptée (carte à bulles, carte choroplèthe...) en plus des indicateurs de scoring classiques.",
+    context: "C'est explicitement l'un des 4 points à couvrir dans ta présentation ('votre vision de la restitution Power BI... gestion de la dimension cartographique') : anticiper les visuels de carte disponibles nativement (Azure Maps visual, Icon Map, ArcGIS) est un vrai plus.",
+    hint: "C'est le seul type de visualisation qui suppose des coordonnées ou adresses fiables."
+  },
+
+  // ===== SQL & Teradata =====
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Que fait un LEFT JOIN en SQL par rapport à un INNER JOIN ?",
+    options: [
+      "Il conserve toutes les lignes de la table de gauche, avec NULL si aucune correspondance à droite",
+      "Il ne conserve que les lignes présentes dans les deux tables",
+      "Il fusionne les colonnes de deux tables sans condition de jointure",
+      "Il supprime les doublons entre les deux tables"
+    ],
+    correct: 0,
+    explanation: "Un LEFT JOIN conserve toutes les lignes de la table de gauche, en complétant avec des valeurs NULL quand il n'y a pas de correspondance dans la table de droite. Un INNER JOIN ne garde que les lignes ayant une correspondance dans les deux tables.",
+    context: "Ce type de jointure est très utile quand tu veux, par exemple, lister tous les sites immobiliers même ceux qui n'ont pas encore de score de dynamisme calculé, plutôt que de les faire disparaître silencieusement du résultat.",
+    hint: "Il garde tout ce qui vient de la table 'de gauche', même sans correspondance."
+  },
+  {
+    topic: "SQL & Teradata", type: "fill",
+    q: "Quelle clause SQL permet de filtrer les résultats après un GROUP BY, sur des valeurs agrégées ?",
+    accepted: ["having"],
+    explanation: "La clause HAVING filtre les groupes après l'agrégation (par exemple, ne garder que les sites dont le score moyen dépasse un seuil), alors que WHERE filtre les lignes avant l'agrégation.",
+    context: "Une question de ce type est un classique des entretiens techniques SQL : bien distinguer WHERE et HAVING montre que tu comprends l'ordre d'exécution logique d'une requête SQL (FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY).",
+    hint: "Elle vient après le GROUP BY, contrairement à WHERE."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Quelle est la différence principale entre les clauses WHERE et HAVING ?",
+    options: [
+      "WHERE filtre les lignes avant l'agrégation, HAVING filtre les groupes après l'agrégation",
+      "WHERE et HAVING sont strictement identiques et interchangeables",
+      "HAVING ne peut être utilisé qu'avec des jointures",
+      "WHERE ne fonctionne que sur des colonnes numériques"
+    ],
+    correct: 0,
+    explanation: "WHERE s'applique ligne par ligne avant le GROUP BY, tandis que HAVING s'applique aux résultats agrégés, après le GROUP BY.",
+    context: "Utiliser WHERE là où il faudrait HAVING (ou l'inverse) est une erreur fréquente chez les profils moins expérimentés en SQL ; la repérer rapidement en entretien technique est un bon signal.",
+    hint: "L'un agit avant l'agrégation, l'autre après."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "À quoi sert un index dans une base de données ?",
+    options: [
+      "À accélérer la recherche et le tri des données, au prix d'un coût en écriture et en stockage",
+      "À empêcher toute modification des données",
+      "À chiffrer automatiquement les colonnes sensibles",
+      "À dupliquer automatiquement les tables pour la sauvegarde"
+    ],
+    correct: 0,
+    explanation: "Un index est une structure de données qui accélère la recherche et le tri des lignes selon une ou plusieurs colonnes, mais qui ralentit légèrement les écritures (insert/update) et consomme de l'espace de stockage.",
+    context: "Sur un entrepôt de données volumineux comme celui de LCL sur Teradata, bien choisir ses index (ou 'primary index' côté Teradata) est un vrai enjeu de performance, surtout quand plusieurs directions métier interrogent les mêmes tables.",
+    hint: "Il accélère la lecture, mais a un coût à l'écriture."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Teradata est un système de gestion de base de données conçu principalement pour quel usage ?",
+    options: [
+      "Les entrepôts de données volumineux avec traitement massivement parallèle (MPP)",
+      "Les applications mobiles temps réel à faible volume",
+      "Le stockage de fichiers non structurés uniquement (images, vidéos)",
+      "La gestion des transactions bancaires en temps réel uniquement"
+    ],
+    correct: 0,
+    explanation: "Teradata est un système de gestion de base de données relationnelle conçu pour les entrepôts de données (data warehouses) à très grande échelle, grâce à une architecture massivement parallèle (MPP).",
+    context: "C'est cette capacité à traiter de gros volumes en parallèle qui explique pourquoi de grands groupes comme LCL, avec des millions de clients et des années d'historique, s'appuient sur ce type de technologie plutôt que sur une base transactionnelle classique.",
+    hint: "Le sigle qui décrit son architecture tient en 3 lettres : MPP."
+  },
+  {
+    topic: "SQL & Teradata", type: "fill",
+    q: "Que signifie le sigle MPP, qui décrit l'architecture de Teradata ?",
+    accepted: ["massively parallel processing"],
+    explanation: "MPP = Massively Parallel Processing : les traitements sont répartis simultanément sur de nombreuses unités de calcul (les AMPs chez Teradata), ce qui permet de traiter d'énormes volumes de données rapidement.",
+    context: "Cette architecture s'oppose au traitement 'SMP' (Symmetric Multi-Processing) d'une base de données classique, où toutes les requêtes passent par un seul serveur central : c'est cette différence qui justifie l'usage de Teradata pour un entrepôt de plusieurs millions de clients.",
+    hint: "Les 3 lettres décrivent un traitement réparti sur de nombreuses unités en même temps."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Dans l'architecture Teradata, à quoi sert la 'Primary Index' d'une table ?",
+    options: [
+      "Elle détermine comment les lignes de la table sont réparties entre les unités de traitement parallèle (AMPs)",
+      "Elle chiffre automatiquement les données sensibles de la table",
+      "Elle sert uniquement à trier l'affichage des résultats",
+      "Elle empêche toute suppression de ligne dans la table"
+    ],
+    correct: 0,
+    explanation: "La Primary Index détermine sur quel AMP (Access Module Processor) chaque ligne sera stockée, ce qui conditionne directement la répartition de charge et donc la performance des requêtes.",
+    context: "Un mauvais choix de Primary Index (par exemple une colonne peu variée) peut créer un déséquilibre de charge entre les AMPs, appelé 'skew', qui dégrade fortement les performances — un vrai sujet pour un futur Analytics Engineer travaillant sur Teradata.",
+    hint: "Elle détermine la répartition des données, pas leur affichage."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Que désigne un 'AMP' dans l'architecture Teradata ?",
+    options: [
+      "Une unité de traitement parallèle (Access Module Processor) qui gère une portion des données",
+      "Un type de jointure SQL spécifique à Teradata",
+      "Un langage de script propre à Teradata",
+      "Un outil de visualisation intégré à Teradata"
+    ],
+    correct: 0,
+    explanation: "Un AMP (Access Module Processor) est une unité de traitement qui gère le stockage et le traitement d'une portion des données, en parallèle des autres AMPs du système.",
+    context: "Comprendre le rôle des AMPs aide à expliquer pourquoi certaines requêtes mal conçues (jointures sur des colonnes non indexées, par exemple) peuvent forcer une redistribution massive de données entre AMPs et ralentir fortement l'exécution.",
+    hint: "C'est l'unité qui traite une portion des données, en parallèle des autres."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Quelle est la différence entre une vue (VIEW) SQL classique et une table matérialisée ?",
+    options: [
+      "La vue est recalculée à chaque exécution, la table matérialisée stocke physiquement le résultat",
+      "La vue est plus rapide car les données sont physiquement stockées",
+      "Une table matérialisée ne peut contenir aucune jointure",
+      "Il n'existe aucune différence entre les deux notions"
+    ],
+    correct: 0,
+    explanation: "Une vue est une requête enregistrée, exécutée à chaque appel sur les données actuelles ; une table matérialisée stocke physiquement le résultat de la requête, qu'il faut rafraîchir périodiquement, mais qui se lit beaucoup plus vite.",
+    context: "Ce choix est directement lié à ta future proposition de modèle de données : pour des indicateurs coûteux à recalculer (comme un score de dynamisme territorial), une table matérialisée ou un datamart pré-calculé est souvent préférable à une vue recalculée à chaque ouverture du rapport.",
+    hint: "L'une stocke un résultat physique, l'autre non."
+  },
+  {
+    topic: "SQL & Teradata", type: "qcm",
+    q: "Qu'est-ce qu'un schéma en étoile (star schema) dans un entrepôt de données ?",
+    options: [
+      "Un modèle avec une table de faits centrale reliée directement à plusieurs tables de dimension",
+      "Un modèle où toutes les tables sont reliées entre elles sans hiérarchie",
+      "Un modèle utilisé uniquement pour stocker des logs techniques",
+      "Un synonyme d'un schéma totalement dénormalisé en une seule table"
+    ],
+    correct: 0,
+    explanation: "Le schéma en étoile place une table de faits (les mesures) au centre, reliée directement à des tables de dimension (les axes d'analyse), sans relations indirectes entre les dimensions elles-mêmes.",
+    context: "C'est le même concept que celui évoqué côté Power BI (question précédente) : la modélisation en entrepôt de données et la modélisation dans l'outil de restitution suivent souvent la même logique, ce qui simplifie beaucoup le passage de l'un à l'autre.",
+    hint: "Son nom vient de sa forme : une table au centre, des dimensions autour, comme des branches d'étoile."
+  },
+
+  // ===== Agile & Scrum =====
+  {
+    topic: "Agile & Scrum", type: "fill",
+    q: "Que signifie MVP en gestion de produit, notion mentionnée comme non maîtrisée par le métier dans le cas LCL ?",
+    accepted: ["minimum viable product", "produit minimum viable"],
+    explanation: "MVP = Minimum Viable Product : une version minimale d'un produit, suffisante pour être testée et apporter de la valeur, avant d'y ajouter des fonctionnalités supplémentaires.",
+    context: "Le cas d'usage LCL précise explicitement que ces notions ne sont pas maîtrisées par la Direction Immobilière : une partie de ta valeur ajoutée sera donc aussi pédagogique, en expliquant simplement ces concepts sans jargon superflu.",
+    hint: "C'est un produit 'minimum' mais qui doit rester 'viable', donc utilisable."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Qu'est-ce qu'un 'Program Increment' (PI), tel qu'évoqué dans le cas LCL pour les équipes IT ?",
+    options: [
+      "Une période de planification et de livraison, souvent d'environ 3 mois, régulant la capacité des équipes IT",
+      "Un sprint Scrum classique de 2 semaines",
+      "Un indicateur de performance individuelle d'un développeur",
+      "Un type de contrat de prestation informatique"
+    ],
+    correct: 0,
+    explanation: "Dans le cas LCL, les équipes IT fonctionnent en PI (Program Increment) : les travaux sont priorisés et planifiés 3 mois à l'avance, ce qui limite fortement leur capacité à prendre de nouveaux sujets en cours de route.",
+    context: "Le PI est un concept du cadre SAFe (Scaled Agile Framework), utilisé pour synchroniser plusieurs équipes agiles à grande échelle. Comprendre cette contrainte de planification à 3 mois est essentiel pour anticiper les délais réels de mise en œuvre IT dans ta présentation.",
+    hint: "C'est une notion d'agilité 'à l'échelle', avec un horizon d'environ 3 mois."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Quelle est la durée la plus courante d'un sprint Scrum ?",
+    options: ["2 semaines", "1 jour", "6 mois", "3 mois"],
+    correct: 0,
+    explanation: "Un sprint dure généralement entre 1 et 4 semaines, la durée la plus courante en pratique étant 2 semaines.",
+    context: "Un sprint de 2 semaines permet un bon compromis entre la rapidité de feedback (montrer un résultat concret rapidement au métier) et le temps nécessaire pour livrer quelque chose de suffisamment abouti.",
+    hint: "C'est la durée la plus répandue dans les équipes Scrum, ni trop courte ni trop longue."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Qu'est-ce que le 'product backlog' en Scrum ?",
+    options: [
+      "Une liste priorisée de toutes les fonctionnalités et besoins à réaliser sur le produit",
+      "Le journal des bugs déjà corrigés",
+      "La documentation technique finale du produit",
+      "La liste des congés de l'équipe de développement"
+    ],
+    correct: 0,
+    explanation: "Le product backlog est la liste vivante et priorisée de tout ce qui pourrait être nécessaire au produit : fonctionnalités, corrections, améliorations techniques.",
+    context: "Pour ton projet de cartographie immobilière, le backlog pourrait par exemple prioriser d'abord un MVP avec les données déjà gouvernées (Teradata), puis, dans des itérations suivantes, l'intégration progressive des sources Excel plus complexes à fiabiliser.",
+    hint: "C'est une liste, pas un rôle ni un événement."
+  },
+  {
+    topic: "Agile & Scrum", type: "fill",
+    q: "Quel rôle Scrum est responsable de maximiser la valeur du produit et de prioriser le backlog ?",
+    accepted: ["product owner"],
+    explanation: "Le Product Owner est responsable de la vision produit et de la priorisation du backlog en fonction de la valeur apportée aux utilisateurs et à l'entreprise.",
+    context: "Dans le cas LCL, en l'absence d'un Product Owner côté métier formé à l'agilité, c'est souvent le Data Analyst/Analytics Engineer qui doit endosser une partie de ce rôle en aidant le métier à prioriser ses demandes.",
+    hint: "Littéralement, le 'propriétaire' du produit."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Quel est le rôle principal du Scrum Master dans une équipe Scrum ?",
+    options: [
+      "Faciliter l'application du cadre Scrum et aider l'équipe à lever les obstacles",
+      "Écrire lui-même l'intégralité du code de l'équipe",
+      "Décider seul des priorités du backlog produit",
+      "Représenter les clients finaux auprès de l'équipe"
+    ],
+    correct: 0,
+    explanation: "Le Scrum Master est un facilitateur : il veille à ce que le cadre Scrum soit bien appliqué, protège l'équipe des perturbations extérieures et aide à résoudre les blocages.",
+    context: "Ce rôle est parfois confondu avec celui de chef de projet traditionnel, alors qu'il n'a pas d'autorité hiérarchique sur l'équipe ni sur les priorités produit, contrairement au Product Owner.",
+    hint: "Il facilite, il ne décide pas des priorités produit."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Qu'est-ce qu'une 'sprint review' (ou démo) en Scrum ?",
+    options: [
+      "Une présentation de l'incrément réalisé aux parties prenantes, en fin de sprint",
+      "Une réunion interne à l'équipe pour discuter de son fonctionnement",
+      "Un document contractuel signé en début de projet",
+      "Un audit de sécurité du code produit"
+    ],
+    correct: 0,
+    explanation: "La sprint review est le moment, en fin de sprint, où l'équipe présente ce qui a été réalisé aux parties prenantes (métier, management...) et recueille leurs retours.",
+    context: "Pour un projet comme la cartographie immobilière, organiser des sprint reviews régulières avec la Direction Immobilière est un excellent moyen de garder son adhésion, même si elle n'est pas familière avec l'agilité — cela répond directement au 1er point demandé dans ta mise en situation.",
+    hint: "C'est un moment de présentation aux parties prenantes, pas une réunion interne d'équipe."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Que signifie 'prioriser par la valeur', notion citée dans le cas LCL comme non maîtrisée par le métier ?",
+    options: [
+      "Classer les besoins selon la valeur qu'ils apportent au métier plutôt que par ordre d'arrivée",
+      "Prioriser systématiquement les demandes du responsable hiérarchique le plus élevé",
+      "Traiter les demandes dans l'ordre chronologique de réception",
+      "Prioriser uniquement les tâches les plus rapides à réaliser"
+    ],
+    correct: 0,
+    explanation: "Prioriser par la valeur signifie choisir de traiter en premier ce qui apporte le plus de bénéfice au métier ou à l'entreprise, plutôt que de suivre l'ordre d'arrivée des demandes ou la pression du moment.",
+    context: "C'est un changement culturel important pour un métier habitué à exprimer ses besoins à l'oral au fil de l'eau : l'un des enjeux de ta mission sera justement d'introduire cette logique de priorisation sans braquer les interlocuteurs métier.",
+    hint: "Ce n'est pas l'ordre d'arrivée qui compte, mais l'impact."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Pourquoi une approche itérative est-elle particulièrement adaptée face à un métier qui ne maîtrise pas encore l'agilité, comme la Direction Immobilière dans le cas LCL ?",
+    options: [
+      "Elle permet de livrer rapidement des incréments concrets, d'obtenir du feedback et d'ajuster le besoin au fil de l'eau",
+      "Elle permet de ne jamais avoir à présenter de résultat avant la toute fin du projet",
+      "Elle élimine complètement le besoin de dialoguer avec le métier",
+      "Elle garantit qu'aucune modification de périmètre ne sera jamais nécessaire"
+    ],
+    correct: 0,
+    explanation: "L'approche itérative permet de montrer rapidement des résultats concrets (même partiels), de recueillir les réactions du métier et d'ajuster la suite du projet, plutôt que de découvrir un décalage avec le besoin réel seulement à la toute fin.",
+    context: "C'est directement l'axe n°2 attendu dans ta présentation de mise en situation : expliquer comment tu découpes le projet en incréments livrables et embarques le métier dans des cycles courts, malgré son inexpérience de l'agilité.",
+    hint: "Le mot-clé est 'feedback rapide', pas 'moins de contact avec le métier'."
+  },
+  {
+    topic: "Agile & Scrum", type: "qcm",
+    q: "Qu'est-ce qu'un 'Squad' dans une organisation Agile à l'échelle, comme celle décrite chez LCL ?",
+    options: [
+      "Une équipe pluridisciplinaire autonome, dédiée à un périmètre fonctionnel ou métier donné",
+      "Un outil de gestion de tickets comme Jira",
+      "Un synonyme strict de 'Sprint'",
+      "Un comité de direction validant les budgets IT"
+    ],
+    correct: 0,
+    explanation: "Un Squad est une équipe pluridisciplinaire et autonome, souvent alignée sur un périmètre métier ou fonctionnel précis (comme les 'squad IT métier' évoquées dans le cas LCL, qui travaillent avec les directions métier).",
+    context: "Ce terme vient du modèle organisationnel popularisé par Spotify, largement repris depuis par de nombreuses grandes entreprises, y compris dans la banque, pour organiser leurs équipes produit et data à grande échelle.",
+    hint: "C'est une équipe, organisée autour d'un périmètre, pas un outil ni un document."
+  },
+
+  // ===== LCL & le poste =====
+  {
+    topic: "LCL & le poste", type: "fill",
+    q: "Selon l'offre d'emploi 2026, combien de collaborateur·rices compte LCL ?",
+    accepted: ["16400", "16 400"],
+    explanation: "L'offre mentionne 16 400 collaborateur·rices, grâce auxquels LCL a été élu Service Client de l'Année 2026 dans la catégorie Banque de réseau pour les particuliers.",
+    context: "Ce chiffre est utile à situer par rapport aux ~6 millions de clients revendiqués : cela donne un ratio d'environ 1 collaborateur pour 370 clients, un ordre de grandeur qui peut servir de point de repère en entretien si on te demande de contextualiser l'échelle de la banque.",
+    hint: "Le nombre est autour de 16 000, à la centaine près."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Combien de clients LCL revendique-t-il dans l'offre d'emploi 2026 ?",
+    options: ["Plus de 6 millions", "Plus de 1 million", "Plus de 20 millions", "Plus de 500 000"],
+    correct: 0,
+    explanation: "L'offre indique que LCL est un partenaire solide de plus de 6 millions de client·es, en tant que banque nationale urbaine filiale du groupe Crédit Agricole.",
+    context: "Ce volume de clients donne une idée du volume de données à traiter potentiellement dans tes futurs projets d'Analytics Engineering, notamment pour des indicateurs à l'échelle du réseau complet de LCL.",
+    hint: "C'est un ordre de grandeur proche de la population d'un grand pays européen de taille moyenne... en millions."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Combien d'implantations commerciales LCL revendique-t-il dans l'offre d'emploi 2026 ?",
+    options: ["Plus de 1 400", "Plus de 100", "Plus de 10 000", "Plus de 500"],
+    correct: 0,
+    explanation: "L'offre mentionne plus de 1 400 implantations commerciales et 3 réseaux de marchés de clientèle.",
+    context: "C'est un chiffre à recouper avec les catégories de contributeurs data évoquées dans le cas d'usage (Distribution, Direction immobilière...) : chaque implantation est potentiellement une ligne dans le futur outil de cartographie que tu vas concevoir.",
+    hint: "C'est un nombre à quatre chiffres, entre 1 000 et 2 000."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Quels sont les 3 réseaux de marchés de clientèle de LCL cités dans l'offre d'emploi ?",
+    options: [
+      "Banque de Proximité, Banque Privée, Banque des Entreprises / Institutionnels et Gestion de Fortune",
+      "Banque de Détail, Banque en Ligne, Banque Mobile",
+      "Marché des Particuliers, Marché des Jeunes, Marché des Seniors",
+      "Réseau France, Réseau Europe, Réseau International"
+    ],
+    correct: 0,
+    explanation: "L'offre cite trois réseaux de marchés de clientèle : Banque de Proximité, Banque Privée, et Banque des Entreprises, Institutionnels et Gestion de Fortune.",
+    context: "Ce sont les mêmes catégories qui apparaissent dans le cas d'usage de mise en situation comme contributeurs de données (Distribution = Banque de proximité, Banque privée, Banque des entreprises) : bien les connaître te permet de faire le lien direct entre l'offre et l'exercice pratique.",
+    hint: "L'un de ces trois réseaux regroupe aussi les 'Institutionnels et Gestion de Fortune'."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "De quelle direction dépend le Data & IA Office de LCL, selon l'offre d'emploi ?",
+    options: [
+      "La Direction Stratégie, accompagnement de la Transformation, Innovation",
+      "La Direction des Ressources Humaines",
+      "La Direction de la Conformité et des Risques",
+      "La Direction Commerciale Grand Public"
+    ],
+    correct: 0,
+    explanation: "Le Data & IA Office de LCL est rattaché à la Direction Stratégie, accompagnement de la Transformation, Innovation, qui anticipe à 3-5 ans les changements impactant les clients, marchés et usages.",
+    context: "Ce rattachement à une direction 'stratégie et transformation' plutôt qu'à une direction purement IT est un signal fort : la donnée est positionnée chez LCL comme un levier de transformation de l'entreprise, pas seulement comme un sujet technique.",
+    hint: "Le nom de la direction évoque à la fois la stratégie et l'innovation."
+  },
+  {
+    topic: "LCL & le poste", type: "fill",
+    q: "Quel type de contrat est proposé pour le poste Data Analytics Engineering H/F ?",
+    accepted: ["cdi"],
+    explanation: "Le poste est proposé en CDI, en tant que cadre, sans management d'équipe.",
+    context: "Le fait que le poste soit 'Cadre' et sans management est cohérent avec un profil expert individuel contributeur, centré sur la conception et la fiabilisation de modèles de données plutôt que sur le pilotage d'une équipe.",
+    hint: "C'est le type de contrat le plus stable et le plus courant en France, en trois lettres."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Quel niveau d'études minimum est demandé pour ce poste ?",
+    options: ["Bac + 5 / M2 et plus", "Bac + 2 / BTS-DUT", "Bac + 3 / Licence", "Aucun niveau requis"],
+    correct: 0,
+    explanation: "L'offre demande un niveau Bac+5/M2 et plus, avec une spécialisation en école d'ingénieurs.",
+    context: "Ce niveau, combiné à 6-10 ans d'expérience demandés, correspond à un profil confirmé/senior plutôt qu'à un premier poste : bien le rappeler en entretien, notamment si tu as un parcours atypique, peut aider à valoriser ton expérience réelle sur les compétences demandées (SQL, Power BI, Agile) plutôt que sur le diplôme seul.",
+    hint: "C'est le niveau correspondant à un diplôme d'ingénieur ou un Master 2."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Quel niveau d'expérience minimum est demandé pour ce poste ?",
+    options: ["6 à 10 ans", "0 à 2 ans", "2 à 3 ans", "Plus de 20 ans"],
+    correct: 0,
+    explanation: "L'offre demande un niveau d'expérience de 6 à 10 ans, avec une expérience confirmée en tant qu'Analytics Engineer, Data Analyst ou BI Engineer, idéalement dans le secteur bancaire.",
+    context: "Ce niveau d'expérience justifie l'attente d'autonomie forte exprimée dans l'offre (conduite de projets, animation d'ateliers avec le métier) : en entretien, mets en avant des exemples concrets où tu as porté un projet de bout en bout, pas seulement exécuté des tâches techniques.",
+    hint: "C'est une fourchette à deux chiffres, entre 5 et 10 ans."
+  },
+  {
+    topic: "LCL & le poste", type: "fill",
+    q: "Dans quelle ville est basé le poste Data Analytics Engineering H/F chez LCL ?",
+    accepted: ["villejuif"],
+    explanation: "Le poste est situé au 10 place Oscar Niemeyer, 94811 Villejuif Cedex, en Île-de-France, en mode de travail hybride.",
+    context: "Villejuif accueille plusieurs grands sièges du groupe Crédit Agricole ; le mode hybride mentionné dans l'offre est aussi un point à clarifier en entretien si tu as des contraintes de mobilité ou de télétravail.",
+    hint: "C'est une ville du Val-de-Marne, en Île-de-France."
+  },
+  {
+    topic: "LCL & le poste", type: "qcm",
+    q: "Parmi les outils listés dans l'offre, lequel n'est PAS mentionné comme outil du poste ?",
+    options: [
+      "Photoshop",
+      "Power BI, DAX",
+      "SQL, Teradata",
+      "Outils de gestion de projet Agile (Jira, Klaxoon)"
+    ],
+    correct: 0,
+    explanation: "L'offre liste comme outils informatiques : Power BI/DAX, SQL/Teradata, Git ou outils de versioning, et des outils de gestion de projet Agile comme Jira et Klaxoon. Photoshop n'est pas mentionné.",
+    context: "Klaxoon, moins connu que Jira, est un outil français de facilitation d'ateliers collaboratifs (souvent utilisé pour des ateliers d'idéation ou de cadrage à distance) : le mentionner en entretien si tu le connais déjà peut être un petit plus différenciant.",
+    hint: "C'est un outil de retouche d'image, sans rapport avec la data ou l'agilité."
   }
 ];
 
@@ -538,7 +1132,12 @@ const topicColors = {
   "Bâle III": "#cc6600",
   "DORA": "#800080",
   "LCB-FT": "#00807a",
-  "RGPD bancaire": "#cc0055"
+  "RGPD bancaire": "#cc0055",
+  "Data Factory LCL": "#1f6f8b",
+  "Power BI & DAX": "#c48f00",
+  "SQL & Teradata": "#d9480f",
+  "Agile & Scrum": "#4b6584",
+  "LCL & le poste": "#1c3d5a"
 };
 
 function normalize(str) {
