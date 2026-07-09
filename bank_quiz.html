@@ -192,6 +192,9 @@
   .topic[data-topic="SQL & Teradata"] { background: #ffe3d6; color: #d9480f; }
   .topic[data-topic="Agile & Scrum"] { background: #e3e8f0; color: #4b6584; }
   .topic[data-topic="LCL & le poste"] { background: #dce6ee; color: #1c3d5a; }
+  .topic[data-topic="Stratégie Data/IA Groupe"] { background: #ece1f7; color: #6a3fa0; }
+  .topic[data-topic="Parcours client bancaire"] { background: #d9f0f5; color: #1789a8; }
+  .topic[data-topic="KPIs bancaires"] { background: #f7e1ea; color: #a13d63; }
 
   .qcount { font-size: 14px; color: var(--text-tertiary); }
   .qtype {
@@ -1199,6 +1202,378 @@ const allQuestions = [
     explanation: "L'offre liste comme outils informatiques : Power BI/DAX, SQL/Teradata, Git ou outils de versioning, et des outils de gestion de projet Agile comme Jira et Klaxoon. Photoshop n'est pas mentionné.",
     context: "Klaxoon, moins connu que Jira, est un outil français de facilitation d'ateliers collaboratifs (souvent utilisé pour des ateliers d'idéation ou de cadrage à distance) : le mentionner en entretien si tu le connais déjà peut être un petit plus différenciant.",
     hint: "C'est un outil de retouche d'image, sans rapport avec la data ou l'agilité."
+  },
+
+  // ===== Stratégie Data/IA Groupe =====
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Combien Crédit Agricole prévoit-il d'investir dans l'IA sur la période 2026-2028 ?",
+    options: ["Près de 500 millions d'euros", "50 millions d'euros", "5 milliards d'euros", "1 milliard d'euros"],
+    correct: 0,
+    explanation: "Crédit Agricole investira près de 500 millions d'euros sur trois ans (2026-2028) pour accélérer le déploiement de l'IA à l'échelle du Groupe.",
+    context: "Ce montant s'inscrit dans un budget informatique Groupe d'environ 5,7 milliards d'euros par an : il ne représente donc qu'une fraction, mais dédiée spécifiquement à l'accélération de l'IA.",
+    hint: "C'est un montant à trois chiffres suivis de 'millions'."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "fill",
+    q: "Quel est le nom de la structure dédiée créée par Crédit Agricole pour opérer les socles technologiques IA du Groupe ?",
+    accepted: ["entreprise ia", "l'entreprise ia"],
+    explanation: "Le Groupe a annoncé la création d'une « Entreprise IA » dédiée, qui développe, opère et distribue les socles technologiques IA communs à toutes les entités.",
+    context: "Une part du budget (150 millions d'euros) est allouée spécifiquement à la création de cette entité, qui doit employer environ 150 personnes et devenir opérationnelle en 2026.",
+    hint: "Le nom est très simple : deux mots, 'Entreprise' + le sigle du domaine concerné."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Comment s'appelle le dispositif visant à embarquer l'ensemble des collaborateurs dans la transformation IA du Groupe ?",
+    options: ["AI For All", "Data Academy", "IA Booster", "Digital First"],
+    correct: 0,
+    explanation: "Le Groupe a lancé une démarche baptisée « AI For All », décrite comme itérative et transparente, pour associer les collaborateurs à la transformation IA plutôt que de la leur imposer.",
+    context: "Cette approche illustre une tension classique dans les grands groupes : industrialiser rapidement une technologie tout en évitant que les équipes la perçoivent comme imposée d'en haut — un sujet que tu pourrais retrouver concrètement dans ton futur poste avec la Direction Immobilière.",
+    hint: "Le nom est en anglais et insiste sur le mot 'tous'."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Sur quel plan stratégique du Groupe s'appuie la nouvelle « Data Marketplace » annoncée par Crédit Agricole ?",
+    options: ["ACT 2028", "Horizon 2025", "NExt 2030", "Ambition 2027"],
+    correct: 0,
+    explanation: "La Data Marketplace, destinée à fluidifier le partage de données entre entités du Groupe, est annoncée dans le cadre du plan stratégique ACT 2028.",
+    context: "Une Data Marketplace à l'échelle Groupe pourrait à terme faciliter l'accès de la Data Factory LCL à des données déjà gouvernées par d'autres entités (Crédit Agricole Italia, CACIB...), un sujet à garder en tête si on t'interroge sur la mutualisation des données.",
+    hint: "C'est le nom du plan stratégique du groupe déjà en cours."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Quels acteurs de l'IA Crédit Agricole a-t-il cités comme partenaires technologiques (juin 2026) ?",
+    options: [
+      "Mistral AI et Anthropic, parmi d'autres acteurs européens et américains",
+      "Uniquement des start-up chinoises",
+      "Uniquement Microsoft et Google",
+      "Aucun partenaire externe, tout est développé en interne"
+    ],
+    correct: 0,
+    explanation: "Le directeur de la transformation technologique de Crédit Agricole SA a cité Mistral AI et Anthropic comme partenaires, aux côtés d'autres acteurs européens et américains, tout en affichant une préférence pour les solutions européennes.",
+    context: "Le choix explicite de Mistral AI (français) illustre la priorité donnée à la souveraineté technologique européenne, en cohérence avec le positionnement 'AI For All' et l'investissement dans des capacités de calcul européennes.",
+    hint: "L'un des deux partenaires cités est une start-up française spécialisée dans les grands modèles de langage."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Quel principe motive la préférence de Crédit Agricole pour des solutions technologiques européennes dans sa stratégie IA ?",
+    options: [
+      "La souveraineté numérique et la réduction des dépendances technologiques",
+      "Le coût, moins cher que les solutions américaines",
+      "L'absence de réglementation européenne sur l'IA",
+      "Une obligation légale de n'utiliser que des technologies françaises"
+    ],
+    correct: 0,
+    explanation: "Le Groupe met en avant un objectif de souveraineté numérique : investir dans des solutions de pointe tout en limitant ses dépendances technologiques et en favorisant le développement de technologies européennes.",
+    context: "Cette approche s'inscrit dans un mouvement plus large en Europe (cloud souverain, réglementation IA) où les grandes institutions financières cherchent à sécuriser leurs choix technologiques face à la concentration des capacités IA chez quelques acteurs extra-européens.",
+    hint: "Le mot-clé revient souvent dans les communiqués du Groupe : 'souveraineté'."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Sur quelle structure informatique du Groupe s'appuie l'« Entreprise IA » pour répartir les traitements selon leur sensibilité ?",
+    options: ["CA-GIP", "LCL Banque Privée", "Crédit Agricole Assurances", "Amundi"],
+    correct: 0,
+    explanation: "L'« Entreprise IA » s'appuie sur CA-GIP (la structure informatique du Groupe) pour répartir les charges de calcul entre cloud privé Groupe, partenaires européens et autres solutions, selon la sensibilité des usages.",
+    context: "CA-GIP (Crédit Agricole Group Infrastructure Platform) est l'entité qui mutualise l'infrastructure informatique de plusieurs entités du Groupe, dont LCL : la connaître montre que tu situes bien les différents acteurs IT internes.",
+    hint: "Le sigle contient les initiales du Groupe suivies de 'GIP'."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Quels types de cas d'usage sont mentionnés comme prioritaires dans le déploiement de l'IA chez Crédit Agricole ?",
+    options: [
+      "Agents avancés de relation client, automatisation de processus, outils collaboratifs",
+      "Uniquement le trading haute fréquence",
+      "Uniquement la détection de fraude",
+      "Uniquement la génération d'images publicitaires"
+    ],
+    correct: 0,
+    explanation: "Les cas d'usage couverts par la nouvelle Entreprise IA vont des agents avancés de relation client à l'automatisation de processus, en passant par les outils collaboratifs.",
+    context: "Ces 'agents avancés de relation client' rejoignent directement les enjeux de ton futur poste : concevoir des indicateurs et des outils qui appuient une relation client plus personnalisée, en cohérence avec la stratégie IA du Groupe.",
+    hint: "Un des cas d'usage concerne directement le contact avec le client final."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Dès quelle année le Groupe Crédit Agricole avait-il déjà structuré une démarche d'industrialisation de l'IA avec des cas d'usage priorisés ?",
+    options: ["2024", "2018", "2021", "2026"],
+    correct: 0,
+    explanation: "Dès 2024, le Groupe avait déjà structuré une démarche d'industrialisation de l'IA avec 36 cas d'usage priorisés dans six domaines métiers, avant d'annoncer en 2026 ce plan d'investissement de 500 millions d'euros pour passer à l'échelle.",
+    context: "Ce chiffre de '36 cas d'usage dans six domaines métiers' est un bon exemple à citer en entretien pour montrer que la démarche IA de Crédit Agricole n'est pas nouvelle, mais entre dans une phase d'industrialisation à plus grande échelle.",
+    hint: "C'est deux ans avant l'annonce du plan à 500 millions d'euros."
+  },
+  {
+    topic: "Stratégie Data/IA Groupe", type: "qcm",
+    q: "Quels sont les 4 principes mis en avant par Crédit Agricole pour un déploiement 'maîtrisé' de l'IA ?",
+    options: [
+      "Personnalisation de la relation client, complémentarité humain/IA, encadrement éthique, autonomie technologique",
+      "Rapidité, coût minimal, confidentialité totale, absence de contrôle humain",
+      "Automatisation intégrale, suppression des postes, centralisation, secret total",
+      "Externalisation complète à des prestataires américains"
+    ],
+    correct: 0,
+    explanation: "Le Groupe revendique une stratégie de déploiement 'maîtrisée' reposant sur quatre principes : la personnalisation de la relation client, la complémentarité entre l'humain et l'IA, un encadrement éthique et la recherche d'autonomie technologique.",
+    context: "Le principe de 'complémentarité humain/IA' rejoint directement un discours que tu pourras tenir en entretien : ton rôle de Data Analyst/Analytics Engineer consiste justement à transformer la donnée en décision utile pour l'humain, pas à le remplacer.",
+    hint: "Aucun des 4 principes ne consiste à 'remplacer l'humain'."
+  },
+
+  // ===== Parcours client bancaire =====
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Dans un parcours d'ouverture de compte bancaire, à quelle étape intervient généralement le contrôle KYC/LCB-FT ?",
+    options: [
+      "Dès l'entrée en relation, avant toute ouverture effective du compte",
+      "Uniquement après la clôture du compte",
+      "Seulement si le client dépasse 10 000 € de dépôt",
+      "Jamais pour les particuliers, seulement pour les entreprises"
+    ],
+    correct: 0,
+    explanation: "Le contrôle KYC/LCB-FT intervient dès l'entrée en relation, avant l'ouverture effective du compte : vérification d'identité, justificatif de domicile, origine des fonds.",
+    context: "C'est un point de friction bien identifié dans les parcours d'ouverture de compte digitaux : la vérification d'identité à distance (souvent avec un selfie ou une pièce d'identité scannée) est l'étape où le taux d'abandon est historiquement le plus élevé.",
+    hint: "C'est la même notion que celle vue dans la catégorie LCB-FT du quiz."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Quel est un point de friction fréquent dans un parcours digital d'ouverture de compte bancaire ?",
+    options: [
+      "La vérification d'identité à distance (upload de pièce d'identité, selfie), source d'abandons",
+      "Le choix de la couleur de la carte bancaire",
+      "Le nombre de succursales physiques disponibles",
+      "La lecture des mentions légales en fin de parcours"
+    ],
+    correct: 0,
+    explanation: "La vérification d'identité à distance est un point de friction classique : mauvaise qualité de photo, document refusé, processus perçu comme long ou intrusif entraînent des abandons.",
+    context: "Documenter précisément ce type de friction (avec la donnée associée : taux d'abandon par étape, temps moyen passé, causes de rejet KYC) est exactement le type d'analyse qu'on pourrait te demander de construire côté Data Analytics.",
+    hint: "C'est l'étape qui a le taux d'abandon le plus élevé selon la plupart des études sur l'onboarding bancaire."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Dans un parcours de crédit immobilier, qu'est-ce que le 'scoring' du dossier client ?",
+    options: [
+      "Une évaluation automatisée du risque de crédit du client à partir de ses données financières",
+      "Le montant total du crédit demandé",
+      "Le taux d'intérêt fixé arbitrairement par le conseiller",
+      "La durée du prêt choisie par le client"
+    ],
+    correct: 0,
+    explanation: "Le scoring est une évaluation automatisée (souvent statistique ou basée sur des règles) du risque de crédit d'un client, à partir de données comme ses revenus, son taux d'endettement, son historique bancaire.",
+    context: "Le scoring illustre un cas d'usage typique où la donnée alimente directement une décision métier à fort enjeu (accorder ou refuser un crédit) : comprendre ce mécanisme aide à situer où l'IA/le scoring s'insère dans le parcours, en complément — pas en remplacement — de la décision du conseiller.",
+    hint: "C'est une évaluation automatisée, pas une décision humaine directe."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Qu'est-ce que le 'taux d'endettement' pris en compte dans un dossier de crédit immobilier ?",
+    options: [
+      "La part des revenus du foyer consacrée au remboursement de crédits",
+      "Le taux d'intérêt du crédit immobilier",
+      "Le pourcentage d'apport personnel du client",
+      "Le taux de la taxe foncière du bien acheté"
+    ],
+    correct: 0,
+    explanation: "Le taux d'endettement mesure la part des revenus mensuels du foyer consacrée au remboursement de l'ensemble de ses crédits ; en France, il est encadré autour de 35 % maximum par le Haut Conseil de Stabilité Financière.",
+    context: "Ce plafond (avec quelques marges de flexibilité laissées aux banques) est un point réglementaire directement lié au parcours de crédit immobilier ; le connaître aide à comprendre pourquoi certains dossiers sont refusés malgré un projet solide.",
+    hint: "C'est un ratio, exprimé en pourcentage des revenus."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Quel document central formalise l'offre de prêt immobilier et déclenche un délai de réflexion obligatoire pour l'emprunteur ?",
+    options: ["L'offre de prêt", "Le compromis de vente", "L'acte authentique", "Le relevé d'identité bancaire (RIB)"],
+    correct: 0,
+    explanation: "L'offre de prêt émise par la banque déclenche un délai de réflexion obligatoire d'au moins 10 jours avant que l'emprunteur puisse l'accepter.",
+    context: "Ce délai réglementaire est un point de friction structurel du parcours crédit immobilier : il ralentit mécaniquement le 'time-to-yes' perçu par le client, même quand le dossier est déjà validé côté banque — utile à expliquer si le métier demande pourquoi un parcours prend autant de temps.",
+    hint: "C'est un document, pas un délai en lui-même."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Quelle donnée est typiquement collectée lors de l'étape de recueil du besoin dans un parcours de crédit immobilier ?",
+    options: [
+      "Montant du projet, apport personnel, revenus et situation professionnelle",
+      "Uniquement l'adresse email du client",
+      "Uniquement le nom de l'agence préférée",
+      "Le mot de passe de l'espace client"
+    ],
+    correct: 0,
+    explanation: "Cette étape de recueil du besoin collecte typiquement le montant du projet, l'apport personnel disponible, les revenus et la situation professionnelle du client, base du futur scoring.",
+    context: "C'est un bon exemple pour un schéma de parcours client : chaque étape peut être associée à la donnée collectée, à l'acteur qui la traite, et au risque de friction ou d'abandon associé — la structure même attendue dans l'exercice 'schématiser un parcours client'.",
+    hint: "Ce sont des données nécessaires pour calculer plus tard un scoring de risque."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Qu'est-ce que le 'time-to-yes' dans un parcours de crédit ?",
+    options: [
+      "Le délai entre la demande du client et la réponse de principe de la banque",
+      "Le délai entre la signature de l'acte et le déblocage des fonds",
+      "Le taux d'acceptation des dossiers de crédit",
+      "Le délai de remboursement anticipé du crédit"
+    ],
+    correct: 0,
+    explanation: "Le 'time-to-yes' désigne le délai entre le dépôt de la demande de crédit par le client et l'obtention d'une réponse de principe (accord ou refus) de la banque.",
+    context: "C'est un indicateur de plus en plus suivi par les banques traditionnelles, sous la pression des acteurs 100 % digitaux qui promettent des réponses de principe en quelques minutes : un bon exemple de KPI de parcours client à connaître pour ton futur poste.",
+    hint: "L'expression anglaise contient le mot 'yes' (oui)."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Pourquoi la multiplication des canaux (agence, application mobile, téléphone) peut-elle créer une friction dans un parcours client bancaire ?",
+    options: [
+      "Parce que le client doit parfois répéter les mêmes informations ou vivre une expérience incohérente d'un canal à l'autre",
+      "Parce que les banques n'ont légalement le droit d'utiliser qu'un seul canal",
+      "Parce que les applications mobiles sont interdites pour les crédits immobiliers",
+      "Parce que cela n'a aucun impact sur l'expérience client"
+    ],
+    correct: 0,
+    explanation: "Sans une vision unifiée du client (données partagées entre canaux), le client peut devoir répéter des informations déjà données ailleurs, ou vivre un parcours incohérent entre agence, appli et téléphone.",
+    context: "C'est exactement le type de problème qu'une bonne gouvernance de la donnée (dictionnaire de données, référentiel client unique) cherche à résoudre : un client, une vue à 360°, quel que soit le canal utilisé.",
+    hint: "Le problème vient d'un manque de partage de données entre les canaux, pas d'une interdiction légale."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Dans un schéma de parcours client, qu'appelle-t-on un 'point de contact' (touchpoint) ?",
+    options: [
+      "Toute interaction du client avec la banque, physique ou digitale, à une étape donnée",
+      "Uniquement le moment de la signature du contrat",
+      "Le numéro de téléphone du service client",
+      "Le nom du conseiller attitré du client"
+    ],
+    correct: 0,
+    explanation: "Un point de contact (touchpoint) est toute interaction du client avec la banque à un moment donné du parcours : visite en agence, appel, notification push, email, échange en visio...",
+    context: "Cartographier tous les points de contact d'un parcours (avec la donnée générée à chacun) est la première étape avant de repérer les frictions — exactement la méthode attendue pour schématiser un parcours client d'ouverture de compte ou de crédit immobilier.",
+    hint: "Le mot vient de l'anglais 'touch' (toucher) + 'point'."
+  },
+  {
+    topic: "Parcours client bancaire", type: "qcm",
+    q: "Quelle donnée un score de risque de crédit immobilier ne prend-il en principe jamais en compte, pour des raisons réglementaires ?",
+    options: [
+      "L'origine ethnique, la religion ou les opinions politiques du client",
+      "Les revenus du foyer",
+      "L'apport personnel disponible",
+      "L'historique de remboursement du client"
+    ],
+    correct: 0,
+    explanation: "Les données dites 'sensibles' (origine ethnique, religion, opinions politiques, santé...) sont, en France et en Europe, encadrées strictement par le RGPD et ne peuvent en principe pas être utilisées comme critère de décision automatisée.",
+    context: "Ce point fait le lien direct avec la catégorie RGPD bancaire du quiz : au-delà des règles générales de conservation et de consentement, le RGPD encadre aussi spécifiquement les catégories de données 'sensibles' qui ne peuvent pas servir de critère de décision automatisée.",
+    hint: "Ce sont des données classées comme 'sensibles' par le RGPD, pas des données financières."
+  },
+
+  // ===== KPIs bancaires =====
+  {
+    topic: "KPIs bancaires", type: "fill",
+    q: "Que signifie le sigle PNB, indicateur clé de la performance d'une banque ?",
+    accepted: ["produit net bancaire"],
+    explanation: "PNB = Produit Net Bancaire. C'est l'équivalent du chiffre d'affaires pour une banque : il regroupe les marges d'intérêt, les commissions et d'autres revenus liés à l'activité bancaire.",
+    context: "Le PNB est LE chiffre le plus suivi en communication financière bancaire, bien avant le 'chiffre d'affaires' utilisé dans les autres secteurs : le connaître et savoir l'expliquer simplement est un vrai basique à maîtriser avant un entretien dans une banque.",
+    hint: "Les 3 lettres sont les initiales de 'Produit', 'Net' et 'Bancaire'."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Que mesure le 'coefficient d'exploitation' d'une banque ?",
+    options: [
+      "Le rapport entre les charges d'exploitation et le produit net bancaire (efficacité opérationnelle)",
+      "Le taux d'intérêt moyen appliqué aux crédits",
+      "La part de marché de la banque sur son territoire",
+      "Le nombre d'agences ouvertes par an"
+    ],
+    correct: 0,
+    explanation: "Le coefficient d'exploitation rapporte les charges d'exploitation (frais de personnel, charges générales...) au PNB. Plus il est bas, plus la banque est efficace opérationnellement.",
+    context: "Un coefficient d'exploitation autour de 60 % est considéré comme un bon niveau pour une banque de détail ; le suivre dans le temps permet de mesurer si des investissements comme la Data Factory ou l'IA génèrent des gains d'efficacité réels.",
+    hint: "Plus ce chiffre est bas, plus la banque est jugée efficace."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Que désigne le 'taux d'attrition' (ou churn) en banque de détail ?",
+    options: [
+      "La proportion de clients qui quittent la banque sur une période donnée",
+      "Le taux de défaut de paiement sur les crédits",
+      "Le taux de croissance du nombre de clients",
+      "Le taux de satisfaction client mesuré par enquête"
+    ],
+    correct: 0,
+    explanation: "Le taux d'attrition (ou churn) mesure la proportion de clients qui quittent la banque (clôture de tous leurs comptes) sur une période donnée, généralement une année.",
+    context: "Réduire l'attrition est un enjeu direct pour la Direction Immobilière du cas LCL : mieux positionner les agences selon le dynamisme local vise justement, entre autres, à limiter le risque de perte de clients par manque de présence pertinente sur le territoire.",
+    hint: "Le mot vient de l'anglais 'churn' (barattage), qui évoque un renouvellement/une perte de clients."
+  },
+  {
+    topic: "KPIs bancaires", type: "fill",
+    q: "Que signifie le sigle NPS, indicateur de recommandation client largement utilisé en banque ?",
+    accepted: ["net promoter score"],
+    explanation: "NPS = Net Promoter Score. Il mesure la probabilité qu'un client recommande sa banque, sur une échelle de 0 à 10, en distinguant promoteurs, passifs et détracteurs.",
+    context: "Le NPS est souvent utilisé comme indicateur de pilotage transverse (pas seulement en marketing) : LCL, comme beaucoup de banques, communique régulièrement sur son classement en satisfaction client (cf. 'Service Client de l'Année' mentionné dans l'offre d'emploi).",
+    hint: "Les 3 lettres évoquent un score de 'promoteurs nets'."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Que mesure le CET1 (déjà vu dans la catégorie Bâle III) par rapport aux autres KPIs bancaires ?",
+    options: [
+      "La solidité financière (fonds propres) de la banque, pas sa performance commerciale",
+      "Le nombre de nouveaux clients acquis dans l'année",
+      "Le taux de satisfaction des clients",
+      "Le montant total des crédits immobiliers accordés"
+    ],
+    correct: 0,
+    explanation: "Le CET1 est un ratio de solvabilité (fonds propres de meilleure qualité rapportés aux actifs pondérés du risque), à ne pas confondre avec les indicateurs de performance commerciale comme le PNB ou l'attrition.",
+    context: "Une bonne pratique en entretien est justement de savoir classer les KPIs par familles : solidité financière (CET1, LCR), performance commerciale (PNB, coefficient d'exploitation), et expérience client (NPS, attrition) — plutôt que de tout mélanger.",
+    hint: "Ce n'est pas un KPI commercial, c'est un ratio de solidité financière déjà vu ailleurs dans ce quiz."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Qu'est-ce que le 'coût du risque' pour une banque ?",
+    options: [
+      "La charge comptable liée aux provisions pour créances douteuses ou impayées",
+      "Le coût des primes d'assurance de la banque elle-même",
+      "Le budget consacré à la cybersécurité",
+      "Le coût de la conformité réglementaire (RGPD, LCB-FT)"
+    ],
+    correct: 0,
+    explanation: "Le coût du risque correspond aux provisions comptables passées par la banque pour couvrir des pertes probables sur ses crédits (clients en défaut ou en retard de paiement).",
+    context: "Le coût du risque est particulièrement suivi en période de tensions économiques : une hausse peut signaler une dégradation de la qualité du portefeuille de crédits, un signal parfois croisé avec des données socio-économiques comme celles utilisées dans le scoring de dynamisme territorial du cas LCL.",
+    hint: "C'est une charge comptable liée aux impayés, pas un coût de conformité."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Que mesure le 'taux d'équipement' d'un client en banque de détail ?",
+    options: [
+      "Le nombre de produits/services bancaires détenus par un même client",
+      "Le nombre d'appareils connectés utilisés pour se connecter à sa banque",
+      "Le taux d'équipement informatique des agences",
+      "Le pourcentage de clients utilisant l'application mobile"
+    ],
+    correct: 0,
+    explanation: "Le taux d'équipement mesure combien de produits différents (compte courant, carte, épargne, assurance, crédit...) un même client détient auprès de sa banque.",
+    context: "Augmenter le taux d'équipement (vendre plusieurs produits à un même client) est historiquement une stratégie clé de rentabilité en banque de détail, moins coûteuse que d'acquérir un nouveau client.",
+    hint: "Ça mesure des produits bancaires détenus, pas des appareils électroniques."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Qu'est-ce que le 'coût d'acquisition client' (CAC) ?",
+    options: [
+      "Le coût moyen dépensé par la banque pour acquérir un nouveau client",
+      "Les frais facturés au client à l'ouverture de son compte",
+      "Le coût du crédit accordé à un nouveau client",
+      "Le salaire moyen d'un chargé de clientèle"
+    ],
+    correct: 0,
+    explanation: "Le coût d'acquisition client (CAC) est le coût moyen (marketing, commercial...) dépensé par la banque pour acquérir un nouveau client.",
+    context: "Comparer le CAC à la valeur générée par un client sur toute sa relation avec la banque (souvent appelée 'valeur vie client') est un raisonnement classique pour arbitrer les investissements marketing ou commerciaux.",
+    hint: "C'est un coût supporté par la banque, pas par le client."
+  },
+  {
+    topic: "KPIs bancaires", type: "fill",
+    q: "Comment appelle-t-on, en anglais, la valeur totale qu'un client est censé générer pour la banque sur toute la durée de la relation ?",
+    accepted: ["customer lifetime value", "lifetime value", "clv"],
+    explanation: "La Customer Lifetime Value (CLV ou LTV) estime la valeur totale qu'un client génère pour l'entreprise pendant toute la durée de sa relation avec elle.",
+    context: "Mettre en regard la CLV et le coût d'acquisition (CAC) permet de juger si un investissement commercial est rentable à long terme, un raisonnement transposable au choix d'implantation d'agences dans le cas de la Direction Immobilière.",
+    hint: "Trois mots en anglais, souvent abrégés en 'CLV' ou 'LTV'."
+  },
+  {
+    topic: "KPIs bancaires", type: "qcm",
+    q: "Que mesure un indice de satisfaction comme le CSAT, parfois utilisé en complément du NPS ?",
+    options: [
+      "La satisfaction du client vis-à-vis d'une interaction ou d'un service précis, à un instant donné",
+      "La solidité financière globale de la banque",
+      "Le nombre de réclamations reçues sur un an",
+      "Le taux d'attrition des clients"
+    ],
+    correct: 0,
+    explanation: "Le CSAT (Customer Satisfaction Score) mesure la satisfaction du client vis-à-vis d'une interaction précise (un appel, une visite en agence, une démarche en ligne), contrairement au NPS qui mesure une propension globale à recommander la marque.",
+    context: "NPS et CSAT sont souvent confondus : le NPS donne une mesure globale et orientée 'recommandation', le CSAT donne une mesure ponctuelle et orientée 'satisfaction immédiate' — les deux sont complémentaires dans le pilotage de l'expérience client.",
+    hint: "Contrairement au NPS, il porte sur une interaction précise, pas sur une recommandation globale."
   }
 ];
 
@@ -1213,7 +1588,10 @@ const topicColors = {
   "Power BI & DAX": "#c48f00",
   "SQL & Teradata": "#d9480f",
   "Agile & Scrum": "#4b6584",
-  "LCL & le poste": "#1c3d5a"
+  "LCL & le poste": "#1c3d5a",
+  "Stratégie Data/IA Groupe": "#6a3fa0",
+  "Parcours client bancaire": "#1789a8",
+  "KPIs bancaires": "#a13d63"
 };
 
 function normalize(str) {
