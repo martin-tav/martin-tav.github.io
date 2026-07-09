@@ -27,7 +27,7 @@
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     margin: 0;
-    padding: 24px 10px 80px 10px;
+    padding: 14px 10px 80px 10px;
     background: var(--bg);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     color: var(--text-primary);
@@ -37,43 +37,51 @@
   }
   .wrap { max-width: 600px; width: 100%; }
   @media (min-width: 640px) {
-    body { padding: 32px 16px 80px 16px; }
+    body { padding: 20px 16px 80px 16px; }
   }
 
   /* Header, style e-mail */
   .avatar {
-    width: 48px; height: 48px; border-radius: 24px;
+    width: 36px; height: 36px; border-radius: 18px;
     background: #000; color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; margin: 0 auto 20px auto;
+    font-size: 16px; margin: 0 auto 10px auto;
   }
   h1 {
-    margin: 0 0 8px 0; text-align: center;
-    font-size: 32px; font-weight: 600; letter-spacing: -0.3px; color: #000;
+    margin: 0 0 4px 0; text-align: center;
+    font-size: 24px; font-weight: 600; letter-spacing: -0.3px; color: #000;
   }
   .subtitle {
-    margin: 0 0 8px 0; text-align: center;
-    color: var(--text-secondary); font-size: 17px; font-weight: 500;
+    margin: 0 0 14px 0; text-align: center;
+    color: var(--text-secondary); font-size: 14px; font-weight: 500;
   }
   .meta {
-    margin: 0 0 28px 0; text-align: center;
-    color: var(--text-tertiary); font-size: 15px;
+    margin: 0 0 14px 0; text-align: center;
+    color: var(--text-tertiary); font-size: 12px;
   }
-  .intro-box {
-    background: var(--accent-bg);
-    border-radius: 20px;
-    padding: 32px 24px;
-    text-align: center;
-    margin-bottom: 28px;
+
+  /* Daily streak banner on the category screen */
+  .daily-banner {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(135deg, #fff3d6, #ffe3d6);
+    border-radius: 14px; padding: 9px 14px; margin-bottom: 10px;
+    font-size: 13px; font-weight: 700; color: #a35800;
   }
-  .intro-box .emoji { font-size: 44px; line-height: 1; margin-bottom: 8px; }
-  .intro-box .label { font-size: 16px; font-weight: 600; color: var(--accent-dark); }
+  .daily-banner .flame { font-size: 17px; }
+  .stat-strip {
+    display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .stat-strip .stat { text-align: center; }
+  .stat-strip .stat-num { font-size: 17px; font-weight: 800; color: var(--text-primary); }
+  .stat-strip .stat-label { font-size: 10px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; }
 
   /* Category selection */
   .cat-grid {
     display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
     margin-bottom: 24px;
   }
+  .cat-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .cat-btn {
     border: none; border-radius: 24px; color: #fff;
     font-size: 16px; font-weight: 600;
@@ -85,6 +93,10 @@
     font-weight: 400; opacity: 0.85; font-size: 14px;
   }
   .cat-all { background: #111111; }
+  .cat-record {
+    font-size: 11px; font-weight: 700; color: var(--text-tertiary);
+  }
+  .cat-record .star { color: #f0a500; }
 
   .back-link {
     display: block; text-align: center; margin: 0 0 18px 0;
@@ -104,24 +116,51 @@
   /* Sticky live score bar */
   .live-bar {
     position: sticky; top: 0; z-index: 10;
-    background: var(--bg); padding: 0 0 12px 0; margin-bottom: 6px;
+    background: var(--bg); padding: 0 0 14px 0; margin-bottom: 6px;
   }
   .live-inner {
     background: var(--card-white);
     border: 0.5px solid var(--border);
-    border-radius: 14px;
-    padding: 12px 18px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 15px; color: var(--text-secondary);
+    border-radius: 18px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   }
-  .live-inner strong { color: var(--text-primary); }
+  .live-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+  }
+  .live-score-block { display: flex; align-items: baseline; gap: 6px; }
+  .live-score-number {
+    font-size: 30px; font-weight: 800; color: var(--text-primary);
+    line-height: 1; transition: color 0.2s ease;
+  }
+  .live-score-label { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+  .live-right { display: flex; align-items: center; gap: 8px; }
+  .combo-badge {
+    display: none; align-items: center; gap: 4px;
+    background: linear-gradient(135deg, #ff9800, #ff5252);
+    color: #fff; font-weight: 700; font-size: 13px;
+    padding: 5px 12px; border-radius: 20px;
+    animation: pop 0.25s ease;
+  }
+  .combo-badge.show { display: inline-flex; }
+  @keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .streak-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--warning-bg); color: #a35800; font-weight: 700; font-size: 13px;
+    padding: 5px 12px; border-radius: 20px;
+  }
   .progress-container {
-    width: 100%; background: var(--border); border-radius: 3px;
-    margin-top: 10px; height: 8px;
+    width: 100%; background: var(--border); border-radius: 4px;
+    margin-top: 12px; height: 10px;
   }
   .progress-bar {
-    height: 100%; background: var(--accent); border-radius: 3px;
-    width: 0%; transition: width 0.3s ease;
+    height: 100%; background: linear-gradient(90deg, var(--accent), #3fa7ff);
+    border-radius: 4px;
+    width: 0%; transition: width 0.35s ease;
   }
 
   .card {
@@ -244,11 +283,44 @@
   .summary {
     background: var(--card-white);
     border-radius: 18px;
-    padding: 28px 22px;
+    padding: 30px 22px;
     text-align: center;
     display: none;
   }
-  .score { font-size: 38px; font-weight: 700; margin: 8px 0 20px 0; }
+  .score-ring-wrap { position: relative; width: 160px; height: 160px; margin: 4px auto 6px auto; }
+  .score-ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .score-ring-bg { fill: none; stroke: var(--border); stroke-width: 12; }
+  .score-ring-fg {
+    fill: none; stroke-width: 12; stroke-linecap: round;
+    stroke-dasharray: 339.3; stroke-dashoffset: 339.3;
+    transition: stroke-dashoffset 1s ease, stroke 0.3s ease;
+  }
+  .score-ring-center {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .score-ring-percent { font-size: 34px; font-weight: 800; color: var(--text-primary); line-height: 1; }
+  .score-ring-frac { font-size: 13px; color: var(--text-tertiary); font-weight: 600; margin-top: 2px; }
+  .tier-badge {
+    display: inline-block; font-size: 15px; font-weight: 700; padding: 6px 16px;
+    border-radius: 20px; margin: 10px 0 4px 0;
+  }
+  .record-badge {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;
+    color: #a35800; background: var(--warning-bg); padding: 6px 14px; border-radius: 20px;
+    margin: 6px 0 4px 0;
+  }
+  .gamif-stats {
+    display: flex; justify-content: center; gap: 22px; flex-wrap: wrap;
+    margin: 18px 0 6px 0; padding: 14px 0; border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .gamif-stats .g-stat { text-align: center; }
+  .gamif-stats .g-num { font-size: 19px; font-weight: 800; color: var(--text-primary); }
+  .gamif-stats .g-label { font-size: 11px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; }
+  .replay-hook {
+    font-size: 13px; color: var(--text-secondary); margin-top: 16px; line-height: 1.5;
+  }
   .topic-row {
     display: flex; justify-content: space-between; align-items: center;
     font-size: 16px; padding: 12px 0; border-top: 0.5px solid var(--border);
@@ -274,15 +346,12 @@
 <body>
 <div class="wrap">
   <div class="avatar">🏦</div>
-  <h1>Quiz de révision</h1>
-  <p class="subtitle">Bank training</p>
-  <p class="meta">11 catégories · Réglementation bancaire, organisation LCL et compétences du poste Data Analytics Engineering</p>
+  <h1>Quiz Banque</h1>
+  <p class="subtitle">11 catégories · Réglementation bancaire, organisation LCL et compétences du poste Data Analytics Engineering</p>
 
   <div id="screen-category">
-    <div class="intro-box">
-      <div class="emoji">🎯</div>
-      <div class="label">Choisis une catégorie pour commencer</div>
-    </div>
+    <div class="daily-banner" id="daily-banner" style="display:none"></div>
+    <div class="stat-strip" id="stat-strip"></div>
     <div class="cat-grid" id="cat-grid"></div>
   </div>
 
@@ -292,11 +361,18 @@
 
     <div class="live-bar">
       <div class="live-inner">
-        <span>Répondues : <strong id="answered-count">0</strong>/<span id="total-count">0</span></span>
-        <span>Correctes : <strong id="correct-count">0</strong></span>
-      </div>
-      <div class="progress-container">
-        <div class="progress-bar" id="progress"></div>
+        <div class="live-top">
+          <div class="live-score-block">
+            <span class="live-score-number" id="correct-count">0</span>
+            <span class="live-score-label">/ <span id="total-count">0</span> bonnes réponses</span>
+          </div>
+          <div class="live-right">
+            <span class="combo-badge" id="combo-badge">🔥 <span id="combo-count">0</span></span>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress"></div>
+        </div>
       </div>
     </div>
 
@@ -1153,8 +1229,71 @@ function shuffleArray(arr) {
   return arr.slice().sort(() => Math.random() - 0.5);
 }
 
+// ===== Gamification : persistance locale =====
+function getBestScores() {
+  try { return JSON.parse(localStorage.getItem("quiz_bestScores")) || {}; }
+  catch { return {}; }
+}
+function saveBestScoreIfHigher(key, correct, total) {
+  const scores = getBestScores();
+  const prevPercent = scores[key] ? (scores[key].correct / scores[key].total) * 100 : -1;
+  const newPercent = (correct / total) * 100;
+  const isNewRecord = newPercent > prevPercent;
+  if (isNewRecord) {
+    scores[key] = { correct, total };
+    localStorage.setItem("quiz_bestScores", JSON.stringify(scores));
+  }
+  return isNewRecord;
+}
+function getBestScoreFor(key) {
+  const scores = getBestScores();
+  return scores[key] || null;
+}
+
+function updateDailyStreak() {
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const last = localStorage.getItem("quiz_lastPlayedDate");
+  let streak = parseInt(localStorage.getItem("quiz_streakDays")) || 0;
+  if (last === todayStr) {
+    return streak;
+  }
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  streak = (last === yesterday) ? streak + 1 : 1;
+  localStorage.setItem("quiz_lastPlayedDate", todayStr);
+  localStorage.setItem("quiz_streakDays", streak);
+  return streak;
+}
+function getStreakDays() {
+  return parseInt(localStorage.getItem("quiz_streakDays")) || 0;
+}
+
+function getTotalAnswered() {
+  return parseInt(localStorage.getItem("quiz_totalAnswered")) || 0;
+}
+function addToTotalAnswered(n) {
+  const total = getTotalAnswered() + n;
+  localStorage.setItem("quiz_totalAnswered", total);
+  return total;
+}
+
+function getBestCombo() {
+  return parseInt(localStorage.getItem("quiz_bestCombo")) || 0;
+}
+function setBestComboIfHigher(n) {
+  const best = getBestCombo();
+  if (n > best) {
+    localStorage.setItem("quiz_bestCombo", n);
+    return true;
+  }
+  return false;
+}
+
+let currentCombo = 0;
+let sessionBestCombo = 0;
+
 let questions = [];   // sous-ensemble de allQuestions actuellement joué
 let results = [];
+let currentCategoryKey = "__ALL__";
 
 const screenCategory = document.getElementById("screen-category");
 const screenQuiz = document.getElementById("screen-quiz");
@@ -1164,10 +1303,46 @@ const summaryEl = document.getElementById("summary");
 function buildCategoryScreen() {
   const topics = [...new Set(allQuestions.map(q => q.topic))];
   const grid = document.getElementById("cat-grid");
-  const allBtn = `<button class="cat-btn cat-all" data-topic="__ALL__">Toutes les catégories <span class="cat-count">(${allQuestions.length})</span></button>`;
+
+  const streak = getStreakDays();
+  const banner = document.getElementById("daily-banner");
+  if (banner) {
+    if (streak > 0) {
+      banner.style.display = "flex";
+      banner.innerHTML = `<span class="flame">🔥</span> ${streak} jour${streak > 1 ? "s" : ""} d'affilée — reviens demain pour continuer ta série !`;
+    } else {
+      banner.style.display = "none";
+    }
+  }
+
+  const totalAnswered = getTotalAnswered();
+  const bestCombo = getBestCombo();
+  const statsStrip = document.getElementById("stat-strip");
+  if (statsStrip) {
+    statsStrip.innerHTML = `
+      <div class="stat"><div class="stat-num">${totalAnswered}</div><div class="stat-label">Questions répondues</div></div>
+      <div class="stat"><div class="stat-num">${bestCombo}</div><div class="stat-label">Meilleur combo</div></div>
+    `;
+  }
+
+  const allBest = getBestScoreFor("__ALL__");
+  const allRecordHtml = allBest ? `<span class="cat-record">⭐ Record : ${allBest.correct}/${allBest.total}</span>` : "";
+  const allBtn = `
+    <div class="cat-btn-wrap">
+      <button class="cat-btn cat-all" data-topic="__ALL__">Toutes les catégories <span class="cat-count">(${allQuestions.length})</span></button>
+      ${allRecordHtml}
+    </div>
+  `;
   const topicBtns = topics.map(t => {
     const count = allQuestions.filter(q => q.topic === t).length;
-    return `<button class="cat-btn" data-topic="${t}" style="background:${topicColors[t]}">${t} <span class="cat-count">(${count})</span></button>`;
+    const best = getBestScoreFor(t);
+    const recordHtml = best ? `<span class="cat-record"><span class="star">⭐</span> Record : ${best.correct}/${best.total}</span>` : "";
+    return `
+      <div class="cat-btn-wrap">
+        <button class="cat-btn" data-topic="${t}" style="background:${topicColors[t]}">${t} <span class="cat-count">(${count})</span></button>
+        ${recordHtml}
+      </div>
+    `;
   }).join("");
   grid.innerHTML = allBtn + topicBtns;
 
@@ -1180,6 +1355,9 @@ function startQuiz(topicKey) {
   questions = topicKey === "__ALL__"
     ? shuffleArray(allQuestions)
     : shuffleArray(allQuestions.filter(q => q.topic === topicKey));
+
+  updateDailyStreak();
+  currentCategoryKey = topicKey;
 
   const currentCatEl = document.getElementById("current-cat");
   if (topicKey === "__ALL__") {
@@ -1198,6 +1376,7 @@ function startQuiz(topicKey) {
 document.getElementById("back-link").addEventListener("click", () => {
   screenQuiz.style.display = "none";
   screenCategory.style.display = "block";
+  buildCategoryScreen();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -1205,10 +1384,11 @@ function cardHtml(item, idx) {
   const typeLabel = item.type === "qcm" ? "QCM" : "À compléter";
   let bodyHtml = "";
   if (item.type === "qcm") {
+    const order = shuffleArray(item.options.map((_, i) => i));
     bodyHtml = `
       <div class="options" id="options-${idx}">
-        ${item.options.map((opt, oidx) => `
-          <button class="option-btn" data-qidx="${idx}" data-oidx="${oidx}">${opt}</button>
+        ${order.map(oidx => `
+          <button class="option-btn" data-qidx="${idx}" data-oidx="${oidx}">${item.options[oidx]}</button>
         `).join("")}
       </div>
     `;
@@ -1242,6 +1422,8 @@ function cardHtml(item, idx) {
 
 function renderAll() {
   results = new Array(questions.length).fill(null);
+  currentCombo = 0;
+  sessionBestCombo = 0;
   quizEl.innerHTML = questions.map((item, idx) => cardHtml(item, idx)).join("");
   summaryEl.style.display = "none";
   quizEl.style.display = "block";
@@ -1313,6 +1495,15 @@ function finishAnswer(idx, isCorrect) {
   document.getElementById(`hint-btn-${idx}`).style.display = "none";
   document.getElementById(`card-${idx}`).classList.add(isCorrect ? "correct-card" : "incorrect-card");
 
+  addToTotalAnswered(1);
+  if (isCorrect) {
+    currentCombo++;
+    if (currentCombo > sessionBestCombo) sessionBestCombo = currentCombo;
+    setBestComboIfHigher(currentCombo);
+  } else {
+    currentCombo = 0;
+  }
+
   updateLiveBar();
   if (results.every(r => r !== null)) {
     showSummary();
@@ -1322,13 +1513,24 @@ function finishAnswer(idx, isCorrect) {
 function updateLiveBar() {
   const answeredCount = results.filter(r => r !== null).length;
   const correctCount = results.filter(r => r === true).length;
-  document.getElementById("answered-count").textContent = answeredCount;
   document.getElementById("correct-count").textContent = correctCount;
   document.getElementById("progress").style.width = `${(answeredCount / questions.length) * 100}%`;
+
+  const comboBadge = document.getElementById("combo-badge");
+  const comboCount = document.getElementById("combo-count");
+  if (currentCombo >= 2) {
+    comboCount.textContent = currentCombo;
+    comboBadge.classList.remove("show");
+    void comboBadge.offsetWidth; // relance l'animation
+    comboBadge.classList.add("show");
+  } else {
+    comboBadge.classList.remove("show");
+  }
 }
 
 function showSummary() {
   const total = results.filter(r => r === true).length;
+  const percent = Math.round((total / questions.length) * 100);
   const byTopic = {};
   questions.forEach((q, idx) => {
     byTopic[q.topic] = byTopic[q.topic] || { ok: 0, tot: 0 };
@@ -1337,24 +1539,58 @@ function showSummary() {
   });
 
   const rows = Object.entries(byTopic).map(([t, v]) => {
-    const percent = (v.ok / v.tot) * 100;
+    const p = (v.ok / v.tot) * 100;
     return `
       <div class="topic-row">
         <span>${t}</span>
         <span>${v.ok}/${v.tot}</span>
         <div class="bar-container">
-          <div class="bar" style="width: ${percent}%; background: ${topicColors[t]};"></div>
+          <div class="bar" style="width: ${p}%; background: ${topicColors[t]};"></div>
         </div>
       </div>
     `;
   }).join("");
 
+  // Palier de niveau selon le score
+  let tier, tierColor, tierEmoji;
+  if (percent === 100) { tier = "Sans faute !"; tierColor = "#1d9e75"; tierEmoji = "🏆"; }
+  else if (percent >= 80) { tier = "Excellent"; tierColor = "#1d9e75"; tierEmoji = "🌟"; }
+  else if (percent >= 50) { tier = "Bien joué"; tierColor = "#185fa5"; tierEmoji = "👍"; }
+  else { tier = "En progression"; tierColor = "#ff9800"; tierEmoji = "💪"; }
+
+  // Record personnel (par catégorie jouée)
+  const isNewRecord = saveBestScoreIfHigher(currentCategoryKey, total, questions.length);
+  const isNewComboRecord = setBestComboIfHigher(sessionBestCombo);
+  const totalAnswered = getTotalAnswered();
+  const streak = getStreakDays();
+
   summaryEl.style.display = "block";
   summaryEl.innerHTML = `
-    <p style="font-size:13px;color:var(--text-tertiary);margin:0;font-weight:600;">Score final</p>
-    <p class="score">${total}/${questions.length}</p>
+    <p style="font-size:13px;color:var(--text-tertiary);margin:0 0 8px 0;font-weight:600;">Score final</p>
+    <div class="score-ring-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle class="score-ring-bg" cx="60" cy="60" r="54"></circle>
+        <circle class="score-ring-fg" id="score-ring-fg" cx="60" cy="60" r="54" style="stroke:${tierColor}"></circle>
+      </svg>
+      <div class="score-ring-center">
+        <span class="score-ring-percent">${percent}%</span>
+        <span class="score-ring-frac">${total}/${questions.length}</span>
+      </div>
+    </div>
+    <div>
+      <span class="tier-badge" style="background:${tierColor}20; color:${tierColor}">${tierEmoji} ${tier}</span>
+    </div>
+    ${isNewRecord ? `<div><span class="record-badge">🏅 Nouveau record sur cette catégorie !</span></div>` : ""}
+    ${isNewComboRecord && sessionBestCombo >= 2 ? `<div><span class="record-badge">🔥 Nouveau record de combo : ${sessionBestCombo} !</span></div>` : ""}
+
+    <div class="gamif-stats">
+      <div class="g-stat"><div class="g-num">🔥 ${streak}</div><div class="g-label">Jours d'affilée</div></div>
+      <div class="g-stat"><div class="g-num">${sessionBestCombo}</div><div class="g-label">Meilleur combo</div></div>
+      <div class="g-stat"><div class="g-num">${totalAnswered}</div><div class="g-label">Questions au total</div></div>
+    </div>
+
     <div style="text-align:left;">
-      <p style="font-size:14px;color:var(--text-secondary);margin:0 0 6px 0;">Répartition par thème</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin:14px 0 6px 0;">Répartition par thème</p>
       ${rows}
     </div>
     <div class="summary-actions">
@@ -1362,17 +1598,30 @@ function showSummary() {
       <button class="btn-secondary" id="shuffle">Mélanger et recommencer</button>
       <button class="btn-secondary" id="change-cat">Changer de catégorie</button>
     </div>
+    <p class="replay-hook">🔥 Reviens demain pour garder ta série, ou tente une autre catégorie pour décrocher un nouveau record !</p>
   `;
   summaryEl.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  document.getElementById("restart").addEventListener("click", renderAll);
+  // Anime l'anneau de score après insertion dans le DOM
+  requestAnimationFrame(() => {
+    const circumference = 339.3;
+    const offset = circumference * (1 - percent / 100);
+    document.getElementById("score-ring-fg").style.strokeDashoffset = offset;
+  });
+
+  document.getElementById("restart").addEventListener("click", () => {
+    renderAll();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
   document.getElementById("shuffle").addEventListener("click", () => {
     questions = shuffleArray(questions);
     renderAll();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
   document.getElementById("change-cat").addEventListener("click", () => {
     screenQuiz.style.display = "none";
     screenCategory.style.display = "block";
+    buildCategoryScreen();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
