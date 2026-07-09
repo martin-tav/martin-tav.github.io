@@ -2,15 +2,18 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Bank Training – Quiz de révision (amélioré)</title>
+<title>Bank Training – Quiz de révision</title>
 <style>
   :root {
-    --bg: #f7f6f2;
-    --card: #ffffff;
-    --border: #e0ddd3;
+    --bg: #f4f3ef;
+    --card: #f7f7f5;
+    --card-white: #ffffff;
+    --border: #e6e4dd;
     --text-primary: #111111;
-    --text-secondary: #6b6b6b;
-    --accent: #0b5fae;
+    --text-secondary: #555555;
+    --text-tertiary: #8a8a8d;
+    --accent: #185fa5;
+    --accent-dark: #0c447c;
     --accent-bg: #e6f1fb;
     --success: #1d9e75;
     --success-bg: #e1f5ee;
@@ -22,333 +25,712 @@
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    padding: 40px 16px;
+    padding: 32px 16px 80px 16px;
     background: var(--bg);
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     color: var(--text-primary);
     display: flex;
     justify-content: center;
   }
   .wrap { max-width: 600px; width: 100%; }
-  h1 { font-size: 22px; margin: 0 0 4px 0; font-weight: 700; }
-  .subtitle { font-size: 14px; color: var(--text-secondary); font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 0 0 28px 0; }
-  .tip {
-    font-size: 15px; 
-    margin: 0 0 24px 0; 
-    line-height: 1.5;
-    background: var(--accent-bg);
-    padding: 12px;
-    border-radius: 8px;
-    border-left: 4px solid var(--accent);
+
+  /* Header, style e-mail */
+  .avatar {
+    width: 48px; height: 48px; border-radius: 24px;
+    background: #000; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin: 0 auto 20px auto;
   }
-  
-  /* Progress bar */
+  h1 {
+    margin: 0 0 8px 0; text-align: center;
+    font-size: 30px; font-weight: 600; letter-spacing: -0.3px; color: #000;
+  }
+  .subtitle {
+    margin: 0 0 6px 0; text-align: center;
+    color: var(--text-secondary); font-size: 15px; font-weight: 500;
+  }
+  .meta {
+    margin: 0 0 28px 0; text-align: center;
+    color: var(--text-tertiary); font-size: 13px;
+  }
+  .intro-box {
+    background: var(--accent-bg);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .intro-box .emoji { font-size: 40px; line-height: 1; margin-bottom: 8px; }
+  .intro-box .label { font-size: 14px; font-weight: 600; color: var(--accent-dark); }
+
+  /* Category selection */
+  .cat-grid {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-bottom: 24px;
+  }
+  .cat-btn {
+    border: none; border-radius: 24px; color: #fff;
+    font-size: 14px; font-weight: 600;
+    padding: 13px 22px; cursor: pointer;
+    font-family: inherit;
+  }
+  .cat-btn:hover { opacity: 0.9; }
+  .cat-btn .cat-count {
+    font-weight: 400; opacity: 0.85; font-size: 12px;
+  }
+  .cat-all { background: #111111; }
+
+  .back-link {
+    display: block; text-align: center; margin: 0 0 18px 0;
+    font-size: 13px; color: var(--accent); cursor: pointer;
+    font-weight: 600; text-decoration: none;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .current-cat {
+    text-align: center; margin: 0 0 18px 0;
+  }
+  .current-cat .pill {
+    display: inline-block; border-radius: 20px; padding: 8px 18px;
+    font-size: 13px; font-weight: 600; color: #fff;
+  }
+
+  /* Sticky live score bar */
+  .live-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); padding: 0 0 12px 0; margin-bottom: 6px;
+  }
+  .live-inner {
+    background: var(--card-white);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .live-inner strong { color: var(--text-primary); }
   .progress-container {
-    width: 100%;
-    background: var(--border);
-    border-radius: 3px;
-    margin: 20px 0;
-    height: 6px;
+    width: 100%; background: var(--border); border-radius: 3px;
+    margin-top: 8px; height: 6px;
   }
   .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 3px;
-    width: 0%;
-    transition: width 0.3s ease;
+    height: 100%; background: var(--accent); border-radius: 3px;
+    width: 0%; transition: width 0.3s ease;
   }
-  
+
   .card {
     background: var(--card);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
-    margin-bottom: 16px;
+    border-radius: 18px;
+    padding: 22px 22px 20px 22px;
+    margin-bottom: 14px;
+    scroll-margin-top: 70px;
+  }
+  .card.correct-card { background: var(--success-bg); }
+  .card.incorrect-card { background: var(--error-bg); }
+
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; flex-wrap: wrap; gap: 6px;
   }
   .topic {
-    display: inline-block;
-    font-size: 12px;
-    font-family: -apple-system, Helvetica, Arial, sans-serif;
-    padding: 3px 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
   }
-  /* Topic color-coding */
-  .topic[data-topic="Organisation LCL"] { background: #e6f7ff; color: #0066cc; }
-  .topic[data-topic="Produits phares"] { background: #e6ffe6; color: #008000; }
-  .topic[data-topic="Bâle III"] { background: #fff2e6; color: #cc6600; }
-  .topic[data-topic="DORA"] { background: #f9e6ff; color: #800080; }
-  
-  .qcount { 
-    font-size: 13px; 
-    color: var(--text-secondary); 
-    font-family: -apple-system, Helvetica, Arial, sans-serif; 
-    float: right; 
+  .topic[data-topic="Organisation LCL"] { background: #d6ebff; color: #0066cc; }
+  .topic[data-topic="Produits phares"] { background: #d9f5ea; color: #128a5e; }
+  .topic[data-topic="Bâle III"] { background: #ffe9d6; color: #cc6600; }
+  .topic[data-topic="DORA"] { background: #f2ddff; color: #800080; }
+  .topic[data-topic="LCB-FT"] { background: #d6fbf5; color: #00807a; }
+  .topic[data-topic="RGPD bancaire"] { background: #ffd9e6; color: #cc0055; }
+
+  .qcount { font-size: 12px; color: var(--text-tertiary); }
+  .qtype {
+    font-size: 11px; color: var(--text-tertiary);
+    border: 0.5px solid var(--border); border-radius: 20px;
+    padding: 2px 10px; background: var(--card-white);
   }
-  .question { 
-    font-size: 16px; 
-    margin: 8px 0 14px 0; 
-    line-height: 1.5; 
-    clear: both; 
-  }
-  .answer {
-    font-size: 15px; 
-    color: var(--text-secondary); 
-    border-top: 0.5px solid var(--border); 
-    padding-top: 12px; 
-    margin: 0 0 14px 0; 
-    line-height: 1.5; 
-    display: none; 
-  }
+  .question { font-size: 16px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.5; }
   .hint {
-    font-size: 14px;
-    color: var(--warning);
-    margin: 10px 0;
-    display: none;
+    font-size: 13px; color: var(--text-tertiary); font-style: italic;
+    margin: 0 0 10px 0; display: none;
+  }
+
+  .center-row { display: flex; justify-content: center; }
+
+  .hint-btn {
+    border: none; border-radius: 20px; background: var(--warning-bg); color: #a35800;
+    font-size: 13px; font-weight: 600; padding: 8px 16px; cursor: pointer;
+    font-family: inherit; margin: 0 0 12px 0;
+  }
+  .hint-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Feedback + explanation + context: positioned before the answer choices */
+  .feedback {
+    font-size: 13px; font-weight: 600; padding: 8px 14px;
+    border-radius: 20px; margin: 0 0 8px 0; display: none;
+    width: fit-content;
+  }
+  .feedback.correct { background: var(--success); color: #fff; display: inline-block; }
+  .feedback.incorrect { background: var(--error); color: #fff; display: inline-block; }
+  .explanation {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+    margin: 0 0 8px 0; display: none;
+    background: var(--card-white); border-radius: 12px; padding: 12px 14px;
+  }
+  .context {
+    font-size: 12px; color: var(--text-tertiary); line-height: 1.55;
+    margin: 0 0 16px 0; display: none;
+    padding: 0 14px;
     font-style: italic;
   }
-  button {
-    font-family: -apple-system, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 0.5px solid #999;
-    background: transparent;
-    color: var(--text-primary);
-    cursor: pointer;
-    margin-right: 8px;
-    margin-bottom: 8px;
+  .context .label {
+    font-weight: 700; font-style: normal; text-transform: uppercase;
+    letter-spacing: 0.3px; margin-right: 4px;
   }
-  button:hover { background: #f0f0f0; }
-  button:disabled { opacity: 0.5; cursor: not-allowed; }
-  .know-btn { border-color: var(--success); color: var(--success); }
-  .unknow-btn { border-color: var(--error); color: var(--error); }
-  .hint-btn { border-color: var(--warning); color: var(--warning); }
-  
+
+  /* QCM options: centered pill cluster */
+  .options {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .option-btn {
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    text-align: center; padding: 10px 18px;
+    border-radius: 20px; border: 1.5px solid #d8d6cd;
+    background: #fff; color: var(--text-primary);
+    cursor: pointer;
+  }
+  .option-btn:hover:not(:disabled) { background: #f0efe9; }
+  .option-btn:disabled { cursor: not-allowed; }
+  .option-btn.correct { background: var(--success); border-color: var(--success); color: #fff; }
+  .option-btn.incorrect { background: var(--error); border-color: var(--error); color: #fff; }
+  .option-btn.dim { opacity: 0.4; }
+
+  /* Fill-in: centered */
+  .fill-col {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin-bottom: 4px;
+  }
+  .fill-input {
+    width: 100%; max-width: 280px;
+    font-family: inherit; font-size: 15px; text-align: center;
+    padding: 10px 14px; border-radius: 20px;
+    border: 1.5px solid #d8d6cd; background: #fff; color: var(--text-primary);
+  }
+  .fill-input:focus { outline: 2px solid var(--accent); }
+  .fill-input.correct { border-color: var(--success); background: var(--success-bg); }
+  .fill-input.incorrect { border-color: var(--error); background: var(--error-bg); }
+  .submit-btn {
+    border: none; border-radius: 20px; background: var(--accent); color: #fff;
+    font-size: 14px; font-weight: 600; padding: 10px 22px; cursor: pointer;
+    font-family: inherit;
+  }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .expected {
+    font-size: 13px; color: var(--text-secondary); text-align: center;
+  }
+
   .summary {
-    background: var(--card);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
+    background: var(--card-white);
+    border-radius: 18px;
+    padding: 28px 22px;
     text-align: center;
     display: none;
   }
-  .score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+  .score { font-size: 32px; font-weight: 700; margin: 8px 0 20px 0; }
   .topic-row {
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 14px; 
-    padding: 8px 0; 
-    border-top: 0.5px solid var(--border); 
-    text-align: left; 
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; padding: 10px 0; border-top: 0.5px solid var(--border);
+    text-align: left;
   }
   .topic-row .bar-container {
-    width: 100px;
-    height: 10px;
-    background: var(--border);
-    border-radius: 5px;
-    margin-left: 10px;
+    width: 100px; height: 8px; background: var(--border);
+    border-radius: 5px; margin-left: 10px;
   }
-  .topic-row .bar {
-    height: 100%;
-    background: var(--success);
-    border-radius: 5px;
+  .topic-row .bar { height: 100%; border-radius: 5px; }
+  .summary-actions {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-top: 22px;
   }
-  .restart { margin-top: 16px; }
-  hr.sep { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
-  
-  /* Streak counter */
-  .streak {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-top: 10px;
+  .summary-actions button {
+    border: none; border-radius: 20px; font-size: 14px; font-weight: 600;
+    padding: 10px 20px; cursor: pointer; font-family: inherit;
   }
-  .streak .count {
-    color: var(--success);
-    font-weight: bold;
-  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1px solid var(--border) !important; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Bank Training — Quiz de révision</h1>
-  <p class="subtitle">Jours 1 à 3 · Organisation LCL, produits phares, Bâle III et DORA</p>
-  <p class="tip">
-    <strong>Conseil :</strong> Essaie de répondre avant de cliquer sur « Voir la réponse » ou « Indice ». 
-    L'effort de rappel renforce la mémorisation !
-  </p>
-  
-  <div class="progress-container">
-    <div class="progress-bar" id="progress"></div>
+  <div class="avatar">🏦</div>
+  <h1>Quiz de révision</h1>
+  <p class="subtitle">Bank training</p>
+  <p class="meta">Organisation LCL · Produits phares · Bâle III · DORA · LCB-FT · RGPD bancaire</p>
+
+  <div id="screen-category">
+    <div class="intro-box">
+      <div class="emoji">🎯</div>
+      <div class="label">Choisis une catégorie pour commencer</div>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
   </div>
-  
-  <div id="quiz"></div>
-  <div id="summary" class="summary"></div>
+
+  <div id="screen-quiz" style="display:none">
+    <div class="current-cat" id="current-cat"></div>
+    <a class="back-link" id="back-link">← Changer de catégorie</a>
+
+    <div class="live-bar">
+      <div class="live-inner">
+        <span>Répondues : <strong id="answered-count">0</strong>/<span id="total-count">0</span></span>
+        <span>Correctes : <strong id="correct-count">0</strong></span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+    <div id="summary" class="summary"></div>
+  </div>
 </div>
 
 <script>
-// Questions with hints
-const questions = [
+const allQuestions = [
   {
-    topic: "Organisation LCL", 
-    q: "Qui est le directeur général de LCL depuis janvier 2024, et qui en est le Président depuis avril 2025 ?", 
-    a: "Serge Magdeleine est directeur général depuis janvier 2024. Jérôme Grivet est Président depuis avril 2025 (il est aussi directeur général délégué de Crédit Agricole SA).",
-    hint: "Le DG a un prénom commençant par 'S', le Président par 'J'."
+    topic: "Organisation LCL", type: "qcm",
+    q: "Qui est le directeur général de LCL depuis janvier 2024 ?",
+    options: ["Serge Magdeleine", "Jérôme Grivet", "Philippe Brassac", "Xavier Musca"],
+    correct: 0,
+    explanation: "Serge Magdeleine est directeur général depuis janvier 2024. Jérôme Grivet est Président depuis avril 2025 (il est aussi directeur général délégué de Crédit Agricole SA).",
+    context: "LCL est l'héritier du Crédit Lyonnais, fondé en 1863 et racheté par le groupe Crédit Agricole en 2003 ; la marque a été renommée LCL en 2005. Repère utile en entretien : connaître le duo DG/Président montre que tu maîtrises la gouvernance actuelle, pas seulement l'historique de la marque.",
+    hint: "Le DG a un prénom commençant par 'S'."
   },
   {
-    topic: "Organisation LCL", 
-    q: "À quelle division du groupe Crédit Agricole LCL est-il rattaché ?", 
-    a: "La division Banques universelles de proximité, aux côtés de Crédit Agricole Italia.",
+    topic: "Organisation LCL", type: "qcm",
+    q: "À quelle division du groupe Crédit Agricole LCL est-il rattaché ?",
+    options: ["Banques universelles de proximité", "Grandes clientèles", "Banque de financement et d'investissement", "Gestion d'actifs et assurances"],
+    correct: 0,
+    explanation: "La division Banques universelles de proximité, aux côtés de Crédit Agricole Italia.",
+    context: "Une 'banque universelle' combine sous un même toit la banque de détail, l'assurance et la gestion d'actifs, par opposition à une banque spécialisée. Cette organisation en grandes divisions (proximité, grandes clientèles, gestion d'actifs et assurances, BFI) est typique des grands groupes bancaires français comme BNP Paribas ou Société Générale.",
     hint: "C'est une division axée sur les banques 'universelles'."
   },
   {
-    topic: "Organisation LCL", 
-    q: "Cite deux filiales de LCL et leur spécialité.", 
-    a: "Interfimo (financement des professions libérales) et Angle Neuf (immobilier patrimonial neuf), aux côtés de LCL Banque privée pour la gestion de fortune.",
-    hint: "L'une commence par 'I', l'autre par 'A'."
+    topic: "Organisation LCL", type: "qcm",
+    q: "Quelle filiale de LCL est spécialisée dans le financement des professions libérales ?",
+    options: ["Interfimo", "Angle Neuf", "Predica", "Amundi"],
+    correct: 0,
+    explanation: "Interfimo finance les professions libérales. Angle Neuf est spécialisée dans l'immobilier patrimonial neuf, aux côtés de LCL Banque privée pour la gestion de fortune.",
+    context: "Interfimo est historiquement liée au financement de l'installation des professions médicales et juridiques (rachats de cabinets, de patientèle). Ce type de filiale 'de niche' est fréquent dans les groupes bancaires pour capter une clientèle à fort potentiel dès le début de sa carrière.",
+    hint: "Le nom commence par 'I'."
   },
   {
-    topic: "Produits phares", 
-    q: "Quelle est la différence entre LCL Essentiel et LCL à la carte ?", 
-    a: "LCL Essentiel est une offre d'entrée de gamme à 2 euros par mois. LCL à la carte, dès 3,75 euros par mois, se module selon les services souscrits, avec des réductions si on en prend davantage.",
-    hint: "L'un est fixe, l'autre est modulable."
+    topic: "Organisation LCL", type: "qcm",
+    q: "LCL est filiale à 100 % de quelle entité au sein du groupe Crédit Agricole ?",
+    options: ["Crédit Agricole S.A.", "BNP Paribas", "Société Générale", "Groupe BPCE"],
+    correct: 0,
+    explanation: "Crédit Agricole S.A. est la structure cotée qui coiffe les activités de banque de détail hors Caisses régionales, dont la division Banques universelles de proximité.",
+    context: "Fait notable pour comprendre la gouvernance du groupe : Crédit Agricole S.A. (CASA), bien que cotée en bourse, est elle-même majoritairement détenue par les Caisses régionales via la holding SAS Rue La Boétie — une structure mutualiste assez unique parmi les grandes banques françaises.",
+    hint: "C'est la maison mère cotée en bourse du groupe."
   },
   {
-    topic: "Produits phares", 
-    q: "Quel livret réglementé offre le meilleur taux net en 2026 pour les foyers éligibles ?", 
-    a: "Le LEP (Livret d'épargne populaire), rémunéré à 2,5 % net en 2026.",
-    hint: "C'est un livret pour les foyers modestes."
+    topic: "Produits phares", type: "qcm",
+    q: "Quelle offre LCL est fixe à 2 euros par mois ?",
+    options: ["LCL Essentiel", "LCL à la carte", "LCL Premium", "LCL Élite"],
+    correct: 0,
+    explanation: "LCL Essentiel est une offre d'entrée de gamme fixe à 2 euros par mois. LCL à la carte, dès 3,75 euros par mois, se module selon les services souscrits, avec des réductions si on en prend davantage.",
+    context: "Ce type d'offre d'entrée de gamme répond à la pression concurrentielle des banques en ligne et néobanques (Boursorama, Fortuneo, Revolut), qui proposent souvent des comptes gratuits ou low-cost. Les grandes banques traditionnelles s'en servent pour retenir une clientèle jeune ou peu équipée avant de proposer des offres plus complètes.",
+    hint: "L'autre offre est modulable, celle-ci est fixe."
   },
   {
-    topic: "Produits phares", 
-    q: "Qu'est-ce que le crédit FLEX chez LCL ?", 
-    a: "Un crédit instantané plafonné à 2 000 euros, remboursable en trois fois.",
-    hint: "C'est un crédit 'instantané'."
+    topic: "Produits phares", type: "fill",
+    q: "Quel livret réglementé offre le meilleur taux net en 2026 pour les foyers éligibles ? (sigle)",
+    accepted: ["lep", "livret d'epargne populaire", "livret epargne populaire"],
+    explanation: "Le LEP (Livret d'épargne populaire), rémunéré à 2,5 % net en 2026, réservé aux foyers modestes.",
+    context: "Le LEP est soumis à des conditions de ressources (revenu fiscal de référence) et à un plafond de dépôt inférieur à celui du Livret A. Il est historiquement sous-souscrit par rapport au nombre de foyers éligibles, ce qui en fait un sujet régulier de communication pour les conseillers bancaires et les pouvoirs publics.",
+    hint: "C'est un livret pour les foyers modestes, en 3 lettres."
   },
   {
-    topic: "Bâle III", 
-    q: "Que signifie CET1 et quel est son seuil plancher sous Bâle III ?", 
-    a: "CET1 = Common Equity Tier 1, le capital de meilleure qualité. Le plancher est de 4,5 % des actifs pondérés du risque (8 % tous fonds propres confondus, jusqu'à 13 % avec les coussins).",
-    hint: "C'est le capital de 'meilleure qualité'."
+    topic: "Produits phares", type: "qcm",
+    q: "Quel est le plafond du crédit FLEX chez LCL ?",
+    options: ["2 000 €", "5 000 €", "500 €", "10 000 €"],
+    correct: 0,
+    explanation: "Le crédit FLEX est un crédit instantané plafonné à 2 000 euros, remboursable en trois fois.",
+    context: "Ce format de micro-crédit instantané fait écho à la vague des solutions 'Buy Now, Pay Later' (Klarna, Alma) qui a poussé les banques traditionnelles à proposer leurs propres alternatives rapides, intégrées à l'espace client, plutôt que de laisser ce terrain aux fintechs.",
+    hint: "C'est un crédit 'instantané', remboursable en 3 fois."
   },
   {
-    topic: "Bâle III", 
-    q: "Que mesure le LCR et pourquoi a-t-il été introduit après 2008 ?", 
-    a: "Le LCR (Liquidity Coverage Ratio) mesure la capacité à couvrir 30 jours de sorties de trésorerie avec des actifs facilement cessibles. Il a été introduit car des banques solvables sur le papier se sont retrouvées incapables d'honorer leurs échéances du jour au lendemain en 2008.",
+    topic: "Produits phares", type: "fill",
+    q: "Quel assureur du groupe Crédit Agricole porte le contrat LCL Vie ?",
+    accepted: ["predica", "prédica"],
+    explanation: "LCL Vie est un contrat multisupport assuré par Prédica (Crédit Agricole Assurances). L'adhésion est possible dès 50 euros de versement initial, ou 15 euros par mois en versements programmés.",
+    context: "Prédica est l'un des tout premiers assureurs-vie de France en encours. Elle fait partie de Crédit Agricole Assurances (CAA), qui regroupe aussi Pacifica (assurance dommages). Le distributeur (LCL) et l'assureur (Prédica) sont deux entités juridiques distinctes du même groupe, une architecture classique en bancassurance.",
+    hint: "L'assureur du groupe commence par 'Pré...'."
+  },
+  {
+    topic: "Produits phares", type: "qcm",
+    q: "À partir de quel montant de patrimoine financier peut-on accéder à un accompagnement structuré de LCL Banque Privée ?",
+    options: ["150 000 €", "50 000 €", "500 000 €", "1 000 000 €"],
+    correct: 0,
+    explanation: "Dès 150 000 euros d'avoirs en compte-titres, PEA ou PEA-PME. La gestion sous mandat est techniquement accessible dès 20 000 euros, mais sans rattachement à un pôle dédié.",
+    context: "Au-delà d'environ 1 million d'euros de patrimoine financier, la clientèle bascule généralement vers Indosuez Wealth Management, la structure du groupe Crédit Agricole dédiée aux clientèles fortunées et internationales, avec une architecture de gestion plus ouverte.",
+    hint: "Le seuil se situe entre 100 000 et 200 000 euros."
+  },
+  {
+    topic: "Bâle III", type: "qcm",
+    q: "Quel est le seuil plancher de CET1 sous Bâle III (part des actifs pondérés du risque) ?",
+    options: ["4,5 %", "8 %", "2 %", "10 %"],
+    correct: 0,
+    explanation: "CET1 = Common Equity Tier 1, le capital de meilleure qualité. Le plancher est de 4,5 % des actifs pondérés du risque (8 % tous fonds propres confondus, jusqu'à 13 % avec les coussins).",
+    context: "Bâle III a été négocié par le Comité de Bâle sur le contrôle bancaire à la suite de la crise financière de 2008, puis transposé en droit européen via les textes CRR/CRD. Au-delà du plancher réglementaire, les régulateurs ajoutent des 'coussins' de fonds propres (coussin de conservation, contracyclique, systémique) qui peuvent porter l'exigence totale jusqu'à 13 % environ pour les grandes banques.",
+    hint: "C'est le capital de 'meilleure qualité', seuil le plus bas des trois."
+  },
+  {
+    topic: "Bâle III", type: "qcm",
+    q: "Que mesure le LCR (Liquidity Coverage Ratio) ?",
+    options: [
+      "La capacité à couvrir 30 jours de sorties de trésorerie avec des actifs facilement cessibles",
+      "Le niveau de fonds propres par rapport aux risques",
+      "Le taux de couverture des prêts par des dépôts",
+      "Le ratio de levier bancaire"
+    ],
+    correct: 0,
+    explanation: "Il a été introduit car des banques solvables sur le papier se sont retrouvées incapables d'honorer leurs échéances du jour au lendemain en 2008.",
+    context: "Le LCR est complété par le NSFR (Net Stable Funding Ratio), qui mesure la stabilité du financement à plus long terme (au-delà d'un an). Ensemble, ils forment le volet 'liquidité' de Bâle III, distinct du volet 'solvabilité' porté par le CET1. Mnémotechnique fréquente : LCR = liquidité courte (30 jours), NSFR = financement stable (long terme).",
     hint: "C'est un ratio de 'liquidité'."
   },
   {
-    topic: "DORA", 
-    q: "Depuis quelle date DORA est-il en application, et qui porte désormais la responsabilité du risque informatique ?", 
-    a: "Depuis le 17 janvier 2025. Le conseil d'administration porte désormais cette responsabilité, plus seulement la DSI.",
+    topic: "DORA", type: "fill",
+    q: "Depuis quelle date DORA est-il en application ? (format JJ/MM/AAAA)",
+    accepted: ["17/01/2025", "17012025", "17-01-2025", "17 janvier 2025"],
+    explanation: "Depuis le 17 janvier 2025. Le conseil d'administration porte désormais la responsabilité du risque informatique, plus seulement la DSI.",
+    context: "DORA (Digital Operational Resilience Act) est un règlement européen qui s'inscrit dans le paquet 'finance numérique' de la Commission européenne, aux côtés de MiCA (règlement sur les crypto-actifs). Il s'applique directement dans tous les États membres, sans transposition nationale nécessaire, contrairement à une directive.",
     hint: "La date commence par '17/01/'."
   },
   {
-    topic: "DORA", 
-    q: "Cite un des trois chantiers concrets que DORA impose à une DSI bancaire.", 
-    a: "Cartographier en continu les actifs informatiques critiques, déclarer les incidents majeurs selon une procédure harmonisée, ou remettre un registre des contrats avec les prestataires TIC d'ici le 31 mars 2026.",
-    hint: "L'un des chantiers concerne la 'cartographie'."
+    topic: "DORA", type: "qcm",
+    q: "Quelle échéance DORA impose-t-il pour remettre un registre des contrats avec les prestataires TIC ?",
+    options: ["31 mars 2026", "31 décembre 2025", "30 juin 2026", "17 janvier 2026"],
+    correct: 0,
+    explanation: "Les autres chantiers concrets imposés par DORA à une DSI bancaire : cartographier en continu les actifs informatiques critiques, et déclarer les incidents majeurs selon une procédure harmonisée.",
+    context: "Ce registre des prestataires TIC répond à une préoccupation majeure des régulateurs : le risque de concentration technologique, notamment vis-à-vis des grands fournisseurs de cloud (AWS, Microsoft Azure, Google Cloud). DORA prévoit d'ailleurs la désignation de 'prestataires TIC critiques' soumis à une supervision directe au niveau européen.",
+    hint: "C'est au premier trimestre 2026."
+  },
+  {
+    topic: "LCB-FT", type: "qcm",
+    q: "Que signifie le sigle LCB-FT ?",
+    options: [
+      "Lutte Contre le Blanchiment et le Financement du Terrorisme",
+      "Loi de Contrôle Bancaire et Fiscal Territorial",
+      "Ligue de Coopération Bancaire Franco-Tunisienne",
+      "Label de Conformité Bancaire et Financière"
+    ],
+    correct: 0,
+    explanation: "L'objectif : identifier les clients (KYC), détecter les opérations suspectes et les déclarer à Tracfin.",
+    context: "L'équivalent international du LCB-FT est souvent désigné AML/CFT (Anti-Money Laundering / Combating the Financing of Terrorism). Le cadre français s'appuie sur les recommandations du GAFI (Groupe d'Action Financière), l'organisme intergouvernemental qui fixe les standards mondiaux en la matière.",
+    hint: "Les deux mots clés sont 'blanchiment' et 'terrorisme'."
+  },
+  {
+    topic: "LCB-FT", type: "qcm",
+    q: "Que signifie KYC ?",
+    options: ["Know Your Customer", "Keep Your Credentials", "Know Your Compliance", "Key Yield Calculation"],
+    correct: 0,
+    explanation: "KYC = vérification de l'identité et du profil de risque du client. Cela s'applique dès l'entrée en relation d'affaires, puis en continu dans le cadre d'une vigilance constante.",
+    context: "Le KYC s'est décliné en plusieurs variantes selon le contexte : eKYC pour la vérification d'identité à distance (souvent avec reconnaissance faciale), et KYB (Know Your Business) pour la vérification des clients personnes morales, avec identification de leurs bénéficiaires effectifs.",
+    hint: "Littéralement 'connais ton client'."
+  },
+  {
+    topic: "LCB-FT", type: "qcm",
+    q: "Quel régulateur supervise le dispositif LCB-FT des banques françaises ?",
+    options: ["ACPR", "AMF", "CNIL", "Banque Centrale Européenne"],
+    correct: 0,
+    explanation: "L'ACPR (Autorité de contrôle prudentiel et de résolution) supervise le dispositif ; les déclarations de soupçon sont transmises à Tracfin.",
+    context: "L'ACPR est adossée à la Banque de France. D'ici 2027-2028, une nouvelle autorité européenne, l'AMLA (Anti-Money Laundering Authority, basée à Francfort), viendra superviser directement une quarantaine de grands groupes financiers transfrontaliers jugés à haut risque, tout en laissant l'ACPR compétente pour l'immense majorité des établissements français.",
+    hint: "Le régulateur bancaire français a un sigle de 4 lettres."
+  },
+  {
+    topic: "LCB-FT", type: "qcm",
+    q: "À partir de quel seuil de détention du capital une personne est-elle considérée comme bénéficiaire effectif ?",
+    options: ["Plus de 25 %", "Plus de 10 %", "Plus de 50 %", "Plus de 5 %"],
+    correct: 0,
+    explanation: "Le bénéficiaire effectif est la ou les personnes physiques qui détiennent plus de 25 % du capital d'une entité cliente, ou qui exercent sur elle un contrôle effectif.",
+    context: "En France, cette information est centralisée dans le registre des bénéficiaires effectifs, tenu au greffe du tribunal de commerce pour chaque société. Ce registre est un outil clé de lutte contre les sociétés-écrans utilisées pour dissimuler l'origine de fonds.",
+    hint: "Le seuil correspond à un quart du capital."
+  },
+  {
+    topic: "LCB-FT", type: "fill",
+    q: "Combien d'années une banque doit-elle conserver les documents KYC après la fin de la relation d'affaires ? (chiffre)",
+    accepted: ["5", "5 ans", "cinq", "cinq ans"],
+    explanation: "5 ans, conformément à l'article L.561-12 du Code monétaire et financier (même durée pour les données liées aux opérations, à compter de leur exécution).",
+    context: "Cette durée illustre la tension entre RGPD et obligations sectorielles : le principe RGPD est de ne conserver les données que le temps nécessaire, mais des textes spécifiques comme le Code monétaire et financier imposent des durées minimales incompressibles qui priment sur une suppression anticipée.",
+    hint: "C'est aussi la durée retenue pour les données d'opérations."
+  },
+  {
+    topic: "RGPD bancaire", type: "qcm",
+    q: "Que prévoit l'article 5.1.e du RGPD concernant la durée de conservation des données ?",
+    options: [
+      "Une conservation limitée à ce qui est nécessaire à la finalité du traitement, sans durée fixe imposée",
+      "Une durée maximale universelle de 5 ans",
+      "Une durée maximale universelle de 10 ans",
+      "Aucune limite tant que le client est actif"
+    ],
+    correct: 0,
+    explanation: "Le RGPD ne fixe pas de durée universelle : c'est à la banque de fixer une durée adaptée à chaque finalité de traitement.",
+    context: "Le RGPD (Règlement général sur la protection des données) est entré en application le 25 mai 2018 dans toute l'Union européenne. En France, c'est la CNIL qui contrôle son application et peut prononcer des sanctions ; ce principe est connu sous le nom de 'limitation de la conservation', l'un des grands principes fondateurs du texte.",
+    hint: "Le principe s'appelle la 'limitation de la conservation'."
+  },
+  {
+    topic: "RGPD bancaire", type: "qcm",
+    q: "Sur quelle base légale du RGPD reposent généralement les traitements liés à la LCB-FT ?",
+    options: ["L'obligation légale (art. 6.1.c)", "Le consentement", "L'intérêt légitime", "L'exécution du contrat"],
+    correct: 0,
+    explanation: "La banque est tenue par la loi de mettre en œuvre ces contrôles, indépendamment du consentement du client.",
+    context: "Le RGPD prévoit en tout six bases légales possibles pour justifier un traitement de données : le consentement, l'exécution d'un contrat, l'obligation légale, la sauvegarde des intérêts vitaux, la mission d'intérêt public et l'intérêt légitime. Bien connaître ces six bases est un classique des entretiens sur la conformité.",
+    hint: "Ce n'est pas le consentement : c'est une obligation qui s'impose à la banque."
+  },
+  {
+    topic: "RGPD bancaire", type: "qcm",
+    q: "Que doit devenir le cryptogramme visuel (CVV) d'une carte bancaire après une transaction ?",
+    options: [
+      "Il doit être supprimé immédiatement",
+      "Il peut être conservé chiffré pendant 13 mois",
+      "Il peut être conservé si le client donne son consentement",
+      "Il est archivé avec les données comptables pendant 10 ans"
+    ],
+    correct: 0,
+    explanation: "Le CVV doit être supprimé dès que le règlement de l'achat est finalisé : sa conservation, même chiffrée, est interdite.",
+    context: "Cette règle ne vient pas seulement du RGPD mais aussi de la norme sectorielle PCI-DSS (Payment Card Industry Data Security Standard), un standard international imposé par les réseaux de cartes (Visa, Mastercard...) à tout acteur qui manipule des données de paiement, banques comme commerçants.",
+    hint: "Ce sont les 3 chiffres au dos de la carte."
+  },
+  {
+    topic: "RGPD bancaire", type: "qcm",
+    q: "Que signifie DPO ?",
+    options: ["Délégué à la Protection des Données", "Directeur du Pilotage Opérationnel", "Direction des Produits et Offres", "Dispositif de Protection Ordinaire"],
+    correct: 0,
+    explanation: "Le DPO pilote la conformité RGPD : il tient le registre des traitements, contrôle les pratiques internes, conseille sur les analyses d'impact et alerte en cas de dérive.",
+    context: "La désignation d'un DPO est obligatoire pour les autorités publiques et pour toute organisation dont l'activité de base implique un suivi régulier et à grande échelle de données sensibles — ce qui couvre naturellement les banques. Le DPO peut être interne, ou mutualisé entre plusieurs entités d'un même groupe.",
+    hint: "C'est le pivot de la conformité data de l'établissement."
+  },
+  {
+    topic: "RGPD bancaire", type: "qcm",
+    q: "Que désigne le principe d'« accountability » exigé par le RGPD ?",
+    options: [
+      "La capacité à documenter et démontrer sa conformité (registre, traçabilité des accès)",
+      "L'obligation de publier ses résultats financiers",
+      "Le droit du client à supprimer ses données à tout moment",
+      "L'obligation de nommer un DPO dans toutes les entreprises"
+    ],
+    correct: 0,
+    explanation: "Concrètement : registre des traitements, journalisation des accès, preuve des mesures de sécurité mises en place.",
+    context: "L'accountability marque un changement de philosophie par rapport à l'ancienne loi Informatique et Libertés : avant 2018, certains traitements devaient être déclarés ou autorisés à l'avance par la CNIL. Le RGPD a basculé vers un contrôle a posteriori — l'organisme doit pouvoir prouver sa conformité à tout moment, plutôt que de demander une autorisation préalable.",
+    hint: "Le mot anglais évoque la 'responsabilité' démontrable, pas seulement le respect des règles."
   }
 ];
 
-// Shuffle questions at the start
-function shuffleQuestions() {
-  questions.sort(() => Math.random() - 0.5);
+const topicColors = {
+  "Organisation LCL": "#0066cc",
+  "Produits phares": "#128a5e",
+  "Bâle III": "#cc6600",
+  "DORA": "#800080",
+  "LCB-FT": "#00807a",
+  "RGPD bancaire": "#cc0055"
+};
+
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’']/g, "'")
+    .trim()
+    .replace(/\s+/g, " ");
 }
 
-// Load progress from localStorage
-let scores = JSON.parse(localStorage.getItem('quizScores')) || [];
-let currentStreak = parseInt(localStorage.getItem('quizStreak')) || 0;
-let maxStreak = parseInt(localStorage.getItem('quizMaxStreak')) || 0;
+function shuffleArray(arr) {
+  return arr.slice().sort(() => Math.random() - 0.5);
+}
 
-let i = 0;
+let questions = [];   // sous-ensemble de allQuestions actuellement joué
+let results = [];
+
+const screenCategory = document.getElementById("screen-category");
+const screenQuiz = document.getElementById("screen-quiz");
 const quizEl = document.getElementById("quiz");
 const summaryEl = document.getElementById("summary");
 
-// Update progress bar
-function updateProgress() {
-  const progress = (i / questions.length) * 100;
-  document.getElementById("progress").style.width = `${progress}%`;
+function buildCategoryScreen() {
+  const topics = [...new Set(allQuestions.map(q => q.topic))];
+  const grid = document.getElementById("cat-grid");
+  const allBtn = `<button class="cat-btn cat-all" data-topic="__ALL__">Toutes les catégories <span class="cat-count">(${allQuestions.length})</span></button>`;
+  const topicBtns = topics.map(t => {
+    const count = allQuestions.filter(q => q.topic === t).length;
+    return `<button class="cat-btn" data-topic="${t}" style="background:${topicColors[t]}">${t} <span class="cat-count">(${count})</span></button>`;
+  }).join("");
+  grid.innerHTML = allBtn + topicBtns;
+
+  grid.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.addEventListener("click", () => startQuiz(btn.dataset.topic));
+  });
 }
 
-// Render the current question
-function renderQuestion() {
-  const item = questions[i];
-  quizEl.innerHTML = `
-    <div class="card">
-      <div class="streak">
-        <span>Série en cours : <span class="count">${currentStreak}</span> ✅</span>
-        <span style="margin-left: 10px;">Record : <span class="count">${maxStreak}</span> ✅</span>
+function startQuiz(topicKey) {
+  questions = topicKey === "__ALL__"
+    ? shuffleArray(allQuestions)
+    : shuffleArray(allQuestions.filter(q => q.topic === topicKey));
+
+  const currentCatEl = document.getElementById("current-cat");
+  if (topicKey === "__ALL__") {
+    currentCatEl.innerHTML = `<span class="pill" style="background:#111111">Toutes les catégories</span>`;
+  } else {
+    currentCatEl.innerHTML = `<span class="pill" style="background:${topicColors[topicKey]}">${topicKey}</span>`;
+  }
+
+  screenCategory.style.display = "none";
+  screenQuiz.style.display = "block";
+  document.getElementById("total-count").textContent = questions.length;
+  renderAll();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("back-link").addEventListener("click", () => {
+  screenQuiz.style.display = "none";
+  screenCategory.style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+function cardHtml(item, idx) {
+  const typeLabel = item.type === "qcm" ? "QCM" : "À compléter";
+  let bodyHtml = "";
+  if (item.type === "qcm") {
+    bodyHtml = `
+      <div class="options" id="options-${idx}">
+        ${item.options.map((opt, oidx) => `
+          <button class="option-btn" data-qidx="${idx}" data-oidx="${oidx}">${opt}</button>
+        `).join("")}
       </div>
-      <span class="qcount">Question ${i + 1}/${questions.length}</span>
-      <span class="topic" data-topic="${item.topic}">${item.topic}</span>
+    `;
+  } else {
+    bodyHtml = `
+      <div class="fill-col">
+        <input type="text" class="fill-input" id="fill-${idx}" placeholder="Ta réponse..." autocomplete="off">
+        <button class="submit-btn" id="submit-${idx}" data-qidx="${idx}">Valider</button>
+      </div>
+    `;
+  }
+  return `
+    <div class="card" id="card-${idx}">
+      <div class="card-top">
+        <span class="topic" data-topic="${item.topic}">${item.topic}</span>
+        <span class="qcount">Question ${idx + 1}/${questions.length}</span>
+        <span class="qtype">${typeLabel}</span>
+      </div>
       <p class="question">${item.q}</p>
-      <p class="hint" id="hint">${item.hint}</p>
-      <p class="answer" id="answer">${item.a}</p>
-      <div id="buttons">
-        <button id="hint-btn" class="hint-btn">Indice</button>
-        <button id="reveal" class="hint-btn">Voir la réponse</button>
+      <p class="hint" id="hint-${idx}">💡 ${item.hint}</p>
+      <div class="center-row">
+        <button class="hint-btn" id="hint-btn-${idx}">Voir l'indice</button>
       </div>
-      <span id="post-reveal"></span>
+      <p class="feedback" id="feedback-${idx}"></p>
+      <p class="explanation" id="explanation-${idx}">${item.explanation}</p>
+      <p class="context" id="context-${idx}"><span class="label">Contexte</span>${item.context}</p>
+      ${bodyHtml}
     </div>
   `;
-  
-  updateProgress();
-  
-  document.getElementById("hint-btn").addEventListener("click", () => {
-    document.getElementById("hint").style.display = "block";
-    document.getElementById("hint-btn").disabled = true;
-  });
-  
-  document.getElementById("reveal").addEventListener("click", () => {
-    document.getElementById("answer").style.display = "block";
-    document.getElementById("reveal").style.display = "none";
-    document.getElementById("hint-btn").style.display = "none";
-    document.getElementById("post-reveal").innerHTML = `
-      <button class="know-btn" id="know">J'ai su répondre</button>
-      <button class="unknow-btn" id="unknow">À revoir</button>
-    `;
-    document.getElementById("know").addEventListener("click", () => {
-      scores.push(1);
-      currentStreak++;
-      if (currentStreak > maxStreak) maxStreak = currentStreak;
-      advance();
-    });
-    document.getElementById("unknow").addEventListener("click", () => {
-      scores.push(0);
-      currentStreak = 0;
-      advance();
-    });
-  });
 }
 
-// Move to the next question
-function advance() {
-  i++;
-  if (i < questions.length) {
-    renderQuestion();
-  } else {
+function renderAll() {
+  results = new Array(questions.length).fill(null);
+  quizEl.innerHTML = questions.map((item, idx) => cardHtml(item, idx)).join("");
+  summaryEl.style.display = "none";
+  quizEl.style.display = "block";
+
+  questions.forEach((item, idx) => {
+    document.getElementById(`hint-btn-${idx}`).addEventListener("click", () => {
+      document.getElementById(`hint-${idx}`).style.display = "block";
+      document.getElementById(`hint-btn-${idx}`).disabled = true;
+    });
+
+    if (item.type === "qcm") {
+      document.querySelectorAll(`#options-${idx} .option-btn`).forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (results[idx] !== null) return;
+          const oidx = parseInt(btn.dataset.oidx);
+          submitQcm(idx, oidx);
+        });
+      });
+    } else {
+      const input = document.getElementById(`fill-${idx}`);
+      const submitBtn = document.getElementById(`submit-${idx}`);
+      submitBtn.addEventListener("click", () => {
+        if (results[idx] !== null) return;
+        submitFill(idx);
+      });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && results[idx] === null) submitFill(idx);
+      });
+    }
+  });
+
+  updateLiveBar();
+}
+
+function submitQcm(idx, oidx) {
+  const item = questions[idx];
+  const isCorrect = oidx === item.correct;
+  document.querySelectorAll(`#options-${idx} .option-btn`).forEach((btn) => {
+    const bIdx = parseInt(btn.dataset.oidx);
+    btn.disabled = true;
+    if (bIdx === item.correct) btn.classList.add("correct");
+    else if (bIdx === oidx) btn.classList.add("incorrect");
+    else btn.classList.add("dim");
+  });
+  finishAnswer(idx, isCorrect);
+}
+
+function submitFill(idx) {
+  const item = questions[idx];
+  const input = document.getElementById(`fill-${idx}`);
+  const val = normalize(input.value);
+  const isCorrect = val.length > 0 && item.accepted.some(a => normalize(a) === val);
+  input.disabled = true;
+  input.classList.add(isCorrect ? "correct" : "incorrect");
+  document.getElementById(`submit-${idx}`).disabled = true;
+  if (!isCorrect) {
+    input.insertAdjacentHTML("afterend", `<span class="expected">Réponse attendue : <strong>${item.accepted[0]}</strong></span>`);
+  }
+  finishAnswer(idx, isCorrect);
+}
+
+function finishAnswer(idx, isCorrect) {
+  results[idx] = isCorrect;
+  const feedback = document.getElementById(`feedback-${idx}`);
+  feedback.classList.add(isCorrect ? "correct" : "incorrect");
+  feedback.textContent = isCorrect ? "Bonne réponse ✅" : "Pas tout à fait ❌";
+  document.getElementById(`explanation-${idx}`).style.display = "block";
+  document.getElementById(`context-${idx}`).style.display = "block";
+  document.getElementById(`hint-btn-${idx}`).style.display = "none";
+  document.getElementById(`card-${idx}`).classList.add(isCorrect ? "correct-card" : "incorrect-card");
+
+  updateLiveBar();
+  if (results.every(r => r !== null)) {
     showSummary();
   }
 }
 
-// Show the summary page
+function updateLiveBar() {
+  const answeredCount = results.filter(r => r !== null).length;
+  const correctCount = results.filter(r => r === true).length;
+  document.getElementById("answered-count").textContent = answeredCount;
+  document.getElementById("correct-count").textContent = correctCount;
+  document.getElementById("progress").style.width = `${(answeredCount / questions.length) * 100}%`;
+}
+
 function showSummary() {
-  quizEl.style.display = "none";
-  
-  // Save progress to localStorage
-  localStorage.setItem('quizScores', JSON.stringify(scores));
-  localStorage.setItem('quizStreak', currentStreak);
-  localStorage.setItem('quizMaxStreak', maxStreak);
-  
-  const total = scores.reduce((a, b) => a + b, 0);
+  const total = results.filter(r => r === true).length;
   const byTopic = {};
   questions.forEach((q, idx) => {
     byTopic[q.topic] = byTopic[q.topic] || { ok: 0, tot: 0 };
     byTopic[q.topic].tot += 1;
-    byTopic[q.topic].ok += scores[idx];
+    byTopic[q.topic].ok += results[idx] ? 1 : 0;
   });
-  
+
   const rows = Object.entries(byTopic).map(([t, v]) => {
     const percent = (v.ok / v.tot) * 100;
     return `
@@ -356,61 +738,42 @@ function showSummary() {
         <span>${t}</span>
         <span>${v.ok}/${v.tot}</span>
         <div class="bar-container">
-          <div class="bar" style="width: ${percent}%; background: ${percent > 50 ? 'var(--success)' : percent > 25 ? 'var(--warning)' : 'var(--error)'};"></div>
+          <div class="bar" style="width: ${percent}%; background: ${topicColors[t]};"></div>
         </div>
       </div>
     `;
   }).join("");
-  
+
   summaryEl.style.display = "block";
   summaryEl.innerHTML = `
-    <p style="font-size:13px;color:var(--text-secondary);margin:0;font-family:-apple-system,Helvetica,Arial,sans-serif;">Score final</p>
+    <p style="font-size:13px;color:var(--text-tertiary);margin:0;font-weight:600;">Score final</p>
     <p class="score">${total}/${questions.length}</p>
-    <div style="margin: 20px 0;">
-      <p style="font-size:14px;color:var(--text-secondary);margin:0 0 10px 0;">Répartition par thème</p>
+    <div style="text-align:left;">
+      <p style="font-size:14px;color:var(--text-secondary);margin:0 0 6px 0;">Répartition par thème</p>
       ${rows}
     </div>
-    <p style="font-size:14px;color:var(--text-secondary);margin:20px 0 10px 0;">
-      Série en cours : <span class="count">${currentStreak}</span> ✅ | Record : <span class="count">${maxStreak}</span> ✅
-    </p>
-    <button class="restart" id="restart">Recommencer</button>
-    <button class="restart" id="shuffle" style="margin-left: 8px;">Mélanger et recommencer</button>
+    <div class="summary-actions">
+      <button class="btn-primary" id="restart">Recommencer</button>
+      <button class="btn-secondary" id="shuffle">Mélanger et recommencer</button>
+      <button class="btn-secondary" id="change-cat">Changer de catégorie</button>
+    </div>
   `;
-  
-  document.getElementById("restart").addEventListener("click", () => {
-    i = 0;
-    scores = [];
-    currentStreak = 0;
-    summaryEl.style.display = "none";
-    quizEl.style.display = "block";
-    renderQuestion();
-  });
-  
+  summaryEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  document.getElementById("restart").addEventListener("click", renderAll);
   document.getElementById("shuffle").addEventListener("click", () => {
-    i = 0;
-    scores = [];
-    currentStreak = 0;
-    shuffleQuestions();
-    summaryEl.style.display = "none";
-    quizEl.style.display = "block";
-    renderQuestion();
+    questions = shuffleArray(questions);
+    renderAll();
+  });
+  document.getElementById("change-cat").addEventListener("click", () => {
+    screenQuiz.style.display = "none";
+    screenCategory.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && document.getElementById("reveal") && document.getElementById("reveal").style.display !== 'none') {
-    document.getElementById("reveal").click();
-  } else if (e.key === '1' && document.getElementById("know")) {
-    document.getElementById("know").click();
-  } else if (e.key === '2' && document.getElementById("unknow")) {
-    document.getElementById("unknow").click();
-  }
-});
-
 // Initialize
-shuffleQuestions();
-renderQuestion();
+buildCategoryScreen();
 </script>
 </body>
 </html>
