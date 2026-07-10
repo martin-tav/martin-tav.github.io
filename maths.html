@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Maths Terminale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f3ef;
+    --card: #f7f7f5;
+    --card-white: #ffffff;
+    --math-font: 'STIX Two Text', Cambria, Georgia, 'Times New Roman', serif;
+    --border: #e6e4dd;
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --text-tertiary: #8a8a8d;
+    --accent: #185fa5;
+    --accent-dark: #0c447c;
+    --accent-bg: #e6f1fb;
+    --success: #1d9e75;
+    --success-bg: #e1f5ee;
+    --warning: #ff9800;
+    --warning-bg: #fff3e0;
+    --error: #c0392b;
+    --error-bg: #ffebee;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 14px 10px 80px 10px;
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+  }
+  .wrap { max-width: 600px; width: 100%; }
+  @media (min-width: 640px) {
+    body { padding: 20px 16px 80px 16px; }
+  }
+
+  /* Header */
+  .avatar {
+    width: 36px; height: 36px; border-radius: 18px;
+    background: #000; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; margin: 0 auto 10px auto;
+  }
+  h1 {
+    margin: 0 0 4px 0; text-align: center;
+    font-size: 24px; font-weight: 600; letter-spacing: -0.3px; color: #000;
+  }
+  .subtitle {
+    margin: 0 0 14px 0; text-align: center;
+    color: var(--text-secondary); font-size: 14px; font-weight: 500;
+  }
+  .meta {
+    margin: 0 0 14px 0; text-align: center;
+    color: var(--text-tertiary); font-size: 12px;
+  }
+
+  /* Daily streak banner */
+  .daily-banner {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(135deg, #fff3d6, #ffe3d6);
+    border-radius: 14px; padding: 9px 14px; margin-bottom: 10px;
+    font-size: 13px; font-weight: 700; color: #a35800;
+  }
+  .daily-banner .flame { font-size: 17px; }
+  .stat-strip {
+    display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .stat-strip .stat { text-align: center; }
+  .stat-strip .stat-num { font-size: 17px; font-weight: 800; color: var(--text-primary); }
+  .stat-strip .stat-label { font-size: 10px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; }
+
+  /* Category selection */
+  .cat-grid {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-bottom: 24px;
+  }
+  .cat-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 220px; }
+  .cat-btn {
+    border: none; border-radius: 24px; color: #fff;
+    font-size: 16px; font-weight: 600;
+    padding: 14px 22px; cursor: pointer;
+    font-family: inherit;
+  }
+  .cat-btn:hover { opacity: 0.9; }
+  .cat-btn .cat-count {
+    font-weight: 400; opacity: 0.85; font-size: 14px;
+  }
+  .cat-all { background: #111111; }
+  .cat-week {
+    font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+    text-align: center;
+  }
+  .cat-record {
+    font-size: 11px; font-weight: 700; color: var(--text-tertiary);
+  }
+  .cat-record .star { color: #f0a500; }
+
+  .back-link {
+    display: block; text-align: center; margin: 0 0 18px 0;
+    font-size: 15px; color: var(--accent); cursor: pointer;
+    font-weight: 600; text-decoration: none;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .current-cat {
+    text-align: center; margin: 0 0 18px 0;
+  }
+  .current-cat .pill {
+    display: inline-block; border-radius: 20px; padding: 9px 20px;
+    font-size: 15px; font-weight: 600; color: #fff;
+  }
+
+  /* Sticky live score bar */
+  .live-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); padding: 0 0 14px 0; margin-bottom: 6px;
+  }
+  .live-inner {
+    background: var(--card-white);
+    border: 0.5px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .live-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+  }
+  .live-score-block { display: flex; align-items: baseline; gap: 6px; }
+  .live-score-number {
+    font-size: 30px; font-weight: 800; color: var(--text-primary);
+    line-height: 1; transition: color 0.2s ease;
+  }
+  .live-score-label { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+  .live-right { display: flex; align-items: center; gap: 8px; }
+  .combo-badge {
+    display: none; align-items: center; gap: 4px;
+    background: linear-gradient(135deg, #ff9800, #ff5252);
+    color: #fff; font-weight: 700; font-size: 13px;
+    padding: 5px 12px; border-radius: 20px;
+    animation: pop 0.25s ease;
+  }
+  .combo-badge.show { display: inline-flex; }
+  @keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .progress-container {
+    width: 100%; background: var(--border); border-radius: 4px;
+    margin-top: 12px; height: 10px;
+  }
+  .progress-bar {
+    height: 100%; background: linear-gradient(90deg, var(--accent), #3fa7ff);
+    border-radius: 4px;
+    width: 0%; transition: width 0.35s ease;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 20px 16px 18px 16px;
+    margin-bottom: 14px;
+    scroll-margin-top: 70px;
+  }
+  .card.correct-card { background: var(--success-bg); }
+  .card.incorrect-card { background: var(--error-bg); }
+
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; flex-wrap: wrap; gap: 6px;
+  }
+  .topic {
+    display: inline-block; font-size: 14px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .topic[data-topic="Calcul algébrique"] { background: #d6ebff; color: #0066cc; }
+  .topic[data-topic="Fonctions"] { background: #d9f5ea; color: #128a5e; }
+  .topic[data-topic="Suites : les bases"] { background: #ffe9d6; color: #cc6600; }
+  .topic[data-topic="Suites : niveau Terminale"] { background: #f2ddff; color: #800080; }
+  .topic[data-topic="Probabilités conditionnelles"] { background: #d6fbf5; color: #00807a; }
+  .topic[data-topic="Loi binomiale"] { background: #ffd9e6; color: #cc0055; }
+  .topic[data-topic="Révision type bac"] { background: #ece1f7; color: #6a3fa0; }
+  .topic[data-topic="Épreuve Première"] { background: #f5dde3; color: #8b1e3f; }
+
+  .qcount { font-size: 14px; color: var(--text-tertiary); }
+  .qtype {
+    font-size: 13px; color: var(--text-tertiary);
+    border: 0.5px solid var(--border); border-radius: 20px;
+    padding: 2px 10px; background: var(--card-white);
+  }
+  .question { font-size: 18px; font-weight: 400; margin: 0 0 8px 0; line-height: 1.5; font-family: var(--math-font); }
+  .question strong { font-weight: 700; }
+  .formula-line {
+    display: block; text-align: center; font-size: 1.15em; font-weight: 600;
+    margin: 10px 0; color: var(--text-primary);
+  }
+  sub, sup { font-size: 0.7em; }
+  .rad { display: inline-flex; align-items: flex-start; white-space: nowrap; }
+  .rad-sym { font-size: 1.15em; line-height: 1; transform: translateY(1px) scaleY(1.05); margin-right: 1px; }
+  .rad-bar { border-top: 1.5px solid currentColor; padding: 1px 2px 0 2px; }
+  .question sub, .option-btn sub, .explanation sub, .context sub, .hint sub { font-style: italic; }
+  .hint {
+    font-size: 15px; color: var(--text-tertiary); font-style: italic;
+    margin: 0 0 10px 0; display: none;
+    font-family: var(--math-font);
+  }
+
+  .center-row { display: flex; justify-content: center; margin-top: 12px; }
+
+  .hint-btn {
+    border: none; border-radius: 20px; background: var(--warning-bg); color: #a35800;
+    font-size: 15px; font-weight: 600; padding: 10px 18px; cursor: pointer;
+    font-family: inherit; margin: 0 0 12px 0;
+  }
+  .hint-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Feedback + explanation + context: positioned before the answer choices */
+  /* Réponse : encadré bleu, même structure que l'astuce */
+  .reponse-box {
+    background: #e6f1fb; border: 1px solid #bcdcf5; border-radius: 14px;
+    margin: 0 0 12px 0; overflow: hidden; display: none;
+  }
+  .reponse-head {
+    background: #cfe6fa; padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-weight: 800; font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.4px; color: #0c447c;
+  }
+  .reponse-body {
+    padding: 14px 16px; font-size: 16px; color: #0c447c; line-height: 1.6;
+    font-family: var(--math-font);
+    text-align: center;
+  }
+
+  /* Astuce : variante D, style "callout" documentation */
+  .context-box {
+    background: #fff8e8; border: 1px solid #f0d896; border-radius: 14px;
+    margin: 0 0 14px 0; overflow: hidden; display: none;
+  }
+  .context-head {
+    background: #ffe9b8; padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-weight: 800; font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.4px; color: #7a4a00;
+  }
+  .context-body {
+    padding: 14px 16px; font-size: 16px; color: #5c3d00; line-height: 1.6;
+    font-family: var(--math-font);
+    text-align: center;
+  }
+
+  /* QCM options: centered pill cluster */
+  .options {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .option-btn {
+    font-family: var(--math-font); font-size: 16px; font-weight: 600;
+    text-align: center; padding: 12px 18px;
+    border-radius: 20px; border: 1.5px solid #d8d6cd;
+    background: #fff; color: var(--text-primary);
+    cursor: pointer;
+  }
+  .option-btn:hover:not(:disabled) { background: #f0efe9; }
+  .option-btn:disabled { cursor: not-allowed; }
+  .option-btn.correct { background: var(--success); border-color: var(--success); color: #fff; }
+  .option-btn.incorrect { background: var(--error); border-color: var(--error); color: #fff; }
+  .option-btn.dim { opacity: 0.4; }
+
+  /* Fill-in: centered */
+  .fill-col {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin-bottom: 4px;
+  }
+  .fill-input {
+    width: 100%; max-width: 280px;
+    font-family: var(--math-font); font-size: 18px; text-align: center;
+    padding: 12px 14px; border-radius: 20px;
+    border: 1.5px solid #d8d6cd; background: #fff; color: var(--text-primary);
+  }
+  .fill-input:focus { outline: 2px solid var(--accent); }
+  .fill-input.correct { border-color: var(--success); background: var(--success-bg); }
+  .fill-input.incorrect { border-color: var(--error); background: var(--error-bg); }
+  .submit-btn {
+    border: none; border-radius: 20px; background: var(--accent); color: #fff;
+    font-size: 16px; font-weight: 600; padding: 12px 24px; cursor: pointer;
+    font-family: inherit;
+  }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .expected {
+    font-size: 15px; color: var(--text-secondary); text-align: center;
+    font-family: var(--math-font);
+  }
+
+  .summary {
+    background: var(--card-white);
+    border-radius: 18px;
+    padding: 30px 22px;
+    text-align: center;
+    display: none;
+  }
+  .score-ring-wrap { position: relative; width: 160px; height: 160px; margin: 4px auto 6px auto; }
+  .score-ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .score-ring-bg { fill: none; stroke: var(--border); stroke-width: 12; }
+  .score-ring-fg {
+    fill: none; stroke-width: 12; stroke-linecap: round;
+    stroke-dasharray: 339.3; stroke-dashoffset: 339.3;
+    transition: stroke-dashoffset 1s ease, stroke 0.3s ease;
+  }
+  .score-ring-center {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .score-ring-percent { font-size: 34px; font-weight: 800; color: var(--text-primary); line-height: 1; }
+  .score-ring-frac { font-size: 13px; color: var(--text-tertiary); font-weight: 600; margin-top: 2px; }
+  .tier-badge {
+    display: inline-block; font-size: 15px; font-weight: 700; padding: 6px 16px;
+    border-radius: 20px; margin: 10px 0 4px 0;
+  }
+  .record-badge {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;
+    color: #a35800; background: var(--warning-bg); padding: 6px 14px; border-radius: 20px;
+    margin: 6px 0 4px 0;
+  }
+  .gamif-stats {
+    display: flex; justify-content: center; gap: 22px; flex-wrap: wrap;
+    margin: 18px 0 6px 0; padding: 14px 0; border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .gamif-stats .g-stat { text-align: center; }
+  .gamif-stats .g-num { font-size: 19px; font-weight: 800; color: var(--text-primary); }
+  .gamif-stats .g-label { font-size: 11px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; }
+  .replay-hook {
+    font-size: 13px; color: var(--text-secondary); margin-top: 16px; line-height: 1.5;
+  }
+  .topic-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px; padding: 12px 0; border-top: 0.5px solid var(--border);
+    text-align: left;
+  }
+  .topic-row .bar-container {
+    width: 90px; height: 8px; background: var(--border);
+    border-radius: 5px; margin-left: 10px; flex-shrink: 0;
+  }
+  .topic-row .bar { height: 100%; border-radius: 5px; }
+  .summary-actions {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-top: 22px;
+  }
+  .summary-actions button {
+    border: none; border-radius: 20px; font-size: 16px; font-weight: 600;
+    padding: 12px 20px; cursor: pointer; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1px solid var(--border) !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="avatar">📐</div>
+  <h1>Quiz Maths Terminale</h1>
+  <p class="subtitle">7 catégories · Programme de révision d'été (20 juillet – fin août)</p>
+
+  <div id="screen-category">
+    <div class="daily-banner" id="daily-banner" style="display:none"></div>
+    <div class="stat-strip" id="stat-strip"></div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+
+  <div id="screen-quiz" style="display:none">
+    <div class="current-cat" id="current-cat"></div>
+    <a class="back-link" id="back-link">← Changer de catégorie</a>
+
+    <div class="live-bar">
+      <div class="live-inner">
+        <div class="live-top">
+          <div class="live-score-block">
+            <span class="live-score-number" id="correct-count">0</span>
+            <span class="live-score-label">/ <span id="total-count">0</span> bonnes réponses</span>
+          </div>
+          <div class="live-right">
+            <span class="combo-badge" id="combo-badge">🔥 <span id="combo-count">0</span></span>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+    <div id="summary" class="summary"></div>
+  </div>
+</div>
+
+<script>
+const allQuestions = [
+  // ===== Calcul algébrique (Semaine 1 · Séances 1-2) =====
+  {
+    topic: "Calcul algébrique", type: "fill",
+    q: "Simplifie la fraction <span class='formula-line'>12/18</span> sous forme irréductible.",
+    accepted: ["2/3"],
+    explanation: "12/18 = (12÷6)/(18÷6) = 2/3, en divisant numérateur et dénominateur par leur plus grand diviseur commun.",
+    context: "Réflexe à automatiser : chercher directement le plus grand diviseur commun (ici 6) plutôt que de simplifier en plusieurs étapes.",
+    hint: "Le plus grand diviseur commun de 12 et 18 est 6."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Quelle est la valeur de <span class='formula-line'>2⁻³</span> ?",
+    options: ["1/8", "-8", "-6", "8"],
+    correct: 0,
+    explanation: "2⁻³ = 1/2³ = 1/8.",
+    context: "Une puissance négative n'est jamais un nombre négatif : elle correspond toujours à l'inverse de la puissance positive.",
+    hint: "Une puissance négative donne un résultat positif (un inverse)."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Factorise <span class='formula-line'>x² - 9</span>.",
+    options: ["(x-3)(x+3)", "(x-9)(x+1)", "(x-3)²", "x(x-9)"],
+    correct: 0,
+    explanation: "x² - 9 = x² - 3² = (x-3)(x+3) : c'est l'identité remarquable a² - b².",
+    context: "Cette identité (différence de deux carrés) revient très souvent pour résoudre des équations ou étudier un signe : à repérer immédiatement dès qu'on voit 'carré moins carré'.",
+    hint: "C'est une différence de deux carrés : x² et 3²."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Développe <span class='formula-line'>(x+2)²</span>.",
+    options: ["x² + 4x + 4", "x² + 4", "x² + 2x + 4", "x² + 4x + 2"],
+    correct: 0,
+    explanation: "(x+2)² = x² + 2×x×2 + 2² = x² + 4x + 4.",
+    context: "Les 3 identités remarquables (a+b)², (a-b)² et (a-b)(a+b) sont à connaître par cœur : elles reviennent dans presque tous les chapitres, y compris fonctions et suites.",
+    hint: "N'oublie pas le terme du milieu : 2×x×2."
+  },
+  {
+    topic: "Calcul algébrique", type: "fill",
+    q: "Calcule <span class='formula-line'>3/4 + 1/6</span> (résultat sous forme de fraction irréductible).",
+    accepted: ["11/12"],
+    explanation: "Dénominateur commun 12 : 3/4 = 9/12 et 1/6 = 2/12, donc la somme vaut 11/12.",
+    context: "Le réflexe est de trouver le plus petit dénominateur commun (le PPCM de 4 et 6, ici 12) avant d'additionner deux fractions.",
+    hint: "Le dénominateur commun est 12."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Quelle est la forme factorisée de <span class='formula-line'>2x² + 4x</span> ?",
+    options: ["2x(x+2)", "2x(x+4)", "x(2x+4)", "4x(x+2)"],
+    correct: 0,
+    explanation: "2x² + 4x = 2x × x + 2x × 2 = 2x(x+2).",
+    context: "Factoriser en repérant le plus grand facteur commun (ici 2x) est souvent la première étape pour résoudre une équation produit nul.",
+    hint: "Cherche le plus grand facteur commun aux deux termes."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Que vaut <span class='formula-line'>(√2)²</span> ?",
+    options: ["2", "4", "√2", "1"],
+    correct: 0,
+    explanation: "Par définition de la racine carrée, (√2)² = 2.",
+    context: "Cette propriété (√a)² = a pour a ≥ 0 sert notamment à rationaliser des dénominateurs contenant une racine carrée.",
+    hint: "C'est la définition même de la racine carrée."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Simplifie <span class='formula-line'>a⁵ / a²</span> (a ≠ 0).",
+    options: ["a³", "a⁷", "a¹⁰", "a^2,5"],
+    correct: 0,
+    explanation: "Pour diviser deux puissances de même base, on soustrait les exposants : a⁵/a² = a^(5-2) = a³.",
+    context: "Les règles de puissances (produit, quotient, puissance de puissance) sont la base de tout calcul algébrique en Terminale, y compris pour manipuler des suites géométriques.",
+    hint: "Pour diviser des puissances de même base, on soustrait les exposants."
+  },
+  {
+    topic: "Calcul algébrique", type: "fill",
+    q: "Résous l'équation <span class='formula-line'>3x - 5 = 7</span> (donne la valeur de x).",
+    accepted: ["4"],
+    explanation: "3x = 7+5 = 12, donc x = 4.",
+    context: "Une équation du premier degré se résout toujours de la même façon : isoler x en effectuant la même opération des deux côtés de l'égalité.",
+    hint: "Ajoute 5 des deux côtés, puis divise par 3."
+  },
+  {
+    topic: "Calcul algébrique", type: "qcm",
+    q: "Que vaut <span class='formula-line'>3 + 4 × 2</span>, en respectant les priorités opératoires ?",
+    options: ["11", "14", "10", "24"],
+    correct: 0,
+    explanation: "La multiplication est prioritaire sur l'addition : 3 + 4×2 = 3 + 8 = 11.",
+    context: "L'erreur de priorité opératoire est l'une des fautes de calcul mental les plus fréquentes en copie de bac, même sur des expressions très simples.",
+    hint: "Les multiplications et divisions passent toujours avant les additions et soustractions."
+  },
+
+  // ===== Fonctions (Semaine 2 · Séances 3-4) =====
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Une fonction f est dite croissante sur un intervalle I si...",
+    options: [
+      "Pour tous a et b de I, si a < b alors f(a) ≤ f(b)",
+      "Pour tous a et b de I, si a < b alors f(a) ≥ f(b)",
+      "f(x) est toujours positive sur I",
+      "f'(x) est toujours négative sur I"
+    ],
+    correct: 0,
+    explanation: "Une fonction croissante conserve l'ordre : plus x augmente, plus f(x) augmente (ou reste égal).",
+    context: "Ne confonds pas le signe d'une fonction (positive/négative) et ses variations (croissante/décroissante) : ce sont deux notions différentes, souvent mélangées en début de Terminale.",
+    hint: "'Croissante' parle de l'évolution de f(x), pas de son signe."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Si <span class='formula-line'>f'(x) > 0</span> sur un intervalle I, que peut-on dire de f sur I ?",
+    options: ["f est strictement croissante sur I", "f est strictement décroissante sur I", "f est constante sur I", "f n'est pas dérivable sur I"],
+    correct: 0,
+    explanation: "Le signe de la dérivée donne directement le sens de variation : dérivée positive = fonction croissante.",
+    context: "C'est LE théorème central du chapitre dérivation : étudier le signe de f' est la méthode systématique pour dresser un tableau de variations.",
+    hint: "Dérivée positive = fonction qui « monte »."
+  },
+  {
+    topic: "Fonctions", type: "fill",
+    q: "Quelle est la dérivée de <span class='formula-line'>f(x) = x²</span> ?",
+    accepted: ["2x"],
+    explanation: "La dérivée de xⁿ est n×x^(n-1), donc la dérivée de x² est 2x.",
+    context: "Cette formule (xⁿ)' = n×x^(n-1) est l'une des plus utilisées : elle sert de base à la dérivation de toutes les fonctions polynomiales.",
+    hint: "Utilise la formule (xⁿ)' = n×x^(n-1) avec n=2."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Quelle est la dérivée de <span class='formula-line'>f(x) = 3x² - 2x + 5</span> ?",
+    options: ["6x - 2", "3x - 2", "6x² - 2x", "6x + 5"],
+    correct: 0,
+    explanation: "On dérive terme à terme : (3x²)'=6x, (-2x)'=-2, (5)'=0, donc f'(x) = 6x - 2.",
+    context: "La dérivée d'une somme est la somme des dérivées : dériver terme à terme est la méthode systématique pour tout polynôme.",
+    hint: "La constante 5 disparaît en dérivant : sa dérivée est nulle."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Dans un tableau de signes, comment détermine-t-on le signe d'un produit de deux facteurs ?",
+    options: [
+      "En multipliant les signes de chaque facteur, colonne par colonne (règle des signes)",
+      "En additionnant les valeurs des deux facteurs",
+      "Le produit est toujours positif",
+      "Le signe du produit est celui du facteur avec le plus grand coefficient"
+    ],
+    correct: 0,
+    explanation: "On applique la règle des signes (+×+=+, +×-=-, -×-=+) colonne par colonne, selon le signe de chaque facteur sur chaque intervalle.",
+    context: "Le tableau de signes est l'outil central pour résoudre des inéquations et étudier le signe d'une dérivée (donc les variations d'une fonction).",
+    hint: "C'est la règle des signes classique : + × - = -, etc."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Que représente un point où f'(x) s'annule en changeant de signe ?",
+    options: [
+      "Un maximum local si f' passe de + à -, un minimum local si f' passe de - à +",
+      "Toujours un maximum local, quel que soit le changement de signe",
+      "Un point où la fonction n'est pas définie",
+      "Un point d'inflexion obligatoire"
+    ],
+    correct: 0,
+    explanation: "Quand f'(x) s'annule et change de signe, f admet un extremum local : maximum si f' passe de + à -, minimum si f' passe de - à +.",
+    context: "C'est le lien direct entre le signe de la dérivée et le tableau de variations : un changement de signe de f' donne toujours un extremum local.",
+    hint: "Le sens du changement (+ vers - ou - vers +) détermine si c'est un maximum ou un minimum."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Quelle est la dérivée du produit <span class='formula-line'>u(x)×v(x)</span> ?",
+    options: ["u'(x)v(x) + u(x)v'(x)", "u'(x)v'(x)", "u'(x)v(x) - u(x)v'(x)", "u(x)v(x)"],
+    correct: 0,
+    explanation: "La formule de dérivation d'un produit est (uv)' = u'v + uv'.",
+    context: "Cette formule est indispensable dès que la fonction n'est plus une simple somme de puissances, par exemple pour dériver f(x) = x²(x+1) sans tout développer.",
+    hint: "C'est une somme de deux termes, pas juste le produit des dérivées."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Quelle est la dérivée du quotient <span class='formula-line'>u(x)/v(x)</span> (avec v(x) ≠ 0) ?",
+    options: ["(u'v - uv') / v²", "(u'v + uv') / v²", "u'/v'", "(u'v - uv') / v"],
+    correct: 0,
+    explanation: "La formule de dérivation d'un quotient est (u/v)' = (u'v - uv') / v².",
+    context: "Attention à l'ordre des termes au numérateur (u'v - uv', pas l'inverse) et à ne pas oublier le carré au dénominateur : source d'erreur fréquente en copie.",
+    hint: "Le dénominateur est mis au carré, et l'ordre des termes au numérateur compte."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Sur un tableau de variations, une flèche descendante signifie que la fonction est...",
+    options: ["Strictement décroissante sur l'intervalle correspondant", "Strictement croissante sur l'intervalle correspondant", "Constante sur l'intervalle correspondant", "Non définie sur l'intervalle correspondant"],
+    correct: 0,
+    explanation: "Une flèche descendante dans un tableau de variations indique que la fonction décroît sur l'intervalle représenté.",
+    context: "Le tableau de variations résume en un coup d'œil tout le comportement de la fonction : c'est souvent la synthèse finale attendue dans un exercice type bac.",
+    hint: "Une flèche qui descend représente une fonction qui décroît."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Que signifie que f est dérivable en un point a, d'un point de vue géométrique ?",
+    options: [
+      "La courbe de f admet une tangente non verticale au point d'abscisse a",
+      "f(a) est un nombre positif",
+      "f est nécessairement croissante en a",
+      "f(a) = 0"
+    ],
+    correct: 0,
+    explanation: "La dérivabilité en a signifie que la courbe de f admet une tangente (non verticale) au point d'abscisse a, dont le coefficient directeur est f'(a).",
+    context: "Cette interprétation géométrique (nombre dérivé = coefficient directeur de la tangente) explique pourquoi le signe de f' donne les variations de f.",
+    hint: "Ça parle de la courbe représentative de f, pas de la valeur de f(a)."
+  },
+  {
+    topic: "Fonctions", type: "fill",
+    q: "Quelle est la dérivée de la fonction constante <span class='formula-line'>f(x) = 7</span> ?",
+    accepted: ["0"],
+    explanation: "La dérivée d'une fonction constante est toujours nulle : (k)' = 0.",
+    context: "Erreur fréquente en dérivant un polynôme : le terme constant disparaît toujours en dérivant, il ne faut pas le 'recopier' par erreur.",
+    hint: "La dérivée d'un nombre constant (sans x) est toujours la même valeur."
+  },
+  {
+    topic: "Fonctions", type: "qcm",
+    q: "Que permet de faire le tableau de signes de f'(x) dans l'étude d'une fonction ?",
+    options: [
+      "Déterminer directement le tableau de variations de f",
+      "Calculer les racines de f(x) uniquement",
+      "Déterminer si f est paire ou impaire",
+      "Calculer l'intégrale de f"
+    ],
+    correct: 0,
+    explanation: "Le signe de f' sur chaque intervalle donne directement le sens de variation de f, ce qui permet de construire le tableau de variations.",
+    context: "C'est la méthode quasi automatique pour tout exercice 'étudier les variations de f' : calculer f', étudier son signe, puis en déduire les variations.",
+    hint: "C'est la méthode standard pour construire un tableau de variations."
+  },
+
+  // ===== Suites : les bases (Semaine 3 · Séances 5-6) =====
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Qu'est-ce qu'une suite numérique ?",
+    options: [
+      "Une fonction qui à chaque entier naturel n associe un nombre réel u<sub>n</sub>",
+      "Une liste de nombres rangés du plus petit au plus grand",
+      "Une fonction dérivable définie sur R",
+      "Un ensemble de solutions d'une équation"
+    ],
+    correct: 0,
+    explanation: "Une suite est une fonction définie sur les entiers naturels (ou une partie de N), qui à chaque n associe un réel noté u<sub>n</sub>.",
+    context: "Voir une suite comme une 'fonction dont la variable est un entier' aide à comprendre pourquoi certaines notions de fonctions (sens de variation, limite) se retrouvent pour les suites.",
+    hint: "C'est une notion très proche de celle de fonction, mais définie sur les entiers."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Une suite (u<sub>n</sub>) est dite arithmétique de raison r si...",
+    options: ["u<sub>n+1</sub> = u<sub>n</sub> + r pour tout n", "u<sub>n+1</sub> = u<sub>n</sub> × r pour tout n", "u<sub>n</sub> = r × n² pour tout n", "u<sub>n+1</sub> = u<sub>n</sub> - n pour tout n"],
+    correct: 0,
+    explanation: "Une suite arithmétique se construit en ajoutant une constante r (la raison) à chaque terme pour obtenir le suivant.",
+    context: "La raison r peut être négative (suite décroissante) ou positive (suite croissante) : 'arithmétique' vient de l'addition répétée, contrairement à 'géométrique' qui vient de la multiplication répétée.",
+    hint: "Le mot-clé est 'addition' : on ajoute toujours la même valeur."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Une suite (u<sub>n</sub>) est dite géométrique de raison q si...",
+    options: ["u<sub>n+1</sub> = u<sub>n</sub> × q pour tout n", "u<sub>n+1</sub> = u<sub>n</sub> + q pour tout n", "u<sub>n</sub> = n × q pour tout n", "u<sub>n+1</sub> = u<sub>n</sub> / n pour tout n"],
+    correct: 0,
+    explanation: "Une suite géométrique se construit en multipliant chaque terme par une constante q (la raison) pour obtenir le suivant.",
+    context: "Si q > 1 (termes positifs), la suite est croissante ; si 0 < q < 1, elle est décroissante ; si q < 0, elle alterne de signe : le signe et la valeur de q déterminent tout le comportement de la suite.",
+    hint: "Le mot-clé est 'multiplication', pas 'addition'."
+  },
+  {
+    topic: "Suites : les bases", type: "fill",
+    q: "Suite arithmétique de premier terme u<sub>0</sub> = 3 et de raison r = 4 : quelle est la valeur de u<sub>3</sub> ?",
+    accepted: ["15"],
+    explanation: "u<sub>n</sub> = u<sub>0</sub> + n×r, donc u<sub>3</sub> = 3 + 3×4 = 3+12 = 15.",
+    context: "La formule explicite u<sub>n</sub> = u<sub>0</sub> + n×r permet de calculer directement n'importe quel terme sans passer par tous les précédents.",
+    hint: "Utilise la formule u<sub>n</sub> = u<sub>0</sub> + n × r."
+  },
+  {
+    topic: "Suites : les bases", type: "fill",
+    q: "Suite géométrique de premier terme u<sub>0</sub> = 2 et de raison q = 3 : quelle est la valeur de u<sub>2</sub> ?",
+    accepted: ["18"],
+    explanation: "u<sub>n</sub> = u<sub>0</sub> × qⁿ, donc u<sub>2</sub> = 2 × 3² = 2×9 = 18.",
+    context: "Comme pour les suites arithmétiques, la formule explicite u<sub>n</sub> = u<sub>0</sub> × qⁿ évite de calculer tous les termes intermédiaires.",
+    hint: "Utilise la formule u<sub>n</sub> = u<sub>0</sub> × qⁿ, avec n=2."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Quelle est la formule de la somme des n+1 premiers termes d'une suite arithmétique (de u<sub>0</sub> à u<sub>n</sub>) ?",
+    options: ["(n+1) × (u<sub>0</sub> + u<sub>n</sub>) / 2", "(u<sub>0</sub> + u<sub>n</sub>) / 2", "n × u<sub>0</sub> × u<sub>n</sub>", "(u<sub>n</sub> - u<sub>0</sub>) / n"],
+    correct: 0,
+    explanation: "La somme des termes d'une suite arithmétique se calcule par (nombre de termes) × (premier terme + dernier terme) / 2.",
+    context: "Une bonne image pour la retenir : « (nombre de termes) × (moyenne du premier et du dernier terme) ».",
+    hint: "On multiplie le nombre de termes par la moyenne du premier et du dernier terme."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Que peut-on dire d'une suite géométrique de raison <span class='formula-line'>q = 0,5</span> et de premier terme positif ?",
+    options: ["Elle décroît et tend vers 0", "Elle croît indéfiniment", "Elle est constante", "Elle alterne entre valeurs positives et négatives"],
+    correct: 0,
+    explanation: "Avec 0 < q < 1 et un premier terme strictement positif, chaque terme est plus petit que le précédent : la suite décroît et tend vers 0.",
+    context: "Ce comportement est à la base de nombreux exercices sur les suites géométriques, notamment liés aux probabilités ou aux modèles d'évolution.",
+    hint: "Multiplier par un nombre entre 0 et 1 rend chaque terme plus petit."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Comment reconnaît-on qu'une suite est géométrique à partir de ses premiers termes, par exemple <span class='formula-line'>3, 6, 12, 24</span> ?",
+    options: [
+      "Le rapport entre deux termes consécutifs est constant (ici 2)",
+      "La différence entre deux termes consécutifs est constante",
+      "Tous les termes sont pairs",
+      "La somme des termes est constante"
+    ],
+    correct: 0,
+    explanation: "Une suite est géométrique si le quotient u<sub>n+1</sub>/u<sub>n</sub> est constant : ici 6/3=2, 12/6=2, 24/12=2, donc la raison est 2.",
+    context: "À l'inverse, si c'est la différence u<sub>n+1</sub> - u<sub>n</sub> qui est constante, la suite est arithmétique : comparer les deux méthodes évite de confondre les deux types de suites.",
+    hint: "Regarde le quotient (pas la différence) entre deux termes consécutifs."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Quel raisonnement permet souvent de démontrer une propriété vraie pour tout entier n, dans le chapitre des suites ?",
+    options: ["Le raisonnement par récurrence", "Le raisonnement par l'absurde uniquement", "La méthode des tableaux de signes", "Le théorème de Thalès"],
+    correct: 0,
+    explanation: "Le raisonnement par récurrence (initialisation + hérédité) est l'outil de démonstration typique pour prouver qu'une propriété est vraie pour tout entier naturel n.",
+    context: "C'est l'un des tout premiers 'raisonnements type Terminale' à maîtriser sur les suites, avant d'être approfondi avec des exercices plus complets.",
+    hint: "C'est un raisonnement en deux étapes : initialisation puis hérédité."
+  },
+  {
+    topic: "Suites : les bases", type: "qcm",
+    q: "Qu'est-ce que l'étape d'« hérédité » dans un raisonnement par récurrence ?",
+    options: [
+      "Montrer que si la propriété est vraie au rang n, alors elle est vraie au rang n+1",
+      "Montrer que la propriété est vraie pour n=0",
+      "Calculer la limite de la suite",
+      "Vérifier que la suite est croissante"
+    ],
+    correct: 0,
+    explanation: "L'hérédité consiste à supposer la propriété vraie à un rang n quelconque (hypothèse de récurrence) et à démontrer qu'elle reste vraie au rang n+1.",
+    context: "Les deux étapes indissociables du raisonnement par récurrence sont l'initialisation (premier rang) et l'hérédité (transmission de proche en proche) : oublier l'une des deux invalide toute la démonstration.",
+    hint: "C'est l'étape qui « transmet » la propriété d'un rang au suivant."
+  },
+
+  // ===== Suites : niveau Terminale (Semaine 4 · Séances 7-8) =====
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Comment étudier le sens de variation d'une suite (u<sub>n</sub>) à partir de la différence <span class='formula-line'>u<sub>n+1</sub> - u<sub>n</sub></span> ?",
+    options: [
+      "Si u<sub>n+1</sub> - u<sub>n</sub> > 0 pour tout n, la suite est croissante ; si < 0, elle est décroissante",
+      "Si u<sub>n+1</sub> - u<sub>n</sub> = 0, la suite est croissante",
+      "Le signe de la différence ne renseigne jamais sur le sens de variation",
+      "Il faut toujours calculer la dérivée de la suite"
+    ],
+    correct: 0,
+    explanation: "Étudier le signe de u<sub>n+1</sub> - u<sub>n</sub> est la méthode la plus directe pour déterminer le sens de variation d'une suite.",
+    context: "Pour une suite géométrique à termes strictement positifs, une méthode alternative consiste à comparer le quotient u<sub>n+1</sub>/u<sub>n</sub> à 1, parfois plus simple que la différence.",
+    hint: "On étudie le signe de la différence entre deux termes consécutifs."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Qu'est-ce qu'une « conjecture » en mathématiques, souvent demandée sur un exercice de suites ?",
+    options: [
+      "Une hypothèse énoncée à partir d'observations, qu'il faut ensuite démontrer",
+      "Une démonstration rigoureuse déjà validée",
+      "Un théorème du programme officiel",
+      "Un résultat faux par définition"
+    ],
+    correct: 0,
+    explanation: "Une conjecture est une hypothèse formulée à partir d'observations (souvent en calculant les premiers termes à la calculatrice), qu'il faut ensuite prouver rigoureusement.",
+    context: "Exercice classique type bac : « à l'aide de la calculatrice, conjecturer le sens de variation, puis démontrer cette conjecture » — la conjecture n'est qu'une étape, jamais une preuve en soi.",
+    hint: "C'est une hypothèse à vérifier, pas encore une preuve."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Que signifie qu'une suite (u<sub>n</sub>) est majorée ?",
+    options: ["Il existe un nombre M tel que u<sub>n</sub> ≤ M pour tout n", "La suite est strictement croissante", "u<sub>n</sub> est toujours positif", "u<sub>n</sub> tend vers l'infini"],
+    correct: 0,
+    explanation: "Une suite est majorée s'il existe un réel M (un majorant) tel que tous les termes de la suite restent inférieurs ou égaux à M.",
+    context: "Le théorème de convergence monotone dit qu'une suite croissante et majorée converge : très utile pour prouver qu'une suite admet une limite finie sans avoir à la calculer.",
+    hint: "Il s'agit d'une borne supérieure, pas d'une propriété de croissance."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "D'après le théorème de convergence monotone, une suite croissante et majorée est...",
+    options: ["Convergente", "Divergente vers +∞", "Nécessairement constante", "Toujours arithmétique"],
+    correct: 0,
+    explanation: "Une suite croissante et majorée converge nécessairement vers une limite finie (théorème de convergence monotone).",
+    context: "Ce théorème permet souvent de conclure à l'existence d'une limite sans la calculer explicitement, avant d'en chercher la valeur exacte par une autre méthode.",
+    hint: "« Croissante et majorée » est la condition-clé de ce théorème."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Une suite (u<sub>n</sub>) est dite divergente vers +∞ quand...",
+    options: [
+      "Les termes u<sub>n</sub> deviennent aussi grands que l'on veut à partir d'un certain rang",
+      "La suite oscille entre deux valeurs",
+      "La suite est bornée",
+      "La suite est constante à partir d'un certain rang"
+    ],
+    correct: 0,
+    explanation: "Une suite diverge vers +∞ si, pour tout seuil A choisi aussi grand que l'on veut, il existe un rang à partir duquel tous les termes dépassent A.",
+    context: "Cette définition rigoureuse (avec des quantificateurs 'pour tout A, il existe N tel que...') est typique du vocabulaire de Terminale sur les limites de suites.",
+    hint: "Les termes finissent par dépasser n'importe quel seuil fixé à l'avance."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Suite géométrique de raison q = 2 et de premier terme u<sub>0</sub> = 1 : quel est son comportement quand n tend vers +∞ ?",
+    options: ["Elle diverge vers +∞", "Elle tend vers 0", "Elle est constante", "Elle alterne de signe"],
+    correct: 0,
+    explanation: "Avec q > 1 et un premier terme strictement positif, une suite géométrique diverge vers +∞.",
+    context: "Retiens les 3 cas typiques d'une suite géométrique à termes positifs : q>1 → tend vers +∞ ; 0<q<1 → tend vers 0 ; q=1 → constante.",
+    hint: "Une raison strictement supérieure à 1 fait « exploser » la suite vers le haut."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Dans un exercice type bac sur une suite définie par récurrence <span class='formula-line'>u<sub>n+1</sub> = f(u<sub>n</sub>)</span>, que demande généralement l'énoncé ?",
+    options: [
+      "Étudier le sens de variation, éventuellement la convergence, puis calculer ou encadrer la limite",
+      "Uniquement calculer u<sub>1</sub>₀ à la calculatrice",
+      "Dessiner la courbe représentative sans aucun calcul",
+      "Démontrer que la suite n'existe pas"
+    ],
+    correct: 0,
+    explanation: "Un exercice type bac sur une suite définie par récurrence suit presque toujours la même trame : sens de variation, éventuellement majoration/minoration, convergence, puis limite.",
+    context: "Repérer cette trame récurrente permet d'aborder sereinement n'importe quel exercice de ce type le jour du bac, même si le contexte de l'énoncé change.",
+    hint: "C'est une suite d'étapes classiques, pas un exercice de dessin."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Que permet de faire un algorithme (boucle « Tant que ») qui cherche le plus petit rang n tel que u<sub>n</sub> dépasse un seuil donné ?",
+    options: [
+      "Illustrer numériquement une convergence ou une divergence",
+      "Calculer directement la dérivée de la suite",
+      "Prouver une conjecture sans aucun calcul",
+      "Ne s'applique qu'aux suites arithmétiques"
+    ],
+    correct: 0,
+    explanation: "Ce type d'algorithme (souvent en Python, avec une boucle 'tant que') trouve numériquement le premier rang à partir duquel une suite dépasse un seuil, illustrant une convergence ou une divergence.",
+    context: "Ce genre d'algorithme fait le lien entre le chapitre « suites » et l'algorithmique en Python, une compétence transversale évaluée à l'écrit de spécialité mathématiques.",
+    hint: "Le mot-clé est « seuil » : à partir de quel rang la suite dépasse-t-elle une valeur donnée ?"
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Que signifie prouver par récurrence qu'une suite (u<sub>n</sub>) est croissante ?",
+    options: [
+      "Montrer une propriété initiale, puis que si u<sub>n</sub> ≥ u<sub>n-1</sub>, alors u<sub>n+1</sub> ≥ u<sub>n</sub>",
+      "Calculer simplement u<sub>1</sub>₀ - u₉",
+      "Montrer que la suite est géométrique",
+      "Montrer que u<sub>n</sub> est positif pour tout n"
+    ],
+    correct: 0,
+    explanation: "Prouver la croissance par récurrence suppose d'établir une initialisation, puis une hérédité qui transmet l'inégalité d'un rang au suivant.",
+    context: "C'est une application typique du raisonnement par récurrence, appliquée cette fois à une propriété de variation plutôt qu'à une simple égalité : la structure reste la même.",
+    hint: "C'est le même schéma initialisation + hérédité, appliqué à une inégalité."
+  },
+  {
+    topic: "Suites : niveau Terminale", type: "qcm",
+    q: "Pourquoi calculer les premiers termes d'une suite à la calculatrice avant de démontrer une propriété ?",
+    options: [
+      "Pour formuler une conjecture qu'on cherchera ensuite à démontrer rigoureusement",
+      "Parce que la calculatrice suffit à valider une démonstration au bac",
+      "Pour éviter d'avoir à écrire une démonstration",
+      "Parce que le calcul à la main est toujours faux"
+    ],
+    correct: 0,
+    explanation: "Les premiers termes calculés numériquement permettent de repérer un comportement probable, qui devient une conjecture, à démontrer ensuite (souvent par récurrence).",
+    context: "Attention : au bac, une conjecture obtenue à la calculatrice n'est jamais acceptée comme preuve — elle doit toujours être suivie d'une démonstration rigoureuse.",
+    hint: "La calculatrice aide à deviner, pas à démontrer."
+  },
+
+  // ===== Probabilités conditionnelles (Semaine 5 · Séance 9) =====
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Que représente la probabilité conditionnelle <span class='formula-line'>P<sub>A</sub>(B)</span> ?",
+    options: [
+      "La probabilité que B se réalise sachant que A est déjà réalisé",
+      "La probabilité que A et B se réalisent en même temps",
+      "La probabilité que ni A ni B ne se réalisent",
+      "La probabilité que A se réalise sachant que B est réalisé"
+    ],
+    correct: 0,
+    explanation: "P<sub>A</sub>(B) est la probabilité de B sachant que A est réalisé : on se place dans « l'univers réduit » où A est déjà vrai.",
+    context: "Attention à l'ordre : P<sub>A</sub>(B) est en général différent de P<sub>B</sub>(A) ! C'est une confusion très fréquente en copie, source de nombreuses erreurs sur les arbres pondérés.",
+    hint: "L'indice en bas (A) est l'événement déjà réalisé, celui qu'on suppose vrai."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "fill",
+    q: "Quelle est la formule de <span class='formula-line'>P<sub>A</sub>(B)</span> en fonction de P(A∩B) et P(A) ?",
+    accepted: ["p(a∩b)/p(a)", "p(a inter b)/p(a)"],
+    explanation: "P<sub>A</sub>(B) = P(A∩B) / P(A), valable lorsque P(A) ≠ 0.",
+    context: "Cette formule se retient bien grâce à l'arbre pondéré : le trajet « A puis B » correspond à multiplier P(A) par P<sub>A</sub>(B), ce qui redonne P(A∩B).",
+    hint: "C'est un quotient : la probabilité de l'intersection divisée par la probabilité de l'événement déjà réalisé."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Sur un arbre pondéré, comment calcule-t-on la probabilité d'un « chemin » (une succession de branches) ?",
+    options: [
+      "En multipliant les probabilités inscrites sur chaque branche du chemin",
+      "En additionnant les probabilités inscrites sur chaque branche du chemin",
+      "En prenant la plus grande probabilité du chemin",
+      "En soustrayant les probabilités des branches"
+    ],
+    correct: 0,
+    explanation: "La probabilité d'un chemin dans un arbre pondéré est le produit des probabilités des branches qui le composent.",
+    context: "C'est la « règle du produit » sur un arbre : pour obtenir P(A∩B), on multiplie P(A) par la probabilité de la branche B sachant A.",
+    hint: "On multiplie les probabilités, on ne les additionne pas."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Sur un arbre représentant plusieurs chemins menant au même événement final, comment calcule-t-on sa probabilité totale ?",
+    options: [
+      "En additionnant les probabilités de tous les chemins qui mènent à cet événement",
+      "En multipliant les probabilités de tous les chemins qui mènent à cet événement",
+      "En prenant la moyenne des probabilités des chemins",
+      "En ne gardant que le chemin le plus probable"
+    ],
+    correct: 0,
+    explanation: "C'est la « règle de la somme » : pour obtenir la probabilité totale d'un événement, on additionne les probabilités de tous les chemins distincts qui y aboutissent.",
+    context: "Cette règle (formule des probabilités totales) combine la règle du produit (le long de chaque chemin) et la règle de la somme (entre les différents chemins) : les deux s'utilisent toujours ensemble.",
+    hint: "On additionne cette fois, contrairement au calcul le long d'un seul chemin."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Que signifie que deux événements A et B sont indépendants en probabilité ?",
+    options: [
+      "P<sub>A</sub>(B) = P(B), la réalisation de A ne change pas la probabilité de B",
+      "A et B ne peuvent jamais se produire ensemble",
+      "P(A) = P(B)",
+      "A et B sont incompatibles"
+    ],
+    correct: 0,
+    explanation: "A et B sont indépendants si la connaissance de la réalisation de A ne modifie pas la probabilité de B : P<sub>A</sub>(B) = P(B).",
+    context: "Ne confonds pas « événements indépendants » et « événements incompatibles » (qui ne peuvent jamais se produire ensemble) : ce sont deux notions totalement différentes.",
+    hint: "Ce n'est pas la même chose que des événements « incompatibles » (qui ne peuvent pas arriver ensemble)."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Que désigne l'événement contraire de A, noté Ā ?",
+    options: [
+      "L'événement « A ne se réalise pas »",
+      "L'événement « A et B se réalisent ensemble »",
+      "Un événement de probabilité toujours égale à 0",
+      "Un événement de probabilité toujours égale à 1"
+    ],
+    correct: 0,
+    explanation: "Ā est l'événement contraire de A : il se réalise exactement quand A ne se réalise pas, et P(Ā) = 1 - P(A).",
+    context: "Sur un arbre à deux issues (A et Ā), la somme des probabilités des deux branches issues d'un même nœud vaut toujours 1 : un bon réflexe de vérification.",
+    hint: "C'est l'événement qui se produit exactement quand A ne se produit pas."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "fill",
+    q: "<span class='formula-line'>P(A) = 0,4 &nbsp;&nbsp; P<sub>A</sub>(B) = 0,3</span> Que vaut P(A∩B) ?",
+    accepted: ["0.12", "0,12"],
+    explanation: "P(A∩B) = P(A) × P<sub>A</sub>(B) = 0,4 × 0,3 = 0,12.",
+    context: "C'est l'application directe de la règle du produit sur un arbre : multiplier la probabilité de la première branche par la probabilité conditionnelle de la seconde.",
+    hint: "Il suffit de multiplier les deux probabilités données."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Que vérifie-t-on toujours pour les probabilités des branches issues d'un même nœud d'un arbre pondéré ?",
+    options: ["Leur somme est égale à 1", "Leur produit est égal à 1", "Elles sont toutes égales entre elles", "Leur somme est égale à 0"],
+    correct: 0,
+    explanation: "Les probabilités des branches issues d'un même nœud représentent une partition des cas possibles : leur somme vaut donc toujours 1.",
+    context: "Vérifier que les probabilités d'un même nœud somment à 1 est un excellent réflexe pour repérer une erreur de calcul avant de continuer.",
+    hint: "C'est lié au fait que ces branches couvrent tous les cas possibles à cette étape."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Avec une partition (A, Ā), comment s'écrit <span class='formula-line'>P(B)</span> selon la formule des probabilités totales ?",
+    options: [
+      "P(B) = P(A)×P<sub>A</sub>(B) + P(Ā)×P<sub>Ā</sub>(B)",
+      "P(B) = P(A) + P(Ā)",
+      "P(B) = P(A)×P(Ā)",
+      "P(B) = P<sub>A</sub>(B) - P<sub>Ā</sub>(B)"
+    ],
+    correct: 0,
+    explanation: "La formule des probabilités totales décompose P(B) selon les deux chemins possibles de l'arbre passant par A ou par Ā.",
+    context: "C'est la traduction mathématique de la « règle de la somme » sur un arbre à deux branches initiales : chaque terme correspond à un chemin distinct menant à B.",
+    hint: "Il faut sommer les deux chemins possibles menant à B : celui passant par A, et celui passant par Ā."
+  },
+  {
+    topic: "Probabilités conditionnelles", type: "qcm",
+    q: "Pourquoi construire un arbre pondéré est-il utile face à un problème de probabilités à plusieurs étapes ?",
+    options: [
+      "Il structure visuellement les événements successifs et facilite les règles du produit et de la somme",
+      "Il permet d'éviter tout calcul",
+      "Il ne fonctionne que pour des probabilités égales à 0,5",
+      "Il remplace la formule des probabilités conditionnelles, qui devient inutile"
+    ],
+    correct: 0,
+    explanation: "L'arbre pondéré aide à visualiser les différentes étapes et à appliquer méthodiquement les règles du produit (le long des branches) et de la somme (entre les chemins).",
+    context: "Un exercice de probabilités bien réussi commence presque toujours par un arbre correctement construit et légendé : c'est souvent l'étape qui rapporte le plus de points facilement.",
+    hint: "C'est avant tout un outil de représentation visuelle, pas une formule magique qui remplace les calculs."
+  },
+
+  // ===== Loi binomiale (Semaine 5 · Séance 10) =====
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Une épreuve de Bernoulli est une expérience aléatoire qui...",
+    options: ["N'a que deux issues possibles : succès ou échec", "A exactement trois issues possibles", "Se répète obligatoirement 10 fois", "N'a qu'une seule issue possible"],
+    correct: 0,
+    explanation: "Une épreuve de Bernoulli est une expérience à deux issues, appelées 'succès' (probabilité p) et 'échec' (probabilité 1-p).",
+    context: "Lancer une pièce (pile/face) ou vérifier si une pièce industrielle est défectueuse sont deux exemples typiques d'épreuves de Bernoulli, base du chapitre sur la loi binomiale.",
+    hint: "Le mot-clé est « deux issues », pas plus."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Un schéma de Bernoulli consiste à...",
+    options: [
+      "Répéter n fois, de façon identique et indépendante, la même épreuve de Bernoulli",
+      "Réaliser une seule épreuve de Bernoulli",
+      "Répéter une épreuve à trois issues",
+      "Changer la probabilité de succès à chaque répétition"
+    ],
+    correct: 0,
+    explanation: "Un schéma de Bernoulli répète n fois la même épreuve de Bernoulli, dans les mêmes conditions (indépendance, probabilité de succès constante).",
+    context: "C'est ce schéma répété qui donne naissance à la loi binomiale : la variable qui compte le nombre de succès sur les n répétitions suit alors une loi binomiale de paramètres n et p.",
+    hint: "Le mot-clé est « répéter », plusieurs fois la même épreuve."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Une variable aléatoire X suit une loi binomiale de paramètres n et p. Que représente X ?",
+    options: [
+      "Le nombre de succès obtenus sur les n répétitions d'une épreuve de Bernoulli de probabilité p",
+      "La probabilité d'un seul succès",
+      "Le nombre total d'épreuves réalisées",
+      "La moyenne des probabilités de chaque épreuve"
+    ],
+    correct: 0,
+    explanation: "X compte le nombre de succès obtenus lors des n répétitions indépendantes d'une épreuve de Bernoulli de paramètre p.",
+    context: "On note généralement X ~ B(n,p) : ces deux paramètres suffisent à caractériser entièrement la loi.",
+    hint: "X compte un nombre de succès, ce n'est pas une probabilité elle-même."
+  },
+  {
+    topic: "Loi binomiale", type: "fill",
+    q: "Quelle est l'espérance <span class='formula-line'>E(X)</span> d'une variable X qui suit une loi binomiale de paramètres n et p ?",
+    accepted: ["np", "n*p", "n x p"],
+    explanation: "L'espérance d'une loi binomiale B(n,p) est E(X) = n×p.",
+    context: "Cette formule permet, par exemple, de prévoir en moyenne combien de pièces défectueuses on trouvera sur un lot de n pièces, si p est la probabilité qu'une pièce soit défectueuse.",
+    hint: "C'est simplement le produit des deux paramètres n et p."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Quelles sont les deux conditions indispensables pour qu'une variable aléatoire suive une loi binomiale ?",
+    options: [
+      "Répétition d'épreuves de Bernoulli identiques et indépendantes",
+      "Répétition d'épreuves différentes à chaque fois",
+      "Les épreuves doivent être dépendantes les unes des autres",
+      "La probabilité de succès doit changer à chaque répétition"
+    ],
+    correct: 0,
+    explanation: "La loi binomiale suppose que les épreuves de Bernoulli répétées sont identiques (même probabilité de succès p) et indépendantes les unes des autres.",
+    context: "Vérifier explicitement ces deux conditions fait partie de la rédaction attendue avant d'appliquer la loi binomiale : ce n'est jamais automatique, il faut le justifier.",
+    hint: "Les deux mots-clés sont 'identiques' et 'indépendantes'."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Quelle formule donne <span class='formula-line'>P(X=k)</span> pour une loi binomiale de paramètres n et p ?",
+    options: ["C(n,k) × p^k × (1-p)^(n-k)", "n × p^k", "C(n,k) × p^n", "p^k / (1-p)^(n-k)"],
+    correct: 0,
+    explanation: "P(X=k) = C(n,k) × pᵏ × (1-p)^(n-k), où C(n,k) est le nombre de combinaisons de k éléments parmi n.",
+    context: "Cette formule combine un aspect combinatoire (C(n,k), le nombre de façons d'obtenir k succès parmi n épreuves) et un aspect probabiliste (la probabilité d'un chemin particulier).",
+    hint: "Il faut à la fois compter les chemins possibles (combinaison) et calculer la probabilité d'un chemin."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Que représente le coefficient binomial <span class='formula-line'>C(n,k)</span>, aussi noté « n choisir k » ?",
+    options: [
+      "Le nombre de façons de choisir k éléments parmi n, sans tenir compte de l'ordre",
+      "Le nombre total de répétitions de l'épreuve",
+      "La probabilité de k succès",
+      "Le rang du dernier succès"
+    ],
+    correct: 0,
+    explanation: "C(n,k) compte le nombre de façons de choisir k éléments (par exemple, k rangs de succès) parmi n éléments possibles, sans tenir compte de l'ordre.",
+    context: "Sur calculatrice, ce coefficient se calcule souvent avec une touche dédiée (nCr) : un bon réflexe pour vérifier ses calculs à la main pendant les révisions.",
+    hint: "C'est un nombre de façons de choisir, pas une probabilité."
+  },
+  {
+    topic: "Loi binomiale", type: "qcm",
+    q: "Pourquoi vérifie-t-on l'indépendance et l'identité des épreuves avant d'utiliser la loi binomiale ?",
+    options: [
+      "Ce sont les conditions nécessaires à l'application du modèle, à justifier dans la rédaction",
+      "Ce n'est qu'une formalité qui ne change rien au résultat",
+      "La loi binomiale s'applique à toutes les situations sans condition",
+      "Cela permet de calculer directement l'espérance sans les paramètres n et p"
+    ],
+    correct: 0,
+    explanation: "Ces deux conditions sont les hypothèses du modèle : sans elles, la formule de la loi binomiale ne s'applique tout simplement pas.",
+    context: "Un exercice de bac attend souvent une phrase de justification explicite du type : « on répète n fois de façon identique et indépendante une épreuve de Bernoulli de paramètre p, donc X suit B(n,p) ».",
+    hint: "Ce n'est pas une formalité : sans ces conditions, la formule ne s'applique pas du tout."
+  },
+
+  // ===== Révision type bac (Semaine 6 · Séances 11-12) =====
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Face à un exercice sur une suite définie par récurrence, quelle est la première chose à faire avant tout calcul ?",
+    options: [
+      "Calculer les 2-3 premiers termes pour avoir une intuition du comportement de la suite",
+      "Chercher immédiatement la limite sans calcul préalable",
+      "Ignorer la définition par récurrence et supposer une formule explicite",
+      "Passer directement à la rédaction de la conclusion"
+    ],
+    correct: 0,
+    explanation: "Calculer les premiers termes donne une intuition rapide (croissance, signe...) qui guide ensuite la démonstration rigoureuse à mener.",
+    context: "Cette méthode — observer avant de démontrer — est valable dans presque tous les chapitres de Terminale : fonctions, suites, probabilités. Un bon réflexe à automatiser.",
+    hint: "On part toujours d'une observation numérique avant la démonstration rigoureuse."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Dans un exercice qui mélange fonctions et dérivées, que fait-on systématiquement après avoir calculé f'(x) ?",
+    options: [
+      "Étudier le signe de f'(x) pour en déduire le tableau de variations de f",
+      "Calculer directement f(0) et s'arrêter là",
+      "Ignorer le signe de f' et passer directement au calcul de limites",
+      "Vérifier que f'(x) est toujours positive sans le démontrer"
+    ],
+    correct: 0,
+    explanation: "Après avoir calculé la dérivée, l'étape suivante est presque toujours d'étudier son signe pour en déduire les variations de f.",
+    context: "C'est la même trame méthodologique que celle du chapitre « Fonctions » : dérivée → signe → variations, un enchaînement à automatiser.",
+    hint: "C'est l'enchaînement classique : dérivée → signe → variations."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Pour un exercice de probabilités avec un arbre à deux étapes, quelle vérification permet de repérer une erreur de calcul ?",
+    options: [
+      "Vérifier que la somme des probabilités des branches issues d'un même nœud vaut 1",
+      "Vérifier que toutes les probabilités sont égales entre elles",
+      "Vérifier que le produit des probabilités de tout l'arbre vaut 1",
+      "Il n'existe aucune vérification possible"
+    ],
+    correct: 0,
+    explanation: "À chaque nœud, la somme des probabilités des branches doit toujours valoir 1 : un contrôle rapide à faire avant de poursuivre les calculs.",
+    context: "Ce réflexe de vérification (déjà vu dans le chapitre probabilités) fait gagner du temps le jour du bac en évitant de propager une erreur sur tout un exercice.",
+    hint: "C'est la même vérification que celle vue dans le chapitre des probabilités."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Sur une copie de bac, pourquoi est-il important de rédiger une phrase de conclusion claire après un calcul, même simple ?",
+    options: [
+      "Le correcteur évalue aussi la rigueur de la rédaction, pas seulement le résultat numérique",
+      "Cela n'a aucune incidence sur la notation",
+      "Seule la dernière ligne de calcul compte",
+      "Les phrases de conclusion remplacent les calculs"
+    ],
+    correct: 0,
+    explanation: "La rédaction (phrases de conclusion, justification des méthodes) fait partie des critères d'évaluation du bac, au même titre que l'exactitude du résultat.",
+    context: "C'est souvent sous-estimé en début de Terminale : un résultat juste sans rédaction claire ne rapporte pas tous les points, d'où l'intérêt de s'entraîner à « expliquer une correction comme un professeur ».",
+    hint: "Le correcteur regarde aussi comment tu expliques ta démarche, pas seulement le chiffre final."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Quelle est une erreur classique de calcul mental à surveiller particulièrement en début de Terminale ?",
+    options: [
+      "Les erreurs de priorités opératoires et de signes (- devant une parenthèse)",
+      "Les erreurs uniquement liées à la calculatrice",
+      "Les erreurs de recopiage de l'énoncé",
+      "Aucune erreur classique n'est identifiable"
+    ],
+    correct: 0,
+    explanation: "Les erreurs de priorités opératoires et de gestion des signes (distribuer un signe moins devant une parenthèse) sont parmi les plus fréquentes et les plus « bêtes » à corriger en premier.",
+    context: "C'est exactement l'objectif de la toute première séance de révision : reprendre une copie de bac de Première et classer les erreurs par catégorie pour cibler les révisions les plus utiles.",
+    hint: "Ce sont des erreurs « mécaniques », pas des erreurs de compréhension du cours."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Pourquoi s'entraîner à « expliquer une correction comme un professeur » est-il un bon exercice de révision ?",
+    options: [
+      "Devoir reformuler une méthode oblige à vraiment la comprendre, pas seulement l'appliquer",
+      "Cela remplace le besoin de faire des exercices",
+      "Cela ne sert à rien pour le bac",
+      "Cela permet d'éviter d'apprendre le cours"
+    ],
+    correct: 0,
+    explanation: "Expliquer une méthode à voix haute, comme le ferait un professeur, oblige à structurer sa pensée et révèle immédiatement les points encore flous.",
+    context: "C'est une technique de révision efficace : elle teste la compréhension, pas seulement la mémorisation d'une procédure — plus exigeante que « refaire un exercice » identique.",
+    hint: "Le bénéfice vient du fait de devoir reformuler, pas seulement de refaire un calcul."
+  },
+  {
+    topic: "Révision type bac", type: "qcm",
+    q: "Un « mini bac d'une heure » en fin de programme de révision a pour objectif principal de...",
+    options: [
+      "S'entraîner à gérer son temps sur des exercices variés, en conditions proches de l'épreuve réelle",
+      "Réviser un seul chapitre en profondeur",
+      "Remplacer complètement les révisions de l'année de Terminale",
+      "Éviter tout stress lié à l'épreuve du bac"
+    ],
+    correct: 0,
+    explanation: "Un mini bac chronométré permet de s'entraîner à la gestion du temps et à l'enchaînement de plusieurs exercices sur des chapitres différents.",
+    context: "C'est un excellent moyen de clôturer un programme de révisions d'été : vérifier que les automatismes acquis (calcul, fonctions, suites, probabilités) tiennent la route une fois combinés, sous contrainte de temps.",
+    hint: "L'objectif porte sur la gestion du temps et l'enchaînement, pas sur un chapitre isolé."
+  },
+
+  // ===== Épreuve Première (bac spécialité maths, 12 juin 2026) =====
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Automatismes]</strong> La forme développée de l'expression <span class='formula-line'>(3x-2)²</span> est :",
+    options: ["9x² - 4", "3x² - 12x + 4", "9x² - 12x + 4", "6x - 4"],
+    correct: 2,
+    explanation: "(3x-2)² = (3x)² - 2×3x×2 + 2² = 9x² - 12x + 4.",
+    context: "Question 1 de l'épreuve anticipée de spécialité mathématiques du 12 juin 2026 (partie Automatismes, sans calculatrice) : elle teste l'identité remarquable (a-b)² vue dans la catégorie Calcul algébrique.",
+    hint: "Utilise l'identité remarquable (a-b)² = a² - 2ab + b²."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "[Automatismes] Une droite (Δ) coupe l'axe des ordonnées au point (0;2) et l'axe des abscisses au point (2;0). Quelle est son équation ?",
+    options: ["y = 2x + 2", "y = -2x + 2", "y = -x + 2", "y = x + 2"],
+    correct: 2,
+    explanation: "La droite passe par (0;2), donc son ordonnée à l'origine est 2. Le coefficient directeur vaut (0-2)/(2-0) = -1, donc l'équation est y = -x + 2.",
+    context: "Question 2 de l'épreuve : lire une équation de droite à partir de deux points (ou d'un graphique) est un grand classique des automatismes de Première/Terminale.",
+    hint: "Calcule le coefficient directeur entre les deux points donnés : (0-2)/(2-0)."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "[Automatismes] Dans une classe de Première, 75% des élèves étudient le grec, les autres étudient le latin et sont au nombre de 9. Combien d'élèves compte cette classe ?",
+    accepted: ["36"],
+    explanation: "Les 9 élèves de latin représentent 25% de la classe (100%-75%). L'effectif total est donc 9 / 0,25 = 36.",
+    context: "Question 3 de l'épreuve. Piège classique : ne pas confondre le pourcentage donné dans l'énoncé (75%) avec celui qui correspond réellement à l'effectif connu (les 9 élèves sont les 25% restants).",
+    hint: "Les 9 élèves représentent 25% de la classe, pas 75%."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "[Automatismes] Le prix d'un article augmente de 15%. Cela signifie que le prix a été multiplié par :",
+    options: ["15/100", "1,15", "0,85", "1,115"],
+    correct: 1,
+    explanation: "Une augmentation de 15% correspond à une multiplication par (1 + 15/100) = 1,15.",
+    context: "Question 4 de l'épreuve. Ne pas confondre avec une diminution de 15%, qui correspondrait à une multiplication par 0,85 (l'option piège c).",
+    hint: "Une augmentation de t% multiplie toujours par (1 + t/100)."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Automatismes]</strong> Quelle est la valeur la plus proche de <span class='formula-line'>150 000 / 3 200</span> ?",
+    options: ["5", "50", "500", "5 000"],
+    correct: 1,
+    explanation: "150 000 / 3 200 ≈ 46,9, la valeur la plus proche parmi les propositions est 50.",
+    context: "Question 5 de l'épreuve : ce type de question teste la capacité à estimer un ordre de grandeur rapidement, sans calculatrice — un vrai gain de temps le jour du bac.",
+    hint: "Arrondis 3 200 à 3 000 : 150 000 / 3 000 = 50."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "[Automatismes] Une vidéo d'une durée de 1 minute 40 secondes contient 2 400 images. Quel est le nombre d'images par seconde ?",
+    options: ["60 images/seconde", "24 images/seconde", "120 images/seconde", "15 images/seconde"],
+    correct: 1,
+    explanation: "1 minute 40 secondes = 100 secondes. 2 400 images / 100 secondes = 24 images par seconde.",
+    context: "Question 6 de l'épreuve. Le piège est de bien convertir la durée en secondes (100 s, pas 140) avant de diviser : une erreur d'unité fréquente sur ce type de question.",
+    hint: "Convertis d'abord 1 min 40 s en secondes : ça fait 100 secondes."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Automatismes]</strong> On considère <span class='formula-line'>f(x) = 0,5(x-3)² + 10</span>. Un seul des points suivants appartient à la courbe de f. Lequel ?",
+    options: ["A(-3;10)", "B(3;10,5)", "C(3;10)", "D(0;19,5)"],
+    correct: 2,
+    explanation: "f(3) = 0,5×(3-3)² + 10 = 0,5×0 + 10 = 10, donc le point C(3;10) appartient bien à la courbe.",
+    context: "Question 7 de l'épreuve. Le sommet de cette parabole est justement (3;10) : reconnaître la forme canonique a(x-h)²+k, dont le sommet est (h;k), permet de répondre instantanément.",
+    hint: "Reconnais la forme canonique a(x-h)²+k : le sommet de la parabole est directement (h;k)."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Automatismes]</strong> On considère <span class='formula-line'>A = (10²⁰¹ × 10⁻⁴) / (10²)¹⁰⁰</span>. Que vaut A ?",
+    options: ["A = -0,001", "A = 0,0001", "A = 0,001", "A = 1 000"],
+    correct: 2,
+    explanation: "10²⁰¹ × 10⁻⁴ = 10¹⁹⁷. (10²)¹⁰⁰ = 10²⁰⁰. Donc A = 10¹⁹⁷/10²⁰⁰ = 10⁻³ = 0,001.",
+    context: "Question 8 de l'épreuve. Elle combine deux règles de puissances (produit puis puissance de puissance) : les maîtriser parfaitement est indispensable pour ce type de question sans calculatrice.",
+    hint: "Simplifie d'abord le numérateur (produit de puissances), puis le dénominateur (puissance de puissance), avant de diviser."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 1 - Probabilités]</strong> Un loueur de bicyclettes : 60% des clients louent une bicyclette traditionnelle (T). Quelle est la probabilité <span class='formula-line'>P(T)</span> ?",
+    accepted: ["0.6", "0,6"],
+    explanation: "P(T) = 0,6, directement donné par l'énoncé (60% des clients).",
+    context: "Première étape d'un exercice de probabilités avec arbre : bien identifier et noter les probabilités données par l'énoncé avant de construire l'arbre.",
+    hint: "C'est directement donné dans l'énoncé : 60% des clients."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 1 - Probabilités]</strong> 20% de l'ensemble des clients ont pris une assurance (événement A). Quelle est la probabilité <span class='formula-line'>P(A)</span> ?",
+    accepted: ["0.2", "0,2"],
+    explanation: "P(A) = 0,2, donné directement par une simple lecture de l'énoncé (20% de l'ensemble des clients).",
+    context: "Attention à ne pas confondre cette probabilité globale P(A) avec la probabilité conditionnelle P<sub>T</sub>(A) = 0,25 (25% des clients en bicyclette traditionnelle) : deux données différentes de l'énoncé.",
+    hint: "Cette probabilité concerne l'ensemble des clients, pas seulement ceux en bicyclette traditionnelle."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 1 - Probabilités]</strong> Parmi les clients ayant loué une bicyclette traditionnelle, 25% ont pris une assurance. Que vaut <span class='formula-line'>P(T∩A)</span> ?",
+    accepted: ["0.15", "0,15"],
+    explanation: "P(T∩A) = P(T) × P<sub>T</sub>(A) = 0,6 × 0,25 = 0,15.",
+    context: "C'est l'application directe de la règle du produit sur l'arbre pondéré : multiplier la probabilité de la branche T par la probabilité conditionnelle de la branche A sachant T.",
+    hint: "Multiplie P(T) par P<sub>T</sub>(A) : 0,6 × 0,25."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 1 - Probabilités]</strong> En utilisant la formule des probabilités totales avec la partition (T, T̄), que vaut <span class='formula-line'>P(T̄∩A)</span> ?",
+    accepted: ["0.05", "0,05"],
+    explanation: "P(A) = P(T∩A) + P(T̄∩A), donc 0,2 = 0,15 + P(T̄∩A), ce qui donne P(T̄∩A) = 0,05.",
+    context: "(T, T̄) forme un système complet d'événements : (T∩A) et (T̄∩A) forment donc une partition de A, ce qui justifie la formule des probabilités totales pour isoler la valeur manquante.",
+    hint: "Utilise P(A) = P(T∩A) + P(T̄∩A), avec P(A)=0,2 et P(T∩A)=0,15."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "[Exercice 1 - Probabilités] Quelle est la probabilité qu'un client ait pris une assurance sachant qu'il a loué une bicyclette électrique (fraction irréductible) ?",
+    accepted: ["1/8"],
+    explanation: "P<sub>T̄</sub>(A) = P(T̄∩A)/P(T̄) = 0,05/0,4 = 5/40 = 1/8.",
+    context: "P(T̄) = 1 - P(T) = 1 - 0,6 = 0,4 : une étape implicite mais indispensable avant de calculer cette probabilité conditionnelle finale.",
+    hint: "N'oublie pas de calculer P(T̄) = 1 - 0,6 = 0,4 avant de diviser."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Exercice 2 - Vrai/Faux]</strong> Pour l'équation <span class='formula-line'>x² + x - u² = 0</span> (u réel quelconque), l'affirmation « l'équation possède toujours deux solutions réelles distinctes » est :",
+    options: ["Vraie", "Fausse"],
+    correct: 0,
+    explanation: "Le discriminant est Δ = 1² - 4×1×(-u²) = 1 + 4u². Pour tout réel u, 1+4u² > 0, donc l'équation admet toujours deux solutions réelles distinctes : l'affirmation est vraie.",
+    context: "Le piège possible serait de croire qu'une équation du second degré paramétrée peut parfois ne pas avoir de solutions : ici, 4u² étant toujours positif ou nul, le discriminant ne peut jamais être négatif.",
+    hint: "Calcule le discriminant Δ et regarde s'il peut être négatif pour un u réel."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Exercice 2 - Vrai/Faux]</strong> Pour la suite (u<sub>n</sub>) définie par <span class='formula-line'>u<sub>n</sub> = 2⁻ⁿ</span>, l'affirmation « (u<sub>n</sub>) est une suite géométrique de raison 1/2 » est :",
+    options: ["Vraie", "Fausse"],
+    correct: 0,
+    explanation: "u<sub>n+1</sub> = 2^(-(n+1)) = 2⁻ⁿ × 2⁻¹ = u<sub>n</sub> × 1/2. La suite est donc bien géométrique de raison 1/2 : l'affirmation est vraie.",
+    context: "La méthode générale pour prouver qu'une suite est géométrique consiste toujours à exprimer u<sub>n+1</sub> en fonction de u<sub>n</sub> et à faire apparaître un facteur constant.",
+    hint: "Exprime u<sub>n+1</sub> en fonction de u<sub>n</sub> en utilisant les règles de puissances."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Exercice 2 - Vrai/Faux]</strong> Pour <span class='formula-line'>f(x) = eˣ - 1</span>, l'affirmation « la tangente T à la courbe au point d'abscisse 0 passe par le point A(3;3) » est :",
+    options: ["Vraie", "Fausse"],
+    correct: 0,
+    explanation: "f'(x) = eˣ, donc f'(0)=1 et f(0)=e⁰-1=0. La tangente T a pour équation y = f'(0)(x-0)+f(0) = x. Le point A(3;3) vérifie y=x (3=3) : l'affirmation est vraie.",
+    context: "La méthode reste toujours la même : calculer f'(0) et f(0), écrire l'équation de la tangente y = f'(0)(x-0)+f(0), puis vérifier si le point proposé la vérifie.",
+    hint: "Calcule d'abord f'(0) et f(0), puis écris l'équation de la tangente y = f'(0)(x-0)+f(0)."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 3 - Vecteurs]</strong> <span class='formula-line'>P(4;0), K(1;0)</span> Quelle est la norme du vecteur KP ?",
+    accepted: ["3"],
+    explanation: "KP a pour coordonnées (4-1, 0-0) = (3,0), donc ||KP|| = <span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>3²+0²</span></span> = 3.",
+    context: "Quand un vecteur a une coordonnée nulle, sa norme se réduit simplement à la valeur absolue de l'autre coordonnée : ici directement 3, sans calcul de racine carrée compliqué.",
+    hint: "Le vecteur KP a une coordonnée en y égale à 0 : sa norme est directement la valeur absolue de sa coordonnée en x."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Exercice 3 - Vecteurs]</strong> <span class='formula-line'>M(x;3), K(1;0)</span> Quelle est l'expression de la norme du vecteur KM en fonction de x ?",
+    options: [
+      "<span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(x-1)²+9</span></span>",
+      "<span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(x-1)²+3</span></span>",
+      "(x-1)+3",
+      "<span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>x²+9</span></span>"
+    ],
+    correct: 0,
+    explanation: "KM a pour coordonnées (x-1, 3), donc ||KM|| = <span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(x-1)²+3²</span></span> = <span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(x-1)²+9</span></span>.",
+    context: "Ne pas oublier d'élever au carré la seconde coordonnée (3² = 9, pas juste 3) : une erreur d'inattention fréquente sur ce type de calcul de norme.",
+    hint: "N'oublie pas d'élever au carré la coordonnée en y (3² = 9)."
+  },
+  {
+    topic: "Épreuve Première", type: "fill",
+    q: "<strong>[Exercice 3 - Vecteurs]</strong> <span class='formula-line'>KP(3;0), KM(x-1;3)</span> Donne l'expression simplifiée du produit scalaire KP·KM en fonction de x.",
+    accepted: ["3x-3", "3x - 3"],
+    explanation: "KP·KM = 3×(x-1) + 0×3 = 3(x-1) = 3x-3.",
+    context: "Le produit scalaire de deux vecteurs (a;b) et (c;d) se calcule toujours par a×c + b×d : ici, le second terme s'annule car la coordonnée en y de KP est nulle.",
+    hint: "Utilise la formule du produit scalaire : (a;b)·(c;d) = ac+bd."
+  },
+  {
+    topic: "Épreuve Première", type: "qcm",
+    q: "<strong>[Exercice 3 - Vecteurs]</strong> Pour vérifier que 1+√3 est solution de l'équation : <span class='formula-line'><span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(x-1)²+9</span></span> = 2x-2</span> que vaut <span class='formula-line'><span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>(√3)²+9</span></span></span> une fois simplifié ?",
+    options: ["2√3", "√12", "Les deux réponses précédentes sont correctes", "3√2"],
+    correct: 2,
+    explanation: "(√3)² + 9 = 3+9 = 12, donc √12 = <span class='rad'><span class='rad-sym'>√</span><span class='rad-bar'>4×3</span></span> = 2√3. Les deux écritures √12 et 2√3 désignent le même nombre.",
+    context: "Simplifier une racine carrée en cherchant un facteur carré parfait (ici 4) dans le nombre sous la racine est une compétence de calcul algébrique de base, réutilisée ici dans un exercice de géométrie.",
+    hint: "Cherche un facteur carré parfait (comme 4) dans 12 pour simplifier la racine."
+  }
+];
+
+const topicColors = {
+  "Calcul algébrique": "#0066cc",
+  "Fonctions": "#128a5e",
+  "Suites : les bases": "#cc6600",
+  "Suites : niveau Terminale": "#800080",
+  "Probabilités conditionnelles": "#00807a",
+  "Loi binomiale": "#cc0055",
+  "Révision type bac": "#6a3fa0",
+  "Épreuve Première": "#8b1e3f"
+};
+
+const topicWeeks = {
+  "Calcul algébrique": "Semaine 1 · Séances 1-2",
+  "Fonctions": "Semaine 2 · Séances 3-4",
+  "Suites : les bases": "Semaine 3 · Séances 5-6",
+  "Suites : niveau Terminale": "Semaine 4 · Séances 7-8",
+  "Probabilités conditionnelles": "Semaine 5 · Séance 9",
+  "Loi binomiale": "Semaine 5 · Séance 10",
+  "Révision type bac": "Semaine 6 · Séances 11-12",
+  "Épreuve Première": "Épreuve réelle · Bac du 12 juin 2026"
+};
+
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’']/g, "'")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function shuffleArray(arr) {
+  return arr.slice().sort(() => Math.random() - 0.5);
+}
+
+// ===== Gamification : persistance locale =====
+function getBestScores() {
+  try { return JSON.parse(localStorage.getItem("mathsquiz_bestScores")) || {}; }
+  catch { return {}; }
+}
+function saveBestScoreIfHigher(key, correct, total) {
+  const scores = getBestScores();
+  const prevPercent = scores[key] ? (scores[key].correct / scores[key].total) * 100 : -1;
+  const newPercent = (correct / total) * 100;
+  const isNewRecord = newPercent > prevPercent;
+  if (isNewRecord) {
+    scores[key] = { correct, total };
+    localStorage.setItem("mathsquiz_bestScores", JSON.stringify(scores));
+  }
+  return isNewRecord;
+}
+function getBestScoreFor(key) {
+  const scores = getBestScores();
+  return scores[key] || null;
+}
+
+function updateDailyStreak() {
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const last = localStorage.getItem("mathsquiz_lastPlayedDate");
+  let streak = parseInt(localStorage.getItem("mathsquiz_streakDays")) || 0;
+  if (last === todayStr) {
+    return streak;
+  }
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  streak = (last === yesterday) ? streak + 1 : 1;
+  localStorage.setItem("mathsquiz_lastPlayedDate", todayStr);
+  localStorage.setItem("mathsquiz_streakDays", streak);
+  return streak;
+}
+function getStreakDays() {
+  return parseInt(localStorage.getItem("mathsquiz_streakDays")) || 0;
+}
+
+function getTotalAnswered() {
+  return parseInt(localStorage.getItem("mathsquiz_totalAnswered")) || 0;
+}
+function addToTotalAnswered(n) {
+  const total = getTotalAnswered() + n;
+  localStorage.setItem("mathsquiz_totalAnswered", total);
+  return total;
+}
+
+function getBestCombo() {
+  return parseInt(localStorage.getItem("mathsquiz_bestCombo")) || 0;
+}
+function setBestComboIfHigher(n) {
+  const best = getBestCombo();
+  if (n > best) {
+    localStorage.setItem("mathsquiz_bestCombo", n);
+    return true;
+  }
+  return false;
+}
+
+let currentCombo = 0;
+let sessionBestCombo = 0;
+
+let questions = [];
+let results = [];
+let currentCategoryKey = "__ALL__";
+
+const screenCategory = document.getElementById("screen-category");
+const screenQuiz = document.getElementById("screen-quiz");
+const quizEl = document.getElementById("quiz");
+const summaryEl = document.getElementById("summary");
+
+function buildCategoryScreen() {
+  const CATEGORY_ORDER = [
+    "Épreuve Première",
+    "Calcul algébrique",
+    "Fonctions",
+    "Suites : les bases",
+    "Suites : niveau Terminale",
+    "Probabilités conditionnelles",
+    "Loi binomiale",
+    "Révision type bac"
+  ];
+  const allTopics = [...new Set(allQuestions.map(q => q.topic))];
+  const topics = CATEGORY_ORDER.filter(t => allTopics.includes(t))
+    .concat(allTopics.filter(t => !CATEGORY_ORDER.includes(t)));
+  const grid = document.getElementById("cat-grid");
+
+  const streak = getStreakDays();
+  const banner = document.getElementById("daily-banner");
+  if (banner) {
+    if (streak > 0) {
+      banner.style.display = "flex";
+      banner.innerHTML = `<span class="flame">🔥</span> ${streak} jour${streak > 1 ? "s" : ""} d'affilée — reviens demain pour continuer ta série !`;
+    } else {
+      banner.style.display = "none";
+    }
+  }
+
+  const totalAnswered = getTotalAnswered();
+  const bestCombo = getBestCombo();
+  const statsStrip = document.getElementById("stat-strip");
+  if (statsStrip) {
+    statsStrip.innerHTML = `
+      <div class="stat"><div class="stat-num">${totalAnswered}</div><div class="stat-label">Questions répondues</div></div>
+      <div class="stat"><div class="stat-num">${bestCombo}</div><div class="stat-label">Meilleur combo</div></div>
+    `;
+  }
+
+  const allBest = getBestScoreFor("__ALL__");
+  const allRecordHtml = allBest ? `<span class="cat-record">⭐ Record : ${allBest.correct}/${allBest.total}</span>` : "";
+  const allBtn = `
+    <div class="cat-btn-wrap">
+      <button class="cat-btn cat-all" data-topic="__ALL__">Toutes les catégories <span class="cat-count">(${allQuestions.length})</span></button>
+      <span class="cat-week">Mini bac / révision globale</span>
+      ${allRecordHtml}
+    </div>
+  `;
+  const topicBtns = topics.map(t => {
+    const count = allQuestions.filter(q => q.topic === t).length;
+    const best = getBestScoreFor(t);
+    const recordHtml = best ? `<span class="cat-record"><span class="star">⭐</span> Record : ${best.correct}/${best.total}</span>` : "";
+    return `
+      <div class="cat-btn-wrap">
+        <button class="cat-btn" data-topic="${t}" style="background:${topicColors[t]}">${t} <span class="cat-count">(${count})</span></button>
+        <span class="cat-week">${topicWeeks[t] || ""}</span>
+        ${recordHtml}
+      </div>
+    `;
+  }).join("");
+  grid.innerHTML = allBtn + topicBtns;
+
+  grid.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.addEventListener("click", () => startQuiz(btn.dataset.topic));
+  });
+}
+
+const NO_SHUFFLE_TOPICS = ["Épreuve Première"];
+
+function startQuiz(topicKey) {
+  if (topicKey === "__ALL__") {
+    questions = shuffleArray(allQuestions);
+  } else if (NO_SHUFFLE_TOPICS.includes(topicKey)) {
+    questions = allQuestions.filter(q => q.topic === topicKey);
+  } else {
+    questions = shuffleArray(allQuestions.filter(q => q.topic === topicKey));
+  }
+
+  updateDailyStreak();
+  currentCategoryKey = topicKey;
+
+  const currentCatEl = document.getElementById("current-cat");
+  if (topicKey === "__ALL__") {
+    currentCatEl.innerHTML = `<span class="pill" style="background:#111111">Toutes les catégories</span>`;
+  } else {
+    currentCatEl.innerHTML = `<span class="pill" style="background:${topicColors[topicKey]}">${topicKey}</span>`;
+  }
+
+  screenCategory.style.display = "none";
+  screenQuiz.style.display = "block";
+  document.getElementById("total-count").textContent = questions.length;
+  renderAll();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("back-link").addEventListener("click", () => {
+  screenQuiz.style.display = "none";
+  screenCategory.style.display = "block";
+  buildCategoryScreen();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+function cardHtml(item, idx) {
+  const typeLabel = item.type === "qcm" ? "QCM" : "À compléter";
+  let bodyHtml = "";
+  if (item.type === "qcm") {
+    const order = shuffleArray(item.options.map((_, i) => i));
+    bodyHtml = `
+      <div class="options" id="options-${idx}">
+        ${order.map(oidx => `
+          <button class="option-btn" data-qidx="${idx}" data-oidx="${oidx}">${item.options[oidx]}</button>
+        `).join("")}
+      </div>
+    `;
+  } else {
+    bodyHtml = `
+      <div class="fill-col">
+        <input type="text" class="fill-input" id="fill-${idx}" placeholder="Ta réponse..." autocomplete="off">
+        <button class="submit-btn" id="submit-${idx}" data-qidx="${idx}">Valider</button>
+      </div>
+    `;
+  }
+  return `
+    <div class="card" id="card-${idx}">
+      <div class="card-top">
+        <span class="topic" data-topic="${item.topic}">${item.topic}</span>
+        <span class="qcount">Question ${idx + 1}/${questions.length}</span>
+        <span class="qtype">${typeLabel}</span>
+      </div>
+      <p class="question">${item.q}</p>
+      ${bodyHtml}
+      <div class="center-row">
+        <button class="hint-btn" id="hint-btn-${idx}">Voir l'indice</button>
+      </div>
+      <p class="hint" id="hint-${idx}">💡 ${item.hint}</p>
+      <div class="reponse-box" id="explanation-${idx}">
+        <div class="reponse-head">✅ Réponse</div>
+        <div class="reponse-body">${item.explanation}</div>
+      </div>
+      <div class="context-box" id="context-${idx}">
+        <div class="context-head">💡 Astuce</div>
+        <div class="context-body">${item.context}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAll() {
+  results = new Array(questions.length).fill(null);
+  currentCombo = 0;
+  sessionBestCombo = 0;
+  quizEl.innerHTML = questions.map((item, idx) => cardHtml(item, idx)).join("");
+  summaryEl.style.display = "none";
+  quizEl.style.display = "block";
+
+  questions.forEach((item, idx) => {
+    document.getElementById(`hint-btn-${idx}`).addEventListener("click", () => {
+      document.getElementById(`hint-${idx}`).style.display = "block";
+      document.getElementById(`hint-btn-${idx}`).disabled = true;
+    });
+
+    if (item.type === "qcm") {
+      document.querySelectorAll(`#options-${idx} .option-btn`).forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (results[idx] !== null) return;
+          const oidx = parseInt(btn.dataset.oidx);
+          submitQcm(idx, oidx);
+        });
+      });
+    } else {
+      const input = document.getElementById(`fill-${idx}`);
+      const submitBtn = document.getElementById(`submit-${idx}`);
+      submitBtn.addEventListener("click", () => {
+        if (results[idx] !== null) return;
+        submitFill(idx);
+      });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && results[idx] === null) submitFill(idx);
+      });
+    }
+  });
+
+  updateLiveBar();
+}
+
+function submitQcm(idx, oidx) {
+  const item = questions[idx];
+  const isCorrect = oidx === item.correct;
+  document.querySelectorAll(`#options-${idx} .option-btn`).forEach((btn) => {
+    const bIdx = parseInt(btn.dataset.oidx);
+    btn.disabled = true;
+    if (bIdx === item.correct) btn.classList.add("correct");
+    else if (bIdx === oidx) btn.classList.add("incorrect");
+    else btn.classList.add("dim");
+  });
+  finishAnswer(idx, isCorrect);
+}
+
+function submitFill(idx) {
+  const item = questions[idx];
+  const input = document.getElementById(`fill-${idx}`);
+  const val = normalize(input.value);
+  const isCorrect = val.length > 0 && item.accepted.some(a => normalize(a) === val);
+  input.disabled = true;
+  input.classList.add(isCorrect ? "correct" : "incorrect");
+  document.getElementById(`submit-${idx}`).disabled = true;
+  if (!isCorrect) {
+    input.insertAdjacentHTML("afterend", `<span class="expected">Réponse attendue : <strong>${item.accepted[0]}</strong></span>`);
+  }
+  finishAnswer(idx, isCorrect);
+}
+
+function finishAnswer(idx, isCorrect) {
+  results[idx] = isCorrect;
+  document.getElementById(`explanation-${idx}`).style.display = "block";
+  document.getElementById(`context-${idx}`).style.display = "block";
+  document.getElementById(`hint-btn-${idx}`).style.display = "none";
+  document.getElementById(`card-${idx}`).classList.add(isCorrect ? "correct-card" : "incorrect-card");
+
+  addToTotalAnswered(1);
+  if (isCorrect) {
+    currentCombo++;
+    if (currentCombo > sessionBestCombo) sessionBestCombo = currentCombo;
+    setBestComboIfHigher(currentCombo);
+  } else {
+    currentCombo = 0;
+  }
+
+  updateLiveBar();
+  if (results.every(r => r !== null)) {
+    showSummary();
+  }
+}
+
+function updateLiveBar() {
+  const answeredCount = results.filter(r => r !== null).length;
+  const correctCount = results.filter(r => r === true).length;
+  document.getElementById("correct-count").textContent = correctCount;
+  document.getElementById("progress").style.width = `${(answeredCount / questions.length) * 100}%`;
+
+  const comboBadge = document.getElementById("combo-badge");
+  const comboCount = document.getElementById("combo-count");
+  if (currentCombo >= 2) {
+    comboCount.textContent = currentCombo;
+    comboBadge.classList.remove("show");
+    void comboBadge.offsetWidth;
+    comboBadge.classList.add("show");
+  } else {
+    comboBadge.classList.remove("show");
+  }
+}
+
+function showSummary() {
+  const total = results.filter(r => r === true).length;
+  const percent = Math.round((total / questions.length) * 100);
+  const byTopic = {};
+  questions.forEach((q, idx) => {
+    byTopic[q.topic] = byTopic[q.topic] || { ok: 0, tot: 0 };
+    byTopic[q.topic].tot += 1;
+    byTopic[q.topic].ok += results[idx] ? 1 : 0;
+  });
+
+  const rows = Object.entries(byTopic).map(([t, v]) => {
+    const p = (v.ok / v.tot) * 100;
+    return `
+      <div class="topic-row">
+        <span>${t}</span>
+        <span>${v.ok}/${v.tot}</span>
+        <div class="bar-container">
+          <div class="bar" style="width: ${p}%; background: ${topicColors[t]};"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  let tier, tierColor, tierEmoji;
+  if (percent === 100) { tier = "Sans faute !"; tierColor = "#1d9e75"; tierEmoji = "🏆"; }
+  else if (percent >= 80) { tier = "Excellent"; tierColor = "#1d9e75"; tierEmoji = "🌟"; }
+  else if (percent >= 50) { tier = "Bien joué"; tierColor = "#185fa5"; tierEmoji = "👍"; }
+  else { tier = "En progression"; tierColor = "#ff9800"; tierEmoji = "💪"; }
+
+  const isNewRecord = saveBestScoreIfHigher(currentCategoryKey, total, questions.length);
+  const isNewComboRecord = setBestComboIfHigher(sessionBestCombo);
+  const totalAnswered = getTotalAnswered();
+  const streak = getStreakDays();
+
+  summaryEl.style.display = "block";
+  summaryEl.innerHTML = `
+    <p style="font-size:13px;color:var(--text-tertiary);margin:0 0 8px 0;font-weight:600;">Score final</p>
+    <div class="score-ring-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle class="score-ring-bg" cx="60" cy="60" r="54"></circle>
+        <circle class="score-ring-fg" id="score-ring-fg" cx="60" cy="60" r="54" style="stroke:${tierColor}"></circle>
+      </svg>
+      <div class="score-ring-center">
+        <span class="score-ring-percent">${percent}%</span>
+        <span class="score-ring-frac">${total}/${questions.length}</span>
+      </div>
+    </div>
+    <div>
+      <span class="tier-badge" style="background:${tierColor}20; color:${tierColor}">${tierEmoji} ${tier}</span>
+    </div>
+    ${isNewRecord ? `<div><span class="record-badge">🏅 Nouveau record sur cette catégorie !</span></div>` : ""}
+    ${isNewComboRecord && sessionBestCombo >= 2 ? `<div><span class="record-badge">🔥 Nouveau record de combo : ${sessionBestCombo} !</span></div>` : ""}
+
+    <div class="gamif-stats">
+      <div class="g-stat"><div class="g-num">🔥 ${streak}</div><div class="g-label">Jours d'affilée</div></div>
+      <div class="g-stat"><div class="g-num">${sessionBestCombo}</div><div class="g-label">Meilleur combo</div></div>
+      <div class="g-stat"><div class="g-num">${totalAnswered}</div><div class="g-label">Questions au total</div></div>
+    </div>
+
+    <div style="text-align:left;">
+      <p style="font-size:14px;color:var(--text-secondary);margin:14px 0 6px 0;">Répartition par thème</p>
+      ${rows}
+    </div>
+    <div class="summary-actions">
+      <button class="btn-primary" id="restart">Recommencer</button>
+      ${NO_SHUFFLE_TOPICS.includes(currentCategoryKey) ? "" : `<button class="btn-secondary" id="shuffle">Mélanger et recommencer</button>`}
+      <button class="btn-secondary" id="change-cat">Changer de catégorie</button>
+    </div>
+    <p class="replay-hook">🔥 Reviens à la prochaine séance pour garder ta série, ou choisis un autre chapitre pour décrocher un nouveau record !</p>
+  `;
+  summaryEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  requestAnimationFrame(() => {
+    const circumference = 339.3;
+    const offset = circumference * (1 - percent / 100);
+    document.getElementById("score-ring-fg").style.strokeDashoffset = offset;
+  });
+
+  document.getElementById("restart").addEventListener("click", () => {
+    renderAll();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  document.getElementById("shuffle")?.addEventListener("click", () => {
+    questions = shuffleArray(questions);
+    renderAll();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  document.getElementById("change-cat").addEventListener("click", () => {
+    screenQuiz.style.display = "none";
+    screenCategory.style.display = "block";
+    buildCategoryScreen();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// Initialize
+buildCategoryScreen();
+</script>
+</body>
+</html>
